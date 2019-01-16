@@ -1,5 +1,7 @@
 package yal.arbre;
 
+import yal.arbre.expressions.Expression;
+
 import java.util.ArrayList;
 
 /**
@@ -32,7 +34,11 @@ public class BlocDInstructions extends ArbreAbstrait {
     
     @Override
     public String toMIPS() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String res = "";
+        for (ArbreAbstrait a : programme) {
+            res = a.toMIPS();
+        }
+        return res;
     }
 
 }

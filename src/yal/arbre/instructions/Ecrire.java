@@ -17,7 +17,11 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toMIPS() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        StringBuilder res = new StringBuilder("");
+        res.append("li $v0, 1\n");
+        res.append("li $a0" + exp.toMIPS() + "\n");
+        res.append("syscall\n");
+        return res.toString();
     }
 
 }
