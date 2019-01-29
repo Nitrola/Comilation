@@ -22,7 +22,7 @@ public class TDS {
     }
 
     public int tailleTableVariable(){
-        return tab.size() *4;
+        return tab.size() * 4;
     }
 
     public void ajouter(Entree e, Symbole s){
