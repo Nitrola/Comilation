@@ -17,11 +17,14 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toMIPS() {
-        StringBuilder res = new StringBuilder("");
-        res.append("li $v0, 1\n");
-        res.append("li $a0, " + exp.toMIPS() + "\n");
-        res.append("syscall\n");
-        return res.toString();
+        return  "                   # affichage de l'expression\n" +
+                exp.toMIPS() +
+                "    move $a0, $v0\n" +
+                "    li $v0, 1\n" +
+                "    syscall\n" +
+                "    li $v0, 4      # retour à la ligne\n" +
+                "    la $a0, finLigne\n" +
+                "    syscall\n" ;
     }
 
 }

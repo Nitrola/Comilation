@@ -1,4 +1,17 @@
-li $v0, 1
-li $a0,1337
-syscall
+.data
+finLigne:     .asciiz "\n"
+              .align 2
+.text
+main :
+                   # affichage de l'expression
+    li $v0, 1337
+    move $a0, $v0
+    li $v0, 1
+    syscall
+    li $v0, 4      # retour à la ligne
+    la $a0, finLigne
+    syscall
+end :
+    li $v0, 10            # retour au système
+    syscall
 

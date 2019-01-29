@@ -21,7 +21,6 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
 
   /** lexical states */
   public static final int YYINITIAL = 0;
-  public static final int Chaine = 2;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -30,7 +29,7 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1, 1
+     0, 0
   };
 
   /** 
@@ -54,11 +53,11 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\1\3\1\4\4\2\1\5\7\2"+
+    "\1\0\1\1\1\2\1\3\1\4\4\2\1\5\7\2"+
     "\1\6\5\2\1\7\1\2\1\10\2\2\1\11";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[30];
+    int [] result = new int[29];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -83,13 +82,13 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\25\0\25\0\52\0\77\0\25\0\124\0\151"+
-    "\0\176\0\223\0\25\0\250\0\275\0\322\0\347\0\374"+
-    "\0\u0111\0\u0126\0\52\0\u013b\0\u0150\0\u0165\0\u017a\0\u018f"+
-    "\0\52\0\u01a4\0\52\0\u01b9\0\u01ce\0\52";
+    "\0\0\0\25\0\52\0\77\0\25\0\124\0\151\0\176"+
+    "\0\223\0\25\0\250\0\275\0\322\0\347\0\374\0\u0111"+
+    "\0\u0126\0\52\0\u013b\0\u0150\0\u0165\0\u017a\0\u018f\0\52"+
+    "\0\u01a4\0\52\0\u01b9\0\u01ce\0\52";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[30];
+    int [] result = new int[29];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -112,23 +111,23 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\5\1\6\1\7\5\4\1\10\1\11"+
-    "\3\4\1\12\3\4\1\13\27\0\2\4\1\0\17\4"+
-    "\4\0\1\5\23\0\2\4\1\0\1\4\1\14\15\4"+
-    "\3\0\2\4\1\0\16\4\1\15\3\0\2\4\1\0"+
-    "\6\4\1\16\10\4\3\0\2\4\1\0\14\4\1\17"+
-    "\2\4\3\0\2\4\1\0\2\4\1\20\14\4\3\0"+
-    "\2\4\1\0\1\4\1\21\15\4\3\0\2\4\1\0"+
-    "\10\4\1\22\6\4\3\0\2\4\1\0\15\4\1\23"+
-    "\1\4\3\0\2\4\1\0\3\4\1\24\13\4\3\0"+
-    "\2\4\1\0\14\4\1\25\2\4\3\0\2\4\1\0"+
-    "\11\4\1\26\5\4\3\0\2\4\1\0\1\4\1\27"+
-    "\15\4\3\0\2\4\1\0\1\4\1\30\15\4\3\0"+
-    "\2\4\1\0\12\4\1\31\4\4\3\0\2\4\1\0"+
-    "\4\4\1\32\12\4\3\0\2\4\1\0\6\4\1\33"+
-    "\10\4\3\0\2\4\1\0\5\4\1\34\11\4\3\0"+
-    "\2\4\1\0\5\4\1\35\11\4\3\0\2\4\1\0"+
-    "\6\4\1\36\10\4\2\0";
+    "\1\2\1\3\1\4\1\5\1\6\5\3\1\7\1\10"+
+    "\3\3\1\11\3\3\1\12\27\0\2\3\1\0\17\3"+
+    "\4\0\1\4\23\0\2\3\1\0\1\3\1\13\15\3"+
+    "\3\0\2\3\1\0\16\3\1\14\3\0\2\3\1\0"+
+    "\6\3\1\15\10\3\3\0\2\3\1\0\14\3\1\16"+
+    "\2\3\3\0\2\3\1\0\2\3\1\17\14\3\3\0"+
+    "\2\3\1\0\1\3\1\20\15\3\3\0\2\3\1\0"+
+    "\10\3\1\21\6\3\3\0\2\3\1\0\15\3\1\22"+
+    "\1\3\3\0\2\3\1\0\3\3\1\23\13\3\3\0"+
+    "\2\3\1\0\14\3\1\24\2\3\3\0\2\3\1\0"+
+    "\11\3\1\25\5\3\3\0\2\3\1\0\1\3\1\26"+
+    "\15\3\3\0\2\3\1\0\1\3\1\27\15\3\3\0"+
+    "\2\3\1\0\12\3\1\30\4\3\3\0\2\3\1\0"+
+    "\4\3\1\31\12\3\3\0\2\3\1\0\6\3\1\32"+
+    "\10\3\3\0\2\3\1\0\5\3\1\33\11\3\3\0"+
+    "\2\3\1\0\5\3\1\34\11\3\3\0\2\3\1\0"+
+    "\6\3\1\35\10\3\2\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[483];
@@ -169,10 +168,10 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\10\1\11\2\1\1\11\4\1\1\11\23\1";
+    "\1\0\1\11\2\1\1\11\4\1\1\11\23\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[30];
+    int [] result = new int[29];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;

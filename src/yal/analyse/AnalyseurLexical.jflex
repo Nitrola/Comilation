@@ -31,8 +31,6 @@ import yal.exceptions.AnalyseLexicaleException;
   }
 %}
 
-%xstate Chaine
-
 idf = [A-Za-z_][A-Za-z_0-9]*
 
 csteE = [0-9]+

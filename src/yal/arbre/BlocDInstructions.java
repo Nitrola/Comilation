@@ -1,7 +1,5 @@
 package yal.arbre;
 
-import yal.arbre.expressions.Expression;
-
 import java.util.ArrayList;
 
 /**
@@ -13,6 +11,16 @@ import java.util.ArrayList;
 public class BlocDInstructions extends ArbreAbstrait {
     
     protected ArrayList<ArbreAbstrait> programme ;
+    
+    protected static String zoneData = ".data\n" +
+                                            "finLigne:     .asciiz \"\\n\"\n" +
+                                            "              .align 2\n" ;
+    
+    protected static String debutCode = ".text\n" +
+                                        "main :\n" ;
+    protected static String finCode = "end :\n" +
+                                      "    li $v0, 10            # retour au système\n" +
+                                      "    syscall\n" ;
 
     public BlocDInstructions(int n) {
         super(n) ;
@@ -30,15 +38,21 @@ public class BlocDInstructions extends ArbreAbstrait {
 
     @Override
     public void verifier() {
+        for (ArbreAbstrait a : programme) {
+            a.verifier() ;
+        }
     }
     
     @Override
     public String toMIPS() {
-        String res = "";
+        StringBuilder sb = new StringBuilder("") ;
+        sb.append(zoneData) ;
+        sb.append(debutCode) ;
         for (ArbreAbstrait a : programme) {
-            res = a.toMIPS();
+            sb.append(a.toMIPS()) ;
         }
-        return res;
+        sb.append(finCode) ;
+        return sb.toString() ;
     }
 
 }

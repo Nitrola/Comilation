@@ -31,7 +31,7 @@ public class Yal {
             System.err.println(ex.getMessage());
         }
         catch (Exception ex) {
-            Logger.getLogger(Yal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(yal.Yal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -41,7 +41,7 @@ public class Yal {
             System.err.println("\tjava -jar yal.jar <fichierSource.yal>") ;
             System.exit(1) ;
         }
-        new Yal(args[0]) ;
+        new yal.Yal(args[0]) ;
     }
     
 }
