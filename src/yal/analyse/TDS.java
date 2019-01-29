@@ -2,7 +2,6 @@ package yal.analyse;
 
 import yal.analyse.entree.Entree;
 import yal.analyse.symbole.Symbole;
-import yal.exceptions.AnalyseSemantiqueException;
 import yal.exceptions.AnalyseSyntaxiqueException;
 
 import java.util.HashMap;
@@ -31,7 +30,9 @@ public class TDS {
         }
         tab.put(e,s);
     }
-    public void identifier(Entree e){
+
+    public Symbole identifier(Entree e){
         tab.get(e);
+        return null;
     }
 }
