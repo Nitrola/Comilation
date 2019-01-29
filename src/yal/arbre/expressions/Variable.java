@@ -3,6 +3,7 @@ package yal.arbre.expressions;
 import yal.analyse.TDS;
 import yal.analyse.entree.EntreeVariable;
 import yal.analyse.symbole.Symbole;
+import yal.exceptions.AnalyseSemantiqueException;
 
 public class Variable extends Expression {
 
@@ -34,7 +35,11 @@ public class Variable extends Expression {
     public void verifier() {
         EntreeVariable e = new EntreeVariable(idf);
         Symbole s = TDS.getInstance().identifier(e);
-
+        if(s == null){
+            throw new AnalyseSemantiqueException(getNoLigne(), " " + idf +  "n'a pas été déclarée ");
+        }
+        type = s.getType();
+        dep = s.getDep();
     }
 
     @Override
