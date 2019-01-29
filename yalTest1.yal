@@ -1,0 +1,13 @@
+programme texte
+debut
+entier e ;
+e= 3 ;
+entier y ;
+y= e ;
+ecrire e ;
+ecrire y ;
+e= y ;
+ecrire e ;
+lire e ;
+ecrire e ;
+fin
