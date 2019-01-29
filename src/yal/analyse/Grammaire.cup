@@ -89,3 +89,4 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
 EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
                 ;
+
