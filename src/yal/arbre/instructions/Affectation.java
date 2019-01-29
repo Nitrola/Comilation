@@ -18,13 +18,14 @@ public class Affectation extends Instruction{
         this.exp = exp;
     }
 
+    @Override
     public void verifier(){
 
         EntreeVariable e = new EntreeVariable(idf);
         Symbole s = TDS.getInstance().identifier(e);
 
         if (s == null) {
-            throw new AnalyseSemantiqueException(exp.getNoLigne(), "aucune déclaration de `" + idf + "`");
+            throw new AnalyseSemantiqueException(exp.getNoLigne(), "la variable  `" + idf + "`"+"n'est pas declaree");
         }
 
         this.dep = s.getDep();
@@ -32,6 +33,7 @@ public class Affectation extends Instruction{
         exp.verifier();
     }
 
+    @Override
     public String toMIPS(){
         StringBuilder affect = new StringBuilder(50);
         affect.append(exp.toMIPS());
