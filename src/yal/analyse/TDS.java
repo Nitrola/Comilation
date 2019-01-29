@@ -31,7 +31,7 @@ public class TDS {
         }
         tab.put(e,s);
     }
-    public void identifier(Entree e){
-        tab.get(e);
+    public Symbole identifier(Entree e){
+        return tab.get(e);
     }
 }
