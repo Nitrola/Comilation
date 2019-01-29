@@ -57,7 +57,7 @@ public class BlocDInstructions extends ArbreAbstrait {
         sb.append(zoneData) ;
         sb.append(debutCode) ;
 
-        sb.append("#intialiser $s7 avec $sp");
+        sb.append("#intialiser $s7 avec $sp\n");
         sb.append("move $s7, $sp\n");
         sb.append("\n");
 

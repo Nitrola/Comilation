@@ -11,7 +11,7 @@ public class Variable extends Expression {
     private String type;
     private int dep;
 
-    protected Variable(String nidf, int n) {
+    public Variable(String nidf, int n) {
         super(n);
         this.idf = nidf;
 

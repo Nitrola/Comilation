@@ -3,6 +3,14 @@ finLigne:     .asciiz "\n"
               .align 2
 .text
 main :
+#intialiser $s7 avec $sp
+move $s7, $sp
+
+#réserver la place pour 0 variables
+addi $sp, $sp, 0
+
+# initialisation de toutes les variables a 0
+
                    # affichage de l'expression
     li $v0, 1337
     move $a0, $v0

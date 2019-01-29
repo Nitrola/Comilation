@@ -57,7 +57,7 @@ commentaires = [/][/].*
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
-{type}                 { return symbol(CodesLexicaux.TYPE, yytext()); }
+{type}                 { return symbol(CodesLexicaux.TYPE, yytext(); }
 
 {espace}               { }
 {commentaires}         { }

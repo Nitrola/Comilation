@@ -25,9 +25,9 @@ public class TDS {
         return tab.size() * 4;
     }
 
-    public void ajouter(Entree e, Symbole s){
+    public void ajouter(Entree e, Symbole s, int noLigne){
         if(tab.containsKey(e)){
-            throw new AnalyseSyntaxiqueException("double déclaration");
+            throw new AnalyseSemantiqueException(noLigne,"double déclaration");
         }
         tab.put(e,s);
     }
