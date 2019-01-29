@@ -36,6 +36,7 @@ public class Affectation extends Instruction{
     @Override
     public String toMIPS(){
         StringBuilder affect = new StringBuilder(50);
+        affect.append("#affectation d'une variable \n");
         affect.append(exp.toMIPS());
         affect.append("sw $v0, ");
         affect.append(dep);

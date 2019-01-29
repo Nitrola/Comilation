@@ -18,4 +18,12 @@ public abstract class Symbole {
     public int getDep() {
         return dep;
     }
+
+    @Override
+    public String toString() {
+        return "Symbole{" +
+                "type='" + type + '\'' +
+                ", dep=" + dep +
+                '}';
+    }
 }

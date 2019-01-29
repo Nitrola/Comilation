@@ -12,6 +12,7 @@ public class Variable extends Expression {
     private int dep;
 
     public Variable(String nidf, int n) {
+
         super(n);
         this.idf = nidf;
 
@@ -33,6 +34,7 @@ public class Variable extends Expression {
 
     @Override
     public void verifier() {
+
         EntreeVariable e = new EntreeVariable(idf);
         Symbole s = TDS.getInstance().identifier(e);
         if(s == null){
@@ -40,12 +42,13 @@ public class Variable extends Expression {
         }
         type = s.getType();
         dep = s.getDep();
+
+
     }
 
     @Override
     public String toMIPS() {
-
         return "lw $v0, " +
-                dep + "($s7)";
+                dep + "($s7)\n";
     }
 }

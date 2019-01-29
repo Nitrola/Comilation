@@ -13,7 +13,7 @@ public class TDS {
     private HashMap<Entree,Symbole> tab;
 
     private TDS(){
-        tab = new HashMap<Entree, Symbole>();
+        tab = new HashMap<>();
 
     }
 
@@ -26,12 +26,14 @@ public class TDS {
     }
 
     public void ajouter(Entree e, Symbole s, int noLigne){
+
         if(tab.containsKey(e)){
             throw new AnalyseSemantiqueException(noLigne,"double déclaration");
         }
         tab.put(e,s);
     }
     public Symbole identifier(Entree e){
+
         return tab.get(e);
     }
 }

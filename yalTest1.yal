@@ -1,13 +1,10 @@
 programme texte
 debut
 entier e ;
-e= 3 ;
-entier y ;
-y= e ;
+entier a ;
+e = 3 ;
+a = 7 ;
 ecrire e ;
-ecrire y ;
-e= y ;
-ecrire e ;
+ecrire a ;
 lire e ;
-ecrire e ;
 fin

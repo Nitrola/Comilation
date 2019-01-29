@@ -31,7 +31,7 @@ import yal.exceptions.AnalyseLexicaleException;
   }
 %}
 
-type = "entier"
+
 idf = [A-Za-z_][A-Za-z_0-9]*
 
 csteE = [0-9]+
@@ -46,6 +46,7 @@ commentaires = [/][/].*
 "programme"            { return symbol(CodesLexicaux.PROGRAMME); }
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }
+"entier"               { return symbol(CodesLexicaux.TYPE); }
 
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 "lire"                 { return symbol(CodesLexicaux.LIRE); }
@@ -57,7 +58,6 @@ commentaires = [/][/].*
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
-{type}                 { return symbol(CodesLexicaux.TYPE, yytext(); }
 
 {espace}               { }
 {commentaires}         { }

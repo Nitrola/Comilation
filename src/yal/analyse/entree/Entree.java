@@ -10,12 +10,12 @@ public abstract class Entree {
         this.idf = nidf;
     }
 
+
     @Override
     public String toString() {
-        return "Entree{" +
-                "idf='" + idf + '\'' +
-                '}';
+        return idf;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -25,4 +25,8 @@ public abstract class Entree {
         return Objects.equals(idf, entree.idf);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idf);
+    }
 }
