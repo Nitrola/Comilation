@@ -7,12 +7,23 @@ public class ConstanteEntiere extends Constante {
     }
 
     @Override
-    public String toMIPS() {
-        StringBuilder sb = new StringBuilder("") ;
-        sb.append("li $v0, ") ;
-        sb.append(cste) ;
-        sb.append("\n") ;
-        return sb.toString() ;
+    public String constante() {
+        return cste;
     }
 
+
+    @Override
+    public String getType() {
+        return null;
+    }
+
+    @Override
+    public String operation() {
+        return null;
+    }
+
+    @Override
+    public String toMIPS() {
+        return super.toMIPS();
+    }
 }
