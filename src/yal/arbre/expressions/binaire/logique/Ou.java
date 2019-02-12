@@ -27,5 +27,4 @@ public class Ou extends Logique {
         return " Ou ";
     }
 
-
 }
