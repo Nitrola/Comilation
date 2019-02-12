@@ -9,28 +9,18 @@ public class Inferieur extends Comparaison {
     }
 
     @Override
-    public String operateur() {
-        return " < ";
-    }
-
-    @Override
-    public String operation() {
-        return " Inférieur ";
-    }
-
-    @Override
     public void verifier() {
         super.verifier();
 
         if (!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
-            StringBuilder erreur = new StringBuilder(40);
 
+            StringBuilder erreur = new StringBuilder(40);
             erreur.append("erreur de type :\t");
             erreur.append(gauche);
             erreur.append(operateur());
             erreur.append(droite);
             erreur.append("\n\t");
-            erreur.append("les deux opérandes doivent être des entiers");
+            erreur.append("les deuxexpressions doivent être des entiers");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }
@@ -41,10 +31,21 @@ public class Inferieur extends Comparaison {
         StringBuilder inf = new StringBuilder(100);
 
         inf.append(super.toMIPS());
-        inf.append("# Si la partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0\n");
+        inf.append("#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0\n");
         inf.append("slt $v0, $t8, $v0\n");
 
         return inf.toString();
+    }
+
+
+    @Override
+    public String operateur() {
+        return " < ";
+    }
+
+    @Override
+    public String operation() {
+        return " Inférieur ";
     }
 
 }

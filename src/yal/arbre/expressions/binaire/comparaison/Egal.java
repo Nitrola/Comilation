@@ -8,15 +8,7 @@ public class Egal extends Comparaison {
         super(gauche, droite);
     }
 
-    @Override
-    public String operateur() {
-        return " == ";
-    }
 
-    @Override
-    public String operation() {
-        return " Egal ";
-    }
 
     @Override
     public void verifier() throws AnalyseSemantiqueException {
@@ -29,7 +21,7 @@ public class Egal extends Comparaison {
             erreur.append(gauche);
             erreur.append(operateur());
             erreur.append(droite);
-            erreur.append("\n\tles opérandes à gauche et à droite doivent être de même type");
+            erreur.append("\n\tles expressions a gauche et a droite doivent être de même type");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }
@@ -40,10 +32,20 @@ public class Egal extends Comparaison {
         StringBuilder egal = new StringBuilder(100);
 
         egal.append(super.toMIPS());
-        egal.append("# En cas d'égalité, on met 1 dans $v0, sinon 0\n");
+        egal.append("#egalité -> on met 1 dans $v0, sinon 0\n");
         egal.append("seq $v0, $v0, $t8\n");
 
         return egal.toString();
     }
 
+
+    @Override
+    public String operateur() {
+        return " == ";
+    }
+
+    @Override
+    public String operation() {
+        return " Egal ";
+    }
 }
