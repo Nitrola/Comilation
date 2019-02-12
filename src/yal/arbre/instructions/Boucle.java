@@ -7,7 +7,7 @@ import yal.exceptions.AnalyseSemantiqueException;
 public class Boucle extends  Instruction{
     private Expression e;
     private BlocDInstructions inst;
-    private static int compteur;
+    private static int compteur = 0;
 
     public Boucle(Expression exp , BlocDInstructions b){
         super(exp.getNoLigne());
@@ -19,7 +19,7 @@ public class Boucle extends  Instruction{
     @Override
     public void verifier() {
         // vérification que la condition est un booléen
-        if(!this.e.getType().equals("bool")){
+        if(!this.e.getType().equals("booleen")){
             throw new AnalyseSemantiqueException(getNoLigne(),new String("erreur type:\t"+ e + "\n" + "une expression évaluée pour une boucle doit être booléenne" ));
         }
         inst.verifier();

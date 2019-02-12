@@ -10,7 +10,7 @@ public class Condition extends Instruction {
     private BlocDInstructions alors;
     private BlocDInstructions sinon;
 
-    private static int compteur;
+    private static int compteur = 0;
     /***
      * Création d'une condition de type
      * SI EXP
@@ -64,7 +64,7 @@ public class Condition extends Instruction {
     @Override
     public void verifier() {
         // vérification que la condition est un booléen
-        if(!this.e.getType().equals("bool")){
+        if(!this.e.getType().equals("booleen")){
             throw new AnalyseSemantiqueException(getNoLigne(),
                     new String("erreur type:\t"+ e + "\n" + "une expression évaluée pour une boucle doit être booléenne"));
         }

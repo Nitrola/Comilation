@@ -8,6 +8,7 @@ import yal.exceptions.AnalyseSyntaxiqueException;
 import yal.analyse.TDS ;
 import yal.analyse.entree.* ;
 import yal.analyse.symbole.* ;
+import yal.arbre.expressions.logique.* ;
 
 import java_cup.runtime.*;
 
