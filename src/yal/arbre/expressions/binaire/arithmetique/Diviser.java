@@ -29,7 +29,7 @@ public class Diviser extends ArithmetiqueBinaire {
         div.append("alors_" + hash + " :\n");
         div.append("#l'expression droite est egale a 0\n");
         div.append("li $v0, 4\n");
-        div.append("la $a0, err_div\n");
+        div.append("la $a0, divZero\n");
         div.append("syscall\n");
         div.append("j end\n");
         div.append("fin_" + hash + " :\n");

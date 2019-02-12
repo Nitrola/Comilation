@@ -35,6 +35,7 @@ import yal.exceptions.AnalyseLexicaleException;
 idf = [A-Za-z_][A-Za-z_0-9]*
 
 csteE = [0-9]+
+csteB = "vrai" | "faux"
 guillemet = [\"]
 
 finDeLigne = \r|\n
@@ -51,7 +52,32 @@ commentaires = [/][/].*
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 "lire"                 { return symbol(CodesLexicaux.LIRE); }
 
+"si"                   { return symbol(CodesLexicaux.SI); }
+"alors"                { return symbol(CodesLexicaux.ALORS); }
+"sinon"                { return symbol(CodesLexicaux.SINON); }
+"finsi"                { return symbol(CodesLexicaux.FINSI); }
+
+"tantque"              { return symbol(CodesLexicaux.TANTQUE); }
+"repeter"              { return symbol(CodesLexicaux.REPETER); }
+"fintantque"           { return symbol(CodesLexicaux.FINTANTQUE); }
+
 "="                    { return symbol(CodesLexicaux.EGAL); }
+"+"                    { return symbol(CodesLexicaux.PLUS); }
+"-"                    { return symbol(CodesLexicaux.MOINS); }
+"*"                    { return symbol(CodesLexicaux.MULTIPLICATION); }
+"/"                    { return symbol(CodesLexicaux.DIVISION); }
+
+"=="                   { return symbol(CodesLexicaux.EGALITE); }
+">"                    { return symbol(CodesLexicaux.SUPERIEUR); }
+"<"                    { return symbol(CodesLexicaux.INFERIEUR); }
+"!="                   { return symbol(CodesLexicaux.DIFFERENCE); }
+
+"et"                   { return symbol(CodesLexicaux.ET); }
+"ou"                   { return symbol(CodesLexicaux.OU); }
+"non"                  { return symbol(CodesLexicaux.NON); }
+
+"("                    { return symbol(CodesLexicaux.PAROUVR); }
+")"                    { return symbol(CodesLexicaux.PARFER); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 

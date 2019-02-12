@@ -2,9 +2,9 @@ package yal.arbre.expressions.binaire.comparaison;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
 
-public class Egal extends Comparaison {
+public class Egalite extends Comparaison {
 
-    public Egal(Expression gauche, Expression droite) {
+    public Egalite(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
 
@@ -46,6 +46,6 @@ public class Egal extends Comparaison {
 
     @Override
     public String operation() {
-        return " Egal ";
+        return " Egalite ";
     }
 }

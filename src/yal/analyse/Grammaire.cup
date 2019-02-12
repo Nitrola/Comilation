@@ -60,14 +60,28 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, EGAL, LIRE ;
+terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI ;
+terminal Symbol    PLUS, MOINS, MULTIPLICATION, DIVISION, PAROUVR, PARFER ;
+terminal Symbol    EGALITE, INFERIEUR, SUPERIEUR, DIFFERENCE, ET, OU, NON ;
 terminal String    IDF, CSTENTIERE, TYPE ;
+
    
 /* Non terminals used in the grammar section.  */
 
 non terminal Symbol LDECL, DECL, DECL_VAR ;
 non terminal ArbreAbstrait PROG, LINST, INST ;
-non terminal Expression EXP ;
-non terminal Instruction AFFECTATION, ECRITURE, LECTURE ;
+non terminal Expression EXP, OPER ;
+non terminal Instruction AFFECTATION, ECRITURE, LECTURE, BOUCLE, CONDITION ;
+
+
+/* Precedences */
+precedence left OU;
+precedence left ET;
+precedence left EGALITE, DIFFERENCE;
+precedence left INFERIEUR, SUPERIEUR;
+precedence left PLUS, MOINS;
+precedence left MULTIPLICATION, DIVISION;
+precedence left NON;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -92,6 +106,12 @@ LINST   ::=     LINST:li  INST:i
 
 INST    ::=     AFFECTATION:a
                 {: RESULT = a ; :}
+        |
+                BOUCLE:b
+                {: RESULT = b ; :}
+        |
+                CONDITION:c
+                {: RESULT = c ; :}
         |
                 LECTURE:l
                 {: RESULT = l ; :}
@@ -123,6 +143,22 @@ AFFECTATION ::= IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affectation(i, e) ; :}
                 ;
 
+BOUCLE    ::=   TANTQUE EXP:e REPETER LINST:li FINTANTQUE
+                {: RESULT = new Boucle(e,li) ; :}
+                ;
+
+CONDITION ::=   SI EXP:e ALORS FINSI
+                {: RESULT = new Condition(e) ; :}
+          |
+                SI EXP:e ALORS LINST:li FINSI
+                {: RESULT = new Condition(e,li,0) ; :}
+          |
+                SI EXP:e ALORS LINST:la SINON LINST:ls FINSI
+                {: RESULT = new Condition(e,la,ls) ; :}
+          |
+                SI EXP:e ALORS SINON LINST:li FINSI
+                {: RESULT = new Condition(e,li,1) ; :}
+                ;
 
 LECTURE ::= LIRE IDF:i POINTVIRGULE
                 {: RESULT = new Lire(i, ileft + 1 ); :}
@@ -139,5 +175,44 @@ EXP    ::=      CSTENTIERE:c
         |
                 IDF:i
                 {: RESULT = new Variable(i, ileft + 1) ; :}
+        |
+                PAROUVR EXP:e PARFER
+                {: RESUlT = e; :}
+        |
+                NON EXP:e
+                {: RESULT = new Non(e) ; :}
+        |
+                MOINS EXP:e
+                {: RESULT = new MoinsUnaire(e) ; :}
+        |
+                EXP:eg PLUS EXP:ed
+                {: RESULT = new Plus(eg, ed) ; :}
+        |
+                EXP:eg MOINS EXP:ed
+                {: RESULT = new Moins(eg, ed) ; :}
+        |
+                EXP:eg MULTIPLICATION EXP:ed
+                {: RESULT = new Multiplier(eg, ed) ; :}
+        |
+                EXP:eg SUPERIEUR EXP:ed
+                {: RESULT = new Superieur(eg, ed) ; :}
+        |
+                EXP:eg INFERIEUR EXP:ed
+                {: RESULT = new Inferieur(eg, ed) ; :}
+        |
+                EXP:eg DIVISION EXP:ed
+                {: RESULT = new Diviser(eg, ed) ; :}
+        |
+                EXP:eg EGALITE EXP:ed
+                {: RESULT = new Egalite(eg, ed) ; :}
+        |
+                EXP:eg DIFFERENCE EXP:ed
+                {: RESULT = new Different(eg, ed) ; :}
+        |
+                EXP:eg ET EXP:ed
+                {: RESULT = new Ou(eg, ed) ; :}
+        |
+                EXP:eg OU EXP:ed
+                {: RESULT = new Et(eg, ed) ; :}
                 ;
 
