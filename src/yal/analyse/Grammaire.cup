@@ -94,6 +94,7 @@ PROG    ::=     PROGRAMME IDF DEBUT LDECL LINST:li FIN
                 {: RESULT = li ; :}
                 ;
 
+
 LINST   ::=     LINST:li  INST:i
                 {: ((BlocDInstructions)li).ajouter(i) ;
                    RESULT = li ; :}
@@ -103,6 +104,7 @@ LINST   ::=     LINST:li  INST:i
                    b.ajouter(i) ;
                    RESULT = b ; :}
                 ;
+
 
 INST    ::=     AFFECTATION:a
                 {: RESULT = a ; :}
@@ -119,6 +121,7 @@ INST    ::=     AFFECTATION:a
                 ECRITURE:e
                 {: RESULT = e ; :}
                 ;
+
 
 LDECL   ::=     LDECL DECL
                 {: :}
@@ -143,9 +146,11 @@ AFFECTATION ::= IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affectation(i, e) ; :}
                 ;
 
+
 BOUCLE    ::=   TANTQUE EXP:e REPETER LINST:li FINTANTQUE
                 {: RESULT = new Boucle(e,li) ; :}
                 ;
+
 
 CONDITION ::=   SI EXP:e ALORS FINSI
                 {: RESULT = new Condition(e) ; :}
@@ -159,6 +164,7 @@ CONDITION ::=   SI EXP:e ALORS FINSI
                 SI EXP:e ALORS SINON LINST:li FINSI
                 {: RESULT = new Condition(e,li,1) ; :}
                 ;
+
 
 LECTURE ::= LIRE IDF:i POINTVIRGULE
                 {: RESULT = new Lire(i, ileft + 1 ); :}
