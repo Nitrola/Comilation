@@ -8,6 +8,16 @@ public class Et extends Logique {
         super(gauche, droite);
     }
 
+
+    @Override
+    public String toMIPS() {
+
+        StringBuilder et = new StringBuilder(100);
+        et.append(super.toMIPS());
+        et.append("and $v0, $t8, $v0\n");
+
+        return et.toString();
+    }
     @Override
     public String operateur() {
         return " et " ;
@@ -15,17 +25,8 @@ public class Et extends Logique {
 
     @Override
     public String operation() {
-        return " Et Logique ";
+        return " Et ";
     }
 
-    @Override
-    public String toMIPS() {
-        StringBuilder et = new StringBuilder(100);
-
-        et.append(super.toMIPS());
-        et.append("and $v0, $t8, $v0\n");
-
-        return et.toString();
-    }
 
 }

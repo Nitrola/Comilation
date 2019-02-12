@@ -1,5 +1,4 @@
 package yal.arbre.expressions.binaire.logique;
-
 import yal.arbre.expressions.Expression;
 
 public class Ou extends Logique {
@@ -8,6 +7,16 @@ public class Ou extends Logique {
         super(gauche, droite);
     }
 
+
+    @Override
+    public String toMIPS() {
+
+        StringBuilder ou = new StringBuilder(100);
+        ou.append(super.toMIPS());
+        ou.append("or $v0, $t8, $v0\n");
+
+        return ou.toString();
+    }
     @Override
     public String operateur() {
         return " ou " ;
@@ -15,17 +24,8 @@ public class Ou extends Logique {
 
     @Override
     public String operation() {
-        return " Ou Logique ";
+        return " Ou ";
     }
 
-    @Override
-    public String toMIPS() {
-        StringBuilder ou = new StringBuilder(100);
-
-        ou.append(super.toMIPS());
-        ou.append("or $v0, $t8, $v0\n");
-
-        return ou.toString();
-    }
 
 }
