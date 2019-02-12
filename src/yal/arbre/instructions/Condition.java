@@ -10,6 +10,7 @@ public class Condition extends Instruction {
     private BlocDInstructions alors;
     private BlocDInstructions sinon;
 
+    private static int compteur;
     /***
      * Création d'une condition de type
      * SI EXP
@@ -20,6 +21,7 @@ public class Condition extends Instruction {
         this.e = exp;
         alors = new BlocDInstructions(noLigne +1);
         sinon = new BlocDInstructions(noLigne +1);
+        compteur++;
     }
 
     /**
@@ -28,7 +30,7 @@ public class Condition extends Instruction {
      * typeBloc == 0 pour alors
      * typeBloc != 0 pour sinon
      * @param exp
-     * @param b
+     * @param b" + compteur + "
      * @param typeBloc
      */
     public Condition(Expression exp, BlocDInstructions b, int typeBloc){
@@ -42,6 +44,7 @@ public class Condition extends Instruction {
             alors = new BlocDInstructions(noLigne +1);
             sinon = b;
         }
+        compteur++;
     }
 
     /**
@@ -56,7 +59,7 @@ public class Condition extends Instruction {
         this.e = exp;
         this.alors = alors;
         this.sinon = sinon;
-
+        compteur++;
     }
     @Override
     public void verifier() {
@@ -73,16 +76,15 @@ public class Condition extends Instruction {
     @Override
     public String toMIPS() {
         String s = new String();
-        s += "#Condition\n si: \n";
+        s += "#Condition\n si_" + compteur + " :\n";
         s += e.toMIPS();
-        s += "beqz $v0,sinon\n";
-        s += " alors\n";
+        s += "beqz $v0,sinon_" + compteur + "\n";
+        s += " alors_" + compteur + " :\n";
         s += alors.toMIPS();
-        s += "j fin\n";
-        s += "fin\n";
-        s += "sinon\n";
+        s += "j fin_" + compteur + "\n";
+        s += "sinon_" + compteur + " :\n";
         s += sinon.toMIPS();
-        s += "fin\n";
+        s += "fin_" + compteur + " :\n";
         return s;
     }
 }

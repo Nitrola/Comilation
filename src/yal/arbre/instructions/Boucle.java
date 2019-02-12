@@ -7,11 +7,13 @@ import yal.exceptions.AnalyseSemantiqueException;
 public class Boucle extends  Instruction{
     private Expression e;
     private BlocDInstructions inst;
+    private static int compteur;
 
     public Boucle(Expression exp , BlocDInstructions b){
         super(exp.getNoLigne());
         this.e = exp;
         this.inst = b;
+        compteur++;
     }
 
     @Override
@@ -27,12 +29,12 @@ public class Boucle extends  Instruction{
     @Override
     public String toMIPS() {
         String s = new String();
-        s += "#Boucle\n tantque: \n";
+        s += "#Boucle\n tantque_" + compteur + ": \n";
         s += e.toMIPS();
-        s += "beqz $v0,finTantque\n";
-        s += " iteration\n";
-        s += "j tantque\n";
-        s += "finTantque\n";
+        s += "beqz $v0,finTantque_" + compteur + "\n";
+        s += "iteration_" + compteur + " :\n";
+        s += "j tantque_" + compteur + "\n";
+        s += "finTantque_" + compteur + " :\n";
         return s;
     }
 }
