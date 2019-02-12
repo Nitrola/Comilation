@@ -24,11 +24,6 @@ public class Multiplier extends ArithmetiqueBinaire {
     }
 
     @Override
-    public String getType() {
-        return "entier";
-    }
-
-    @Override
     public String operation() {
         return " Multiplication ";
     }

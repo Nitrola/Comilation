@@ -25,11 +25,6 @@ public class Moins extends yal.arbre.expressions.binaire.arithmetique.Arithmetiq
     }
 
     @Override
-    public String getType() {
-        return "entier";
-    }
-
-    @Override
     public String operation() {
         return " Soustraction ";
     }

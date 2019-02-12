@@ -2,9 +2,12 @@ programme texte
 debut
 entier e ;
 entier a ;
+entier b ;
 e = 3 ;
 a = 7 ;
+b = a ;
 ecrire e ;
 ecrire a ;
+ecrire b ;
 lire e ;
 fin

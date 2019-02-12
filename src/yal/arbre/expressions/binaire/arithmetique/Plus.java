@@ -25,11 +25,6 @@ public class Plus extends ArithmetiqueBinaire {
 
 
     @Override
-    public String getType() {
-        return "entier";
-    }
-
-    @Override
     public String operation() {
         return " Addition ";
     }

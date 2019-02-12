@@ -37,10 +37,6 @@ public class Diviser extends ArithmetiqueBinaire {
         return div.toString();
     }
 
-    @Override
-    public String getType() {
-        return "entier";
-    }
 
     @Override
     public String operation() {

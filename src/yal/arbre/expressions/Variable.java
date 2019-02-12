@@ -27,6 +27,11 @@ public class Variable extends Expression {
         return type;
     }
 
+    @Override
+    public String operation() {
+        return null;
+    }
+
     public int getDep() {
         return dep;
     }

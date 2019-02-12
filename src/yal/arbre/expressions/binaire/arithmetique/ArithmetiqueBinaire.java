@@ -31,6 +31,11 @@ public abstract class ArithmetiqueBinaire extends Binaire {
     }
 
     @Override
+    public String getType() {
+        return "entier";
+    }
+
+    @Override
     public String toMIPS() {
         return super.toMIPS();
     }
