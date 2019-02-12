@@ -16,6 +16,15 @@ public class Moins extends yal.arbre.expressions.binaire.arithmetique.Arithmetiq
     }
 
     @Override
+    public String toMIPS() {
+        StringBuilder soustraction = new StringBuilder(100);
+        soustraction.append(super.toMIPS());
+        soustraction.append("sub $v0, $t8, $v0\n");
+
+        return soustraction.toString();
+    }
+
+    @Override
     public String getType() {
         return "entier";
     }
@@ -23,16 +32,6 @@ public class Moins extends yal.arbre.expressions.binaire.arithmetique.Arithmetiq
     @Override
     public String operation() {
         return " Soustraction ";
-    }
-
-    @Override
-    public String toMIPS() {
-        StringBuilder soustraction = new StringBuilder(100);
-
-        soustraction.append(super.toMIPS());
-        soustraction.append("sub $v0, $t8, $v0\n");
-
-        return soustraction.toString();
     }
 
 }

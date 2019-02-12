@@ -14,15 +14,17 @@ public abstract class ArithmetiqueBinaire extends Binaire {
     public void verifier() throws AnalyseSemantiqueException {
         super.verifier();
 
-        if (!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
-            StringBuilder erreur = new StringBuilder(40);
 
-            erreur.append("erreur de type :\t");
+        if (!gauche.getType().equals("entier") || !droite.getType().equals("entier")) {
+
+            StringBuilder erreur = new StringBuilder(50);
+            erreur.append("erreur type:\t");
             erreur.append(gauche);
             erreur.append(operateur());
             erreur.append(droite);
             erreur.append("\n\t");
-            erreur.append("les deux opérandes doivent être des entiers");
+
+            erreur.append("les deux expressions doivent etre des entieres");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }

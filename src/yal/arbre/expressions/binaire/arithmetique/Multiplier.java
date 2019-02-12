@@ -13,6 +13,17 @@ public class Multiplier extends ArithmetiqueBinaire {
     }
 
     @Override
+    public String toMIPS() {
+        StringBuilder mult = new StringBuilder(100);
+        mult.append(super.toMIPS());
+        mult.append("mult $v0, $t8\n");
+        mult.append("#Res $lo -> $v0\n");
+        mult.append("mflo $v0\n");
+
+        return mult.toString();
+    }
+
+    @Override
     public String getType() {
         return "entier";
     }
@@ -20,19 +31,6 @@ public class Multiplier extends ArithmetiqueBinaire {
     @Override
     public String operation() {
         return " Multiplication ";
-    }
-
-    @Override
-    public String toMIPS() {
-        StringBuilder mult = new StringBuilder(100);
-
-        mult.append(super.toMIPS());
-        mult.append("mult $v0, $t8\n");
-
-        mult.append("# Résultat $lo -> $v0\n");
-        mult.append("mflo $v0\n");
-
-        return mult.toString();
     }
 
 }
