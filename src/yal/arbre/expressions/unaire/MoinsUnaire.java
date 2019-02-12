@@ -3,9 +3,9 @@ package yal.arbre.expressions.unaire;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
 
-public class Moins extends Unaire {
+public class MoinsUnaire extends Unaire {
 
-    public Moins(Expression e){
+    public MoinsUnaire(Expression e){
         super(e);
     }
 
@@ -16,7 +16,7 @@ public class Moins extends Unaire {
 
     @Override
     public String operation() {
-        return "Moins";
+        return "MoinsUnaire";
     }
 
     @Override

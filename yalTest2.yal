@@ -1,0 +1,10 @@
+programme ayaya
+debut
+entier e ;
+entier a ;
+entier b ;
+lire a ;
+lire b ;
+e = a * b ;
+ecrire 3 ;
+fin

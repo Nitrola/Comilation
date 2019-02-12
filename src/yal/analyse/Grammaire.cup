@@ -3,12 +3,15 @@ package yal.analyse ;
 import java.util.*;
 import yal.arbre.* ;
 import yal.arbre.expressions.* ;
+import yal.arbre.expressions.binaire.arithmetique.* ;
+import yal.arbre.expressions.binaire.comparaison.* ;
+import yal.arbre.expressions.binaire.logique.* ;
+import yal.arbre.expressions.unaire.* ;
 import yal.arbre.instructions.* ;
 import yal.exceptions.AnalyseSyntaxiqueException;
 import yal.analyse.TDS ;
 import yal.analyse.entree.* ;
 import yal.analyse.symbole.* ;
-import yal.arbre.expressions.logique.* ;
 
 import java_cup.runtime.*;
 
@@ -70,9 +73,10 @@ terminal String    IDF, CSTENTIERE, TYPE ;
 /* Non terminals used in the grammar section.  */
 
 non terminal Symbol LDECL, DECL, DECL_VAR ;
-non terminal ArbreAbstrait PROG, LINST, INST ;
+non terminal ArbreAbstrait PROG ;
+non terminal BlocDInstructions LINST ;
 non terminal Expression EXP, OPER ;
-non terminal Instruction AFFECTATION, ECRITURE, LECTURE, BOUCLE, CONDITION ;
+non terminal Instruction INST, AFFECTATION, ECRITURE, LECTURE, BOUCLE, CONDITION ;
 
 
 /* Precedences */
@@ -97,13 +101,13 @@ PROG    ::=     PROGRAMME IDF DEBUT LDECL LINST:li FIN
 
 
 LINST   ::=     LINST:li  INST:i
-                {: ((BlocDInstructions)li).ajouter(i) ;
+                {: li.ajouter(i) ;
                    RESULT = li ; :}
         |
                 INST:i
-                {: BlocDInstructions b = new BlocDInstructions(ileft + 1) ;
-                   b.ajouter(i) ;
-                   RESULT = b ; :}
+                {: BlocDInstructions li = new BlocDInstructions(ileft + 1) ;
+                   li.ajouter(i) ;
+                   RESULT = li ; :}
                 ;
 
 
@@ -184,7 +188,7 @@ EXP    ::=      CSTENTIERE:c
                 {: RESULT = new Variable(i, ileft + 1) ; :}
         |
                 PAROUVR EXP:e PARFER
-                {: RESUlT = e; :}
+                {: RESULT = e; :}
         |
                 NON EXP:e
                 {: RESULT = new Non(e) ; :}

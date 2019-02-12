@@ -29,7 +29,7 @@ public class Variable extends Expression {
 
     @Override
     public String operation() {
-        return null;
+        return " Variable ";
     }
 
     public int getDep() {

@@ -23,7 +23,6 @@ public abstract class Constante extends Expression {
     @Override
     public String toMIPS() {
         StringBuilder constante = new StringBuilder(50);
-        constante.append("#" + operation() + "\n");
         constante.append("# On met la constante dans $v0\n");
         constante.append("li $v0, " + constante() + "\n");
         return constante.toString();

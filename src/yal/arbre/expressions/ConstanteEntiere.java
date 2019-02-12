@@ -19,7 +19,7 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public String operation() {
-        return null;
+        return "entier";
     }
 
     @Override
