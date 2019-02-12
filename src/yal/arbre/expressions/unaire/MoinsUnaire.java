@@ -23,7 +23,7 @@ public class MoinsUnaire extends Unaire {
     public void verifier() {
         super.verifier();
         if(!this.e.getType().equals("entier")){
-            throw new AnalyseSemantiqueException(getNoLigne(),"erreure:" + operateur() + this.e + "\n" + "l'opérande doit être un entier");
+            throw new AnalyseSemantiqueException(getNoLigne(),"erreur:" + operateur() + this.e + "\n" + "l'opérande doit être un entier");
         }
     }
     @Override
@@ -34,7 +34,7 @@ public class MoinsUnaire extends Unaire {
     @Override
     public String toMIPS() {
         return super.toMIPS() +
-                "#" + operation() + "sub $v0, 0, $v0\n"+
+                "#" + operation() + " sub $v0, 0, $v0\n"+
                 "neg $v0, $v0\n";
     }
 }

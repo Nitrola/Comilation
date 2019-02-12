@@ -20,7 +20,7 @@ public class Inferieur extends Comparaison {
             erreur.append(operateur());
             erreur.append(droite);
             erreur.append("\n\t");
-            erreur.append("les deuxexpressions doivent être des entiers");
+            erreur.append("les deux expressions doivent être des entiers");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }
@@ -28,13 +28,13 @@ public class Inferieur extends Comparaison {
 
     @Override
     public String toMIPS() {
-        StringBuilder inf = new StringBuilder(100);
+        StringBuilder sb = new StringBuilder(100);
 
-        inf.append(super.toMIPS());
-        inf.append("#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0\n");
-        inf.append("slt $v0, $t8, $v0\n");
+        sb.append(super.toMIPS());
+        sb.append("#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0\n");
+        sb.append("slt $v0, $t8, $v0\n");
 
-        return inf.toString();
+        return sb.toString();
     }
 
 

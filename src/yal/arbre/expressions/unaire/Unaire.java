@@ -21,7 +21,7 @@ public abstract class Unaire extends Expression {
     @Override
     public String toMIPS() {
         return "#" + operateur() + this.e + "\n" +
-                "# Calcul de l'expression\n + " +
+                "# Calcul de l'expression\n" +
                 this.e.toMIPS();
     }
 }

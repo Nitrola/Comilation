@@ -93,10 +93,10 @@ precedence left NON;
 start with PROG ;
 
 PROG    ::=     PROGRAMME IDF DEBUT LDECL LINST:li FIN
-                {: RESULT = li ; :}
+                {: RESULT = new Main(li, lileft + 1) ; :}
         |
                 PROGRAMME IDF DEBUT LINST:li FIN
-                {: RESULT = li ; :}
+                {: RESULT = new Main(li, lileft + 1); :}
                 ;
 
 

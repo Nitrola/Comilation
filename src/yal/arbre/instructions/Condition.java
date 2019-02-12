@@ -10,7 +10,8 @@ public class Condition extends Instruction {
     private BlocDInstructions alors;
     private BlocDInstructions sinon;
 
-    private static int compteur = 0;
+    private static int cmpt = 0;
+    private int compteur;
     /***
      * Création d'une condition de type
      * SI EXP
@@ -21,7 +22,8 @@ public class Condition extends Instruction {
         this.e = exp;
         alors = new BlocDInstructions(noLigne +1);
         sinon = new BlocDInstructions(noLigne +1);
-        compteur++;
+        this.compteur = cmpt;
+        cmpt++;
     }
 
     /**
@@ -59,10 +61,10 @@ public class Condition extends Instruction {
         this.e = exp;
         this.alors = alors;
         this.sinon = sinon;
-        compteur++;
     }
     @Override
     public void verifier() {
+        e.verifier();
         // vérification que la condition est un booléen
         if(!this.e.getType().equals("booleen")){
             throw new AnalyseSemantiqueException(getNoLigne(),

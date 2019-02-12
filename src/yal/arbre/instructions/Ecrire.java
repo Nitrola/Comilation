@@ -5,12 +5,14 @@ import yal.arbre.expressions.Expression;
 public class Ecrire extends Instruction {
 
     protected Expression exp ;
-    private static int compteur = 0;
+    private static int cmpt = 0;
+    private int compteur;
 
     public Ecrire (Expression e, int n) {
         super(n) ;
         exp = e ;
-        compteur++;
+        compteur = cmpt;
+        cmpt ++;
     }
 
     @Override
@@ -33,7 +35,10 @@ public class Ecrire extends Instruction {
                     "la $a0, faux \n" +
                     "fin_affbool_" + compteur + " :\n" +
                     "li $v0, 4\n" +
-                    "syscall\n\n";
+                    "syscall\n" +
+                    "li $v0, 4      # retour à la ligne\n" +
+                    "la $a0, finLigne\n" +
+                    "syscall\n\n" ;
 
 
         }else{

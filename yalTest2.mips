@@ -10,13 +10,16 @@ main :
 #intialiser $s7 avec $sp
 move $s7, $sp
 
-#réserver la place pour 3 variables
-addi $sp, $sp, -12
+#réserver la place pour 6 variables
+addi $sp, $sp, -24
 
 # initialisation de toutes les variables a 0
 sw $zero, -0($s7)
 sw $zero, -4($s7)
 sw $zero, -8($s7)
+sw $zero, -12($s7)
+sw $zero, -16($s7)
+sw $zero, -20($s7)
 
 # Lecture d'un entier
 li $v0, 5
@@ -24,13 +27,48 @@ syscall
 #affecte a la variable, la valeur entiere lue
 sw $v0, -4($s7)
 
+
 # Lecture d'un entier
 li $v0, 5
 syscall
 #affecte a la variable, la valeur entiere lue
 sw $v0, -8($s7)
 
+
 #affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 5
+sw $v0, -12($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -16($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -20($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+# Soustraction 
+# Calcul de la partie gauche
+# Addition 
+# Calcul de la partie gauche
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
 # Multiplication 
 # Calcul de la partie gauche
 lw $v0, -4($s7)
@@ -50,17 +88,419 @@ lw $t8, 0($sp)
 mult $v0, $t8
 #Res $lo -> $v0
 mflo $v0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -12($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Multiplication 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 15
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Multiplication entre $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Soustraction entre $v0 et $t8
+sub $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Division 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 5
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Division entre $v0 et $t8
+# la division par 0
+beqz $v0, alors_div_0
+div $v0, $t8, $v0
+j fin_div_0
+alors_div_0 :
+#l'expression droite est egale a 0
+li $v0, 4
+la $a0, divZero
+syscall
+j end
+fin_div_0 :
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
 sw $v0, 0($s7)
 
+
 # affichage de l'expression (entier)
-# On met la constante dans $v0
-li $v0, 3
+lw $v0, 0($s7)
 move $a0, $v0
 li $v0, 1
 syscall
 li $v0, 4      # retour à la ligne
 la $a0, finLigne
 syscall
+
+
+#Boucle
+tantque_0 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0, finTantque_0
+iteration_0 :
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, 0($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -20($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -20($s7)
+
+
+j tantque_0
+finTantque_0 :
+
+# affichage de l'expression (entier)
+lw $v0, -20($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Condition
+ si_0 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0,sinon_0
+ alors_0 :
+# affichage de l'expression (entier)
+lw $v0, 0($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+j fin_0
+sinon_0 :
+# affichage de l'expression (entier)
+lw $v0, -4($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+fin_0 :
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, 0($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -4($s7)
+
+
+# affichage de l'expression (booleen)
+# Egalite 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Egalite entre $v0 et $t8
+#egalité -> on met 1 dans $v0, sinon 0
+seq $v0, $v0, $t8
+beqz $v0, alors_affbool_4
+la $a0, vrai 
+j fin_affbool_4
+alors_affbool_4 :
+la $a0, faux 
+fin_affbool_4 :
+li $v0, 4
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Boucle
+tantque_2 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 10
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0, finTantque_2
+iteration_2 :
+#Boucle
+tantque_1 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 10
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0, finTantque_1
+iteration_1 :
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -16($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -16($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -4($s7)
+
+
+j tantque_1
+finTantque_1 :
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -4($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, 0($s7)
+
+
+j tantque_2
+finTantque_2 :
+
+# affichage de l'expression (entier)
+lw $v0, -16($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
 
 end :
     li $v0, 10            # retour au système
