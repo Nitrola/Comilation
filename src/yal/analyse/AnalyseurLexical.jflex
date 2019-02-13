@@ -48,6 +48,8 @@ commentaires = [/][/].*
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }
 "entier"               { return symbol(CodesLexicaux.TYPE); }
+"fonction"             { return symbol(CodesLexicaux.FONCTION); }
+"retourne"             { return symbol(CodesLexicaux.RETOUR); }
 
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 "lire"                 { return symbol(CodesLexicaux.LIRE); }
