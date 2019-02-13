@@ -3,7 +3,7 @@ import yal.arbre.expressions.Expression;
 
 public class Ou extends Logique {
 
-    public Ou (Expression gauche, Expression droite) {
+    public Ou(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
 
