@@ -42,11 +42,12 @@ public class Condition extends Instruction {
             alors = b;
             sinon = new BlocDInstructions(noLigne +1);
         }
-        else{
-            alors = new BlocDInstructions(noLigne +1);
+        else {
+            alors = new BlocDInstructions(noLigne + 1);
             sinon = b;
         }
-        compteur++;
+        this.compteur = cmpt;
+        cmpt++;
     }
 
     /**
@@ -61,6 +62,8 @@ public class Condition extends Instruction {
         this.e = exp;
         this.alors = alors;
         this.sinon = sinon;
+        this.compteur = cmpt;
+        cmpt++;
     }
     @Override
     public void verifier() {

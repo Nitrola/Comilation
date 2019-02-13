@@ -49,6 +49,18 @@ tantque e < 10 repeter
     e = e + 1;
 fintantque
 
+si s == 100 et a == 0 alors
+ecrire 5;
+sinon
+ecrire a == 0 ;
+finsi
+
+si non(s == 50) alors
+ecrire non(a != 0);
+sinon
+ecrire a != 0;
+finsi
+
 ecrire s;
 
 fin

@@ -29,7 +29,8 @@ public class Ecrire extends Instruction {
 
             res =   "# affichage de l'expression (booleen)\n" +
                     exp.toMIPS() +
-                    "beqz $v0, alors_affbool_" + compteur + "\n"+ "la $a0, vrai \n" +
+                    "beqz $v0, alors_affbool_" + compteur + "\n" +
+                    "la $a0, vrai \n" +
                     "j fin_affbool_" + compteur + "\n" +
                     "alors_affbool_" + compteur + " :\n" +
                     "la $a0, faux \n" +

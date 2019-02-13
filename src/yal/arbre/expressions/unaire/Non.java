@@ -14,15 +14,15 @@ public class Non extends Unaire {
     @Override
     public void verifier() {
         super.verifier();
-        if(!this.e.getType().equals("entier")){
-            throw new AnalyseSemantiqueException(getNoLigne(),"erreure:" + operateur() + this.e + "\n" + "l'opérande doit être un entier");
+        if(!this.e.getType().equals("booleen")){
+            throw new AnalyseSemantiqueException(getNoLigne(),"erreur:" + operateur() + this.e + "\n" + "l'opérande doit être un booléen");
         }
     }
 
     @Override
     public String toMIPS() {
         return super.toMIPS() +
-               "# XOR $v0 et 1 " +
+               "# XOR $v0 et 1 \n" +
                 "xori $v0, $v0, 1\n";
     }
 
