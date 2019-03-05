@@ -1,6 +1,7 @@
 package yal.arbre;
 
 import yal.analyse.TDS;
+import yal.arbre.instructions.Instruction;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class BlocDInstructions extends ArbreAbstrait {
     
-    protected ArrayList<ArbreAbstrait> blocDInstructions ;
+    protected ArrayList<Instruction> blocDInstructions ;
 
 
     public BlocDInstructions(int n) {
@@ -20,7 +21,7 @@ public class BlocDInstructions extends ArbreAbstrait {
         blocDInstructions = new ArrayList<>() ;
     }
     
-    public void ajouter(ArbreAbstrait a) {
+    public void ajouter(Instruction a) {
         blocDInstructions.add(a) ;
     }
     
@@ -32,7 +33,7 @@ public class BlocDInstructions extends ArbreAbstrait {
     @Override
     public void verifier() {
 
-        for (ArbreAbstrait a : blocDInstructions) {
+        for (Instruction a : blocDInstructions) {
             a.verifier() ;
         }
     }
@@ -42,7 +43,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 
         StringBuilder sb = new StringBuilder("");
 
-        for (ArbreAbstrait a : blocDInstructions) {
+        for (Instruction a : blocDInstructions) {
             sb.append(a.toMIPS()) ;
             sb.append("\n");
         }
@@ -50,4 +51,11 @@ public class BlocDInstructions extends ArbreAbstrait {
         return sb.toString() ;
     }
 
+    public boolean isReturn(){
+        boolean res = false;
+        for(Instruction inst : blocDInstructions){
+            res = inst.isReturn();
+        }
+        return res;
+    }
 }

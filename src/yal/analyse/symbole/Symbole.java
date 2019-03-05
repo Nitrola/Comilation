@@ -3,8 +3,11 @@ package yal.analyse.symbole;
 import yal.analyse.TDS;
 
 public abstract class Symbole {
-    private String type;
-    private int dep;
+    protected String type;
+    protected int dep;
+    protected int space;
+    protected int idRegion;
+    protected int boxingLevel;
 
     public Symbole(String ntype){
         this.type = ntype;

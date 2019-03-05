@@ -12,9 +12,14 @@ public class TDS {
     private static TDS instance  = new TDS();
     private HashMap<Entree,Symbole> tab;
 
+
+    private int idRegion;
+    private int idBoxing;
+
     private TDS(){
         tab = new HashMap<>();
-
+        idRegion = -1;
+        idBoxing =-1;
     }
 
     public static TDS getInstance() {
@@ -36,4 +41,26 @@ public class TDS {
 
         return tab.get(e);
     }
+    public void entreeBloc(){
+        idRegion++;
+        idBoxing++;
+    }
+    public void sortieBloc(){
+        idBoxing--;
+    }
+
+    public int getIdRegion() {
+        return idRegion;
+    }
+
+    public int getIdBoxing() {
+        return idBoxing;
+    }
+    public int nbVariable(){
+        return tab.size();
+    }
+    public int memorySizeVar(){
+        return tab.size() *4;
+    }
 }
+

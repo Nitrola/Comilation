@@ -8,4 +8,8 @@ public abstract class Instruction extends ArbreAbstrait {
         super(n);
     }
 
+    public boolean isReturn(){
+        return false;
+    }
+
 }
