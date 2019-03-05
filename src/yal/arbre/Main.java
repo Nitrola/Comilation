@@ -25,7 +25,7 @@ public class Main extends ArbreAbstrait {
     private int tailleTableVariables;
 
     private BlocDInstructions blocDInstructions;
-    private BlocDInstructions blocDeFonctions;
+    private BlocDInstructions blocDeFonctions; //instructions des fonctions a la fin du mips
 
     public Main(BlocDInstructions b, int n) {
         super(n);
@@ -82,7 +82,7 @@ public class Main extends ArbreAbstrait {
         sb.append(blocDInstructions.toMIPS());
         sb.append(finCode) ;
 
-        sb.append(blocDeFonctions.toMIPS());
+        sb.append(blocDeFonctions.toMIPS()); //les fonctions
 
         return sb.toString() ;
 

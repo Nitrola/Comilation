@@ -40,14 +40,6 @@ public class Retourner extends Instruction {
 
         if(idRegion >0){
             mips = mips +
-//                    "#Deplacement de la base\n" +
-//                    "lw $s6, 8($sp)\n" + "\n" +
-//                    "#Depile l'id de la region\n" +
-//                    "add $sp, $sp, 4\n" + "\n" +
-//                    "#Depile le chainage dynamique\n" +
-//                    "add $sp, $sp, 4\n" + "\n" +
-//                    "#Depile l'adresse de retour\n" +
-//                    "add $sp, $sp, 4\n" + "\n" +
                     "#Depile l'id de la region & le chainage dynamique & l'adresse de retour \n" +
                     "add $sp, $sp, 12\n" +
                     "lw $ra, 0($sp)\n" + "\n" +

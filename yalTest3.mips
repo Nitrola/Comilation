@@ -10,8 +10,8 @@ main :
 #intialiser $s7 avec $sp
 move $s7, $sp
 
-#réserver la place pour 14 variables
-addi $sp, $sp, -56
+#réserver la place pour 17 variables
+addi $sp, $sp, -68
 
 # initialisation de toutes les variables a 0
 sw $zero, -0($s7)
@@ -28,6 +28,9 @@ sw $zero, -40($s7)
 sw $zero, -44($s7)
 sw $zero, -48($s7)
 sw $zero, -52($s7)
+sw $zero, -56($s7)
+sw $zero, -60($s7)
+sw $zero, -64($s7)
 
 # Lecture d'un entier
 li $v0, 5
@@ -50,6 +53,26 @@ add $sp, $sp, -4
 
 #Jump vers le label de la fonction lastboss
 jal fonction4
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+# affichage de l'expression (entier)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction yal2
+jal fonction5
 
 #Depile dans $v0
 add $sp, $sp, 4
@@ -301,7 +324,7 @@ lw $t8, 0($sp)
 
 # Addition entre $v0 et $t8
 add $v0, $t8, $v0
-sw $v0, -28($s7)
+sw $v0, -36($s7)
 
 
 #Retour de fonction
@@ -325,7 +348,7 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 
 # Calcul de la partie droite
-lw $v0, -28($s7)
+lw $v0, -36($s7)
 
 # Dépilement de la partie gauche
 add $sp, $sp, 4
@@ -471,6 +494,719 @@ la $a0, divZero
 syscall
 j end
 fin_div_0 :
+
+#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Enregistre la valeur calculé dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction5:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s6, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 5
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s6, $sp
+
+#Instruction dans la fonction
+# Lecture d'un entier
+li $v0, 5
+syscall
+#affecte a la variable, la valeur entiere lue
+sw $v0, -4($s7)
+
+
+# Lecture d'un entier
+li $v0, 5
+syscall
+#affecte a la variable, la valeur entiere lue
+sw $v0, -8($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 5
+sw $v0, -12($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -28($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -32($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+# Soustraction 
+# Calcul de la partie gauche
+# Addition 
+# Calcul de la partie gauche
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Multiplication 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -8($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Multiplication entre $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -12($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Multiplication 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 15
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Multiplication entre $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Soustraction entre $v0 et $t8
+sub $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Division 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 5
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Division entre $v0 et $t8
+# la division par 0
+beqz $v0, alors_div_1
+div $v0, $t8, $v0
+j fin_div_1
+alors_div_1 :
+#l'expression droite est egale a 0
+li $v0, 4
+la $a0, divZero
+syscall
+j end
+fin_div_1 :
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, 0($s7)
+
+
+# affichage de l'expression (entier)
+lw $v0, 0($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Boucle
+tantque_0 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0, finTantque_0
+iteration_0 :
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, 0($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -32($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -32($s7)
+
+
+j tantque_0
+finTantque_0 :
+
+# affichage de l'expression (entier)
+lw $v0, -32($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Condition
+ si_0 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0,sinon_0
+ alors_0 :
+# affichage de l'expression (entier)
+lw $v0, 0($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+j fin_0
+sinon_0 :
+# affichage de l'expression (entier)
+lw $v0, -4($s7)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+fin_0 :
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, 0($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -4($s7)
+
+
+# affichage de l'expression (booleen)
+# Egalite 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Egalite entre $v0 et $t8
+#egalité -> on met 1 dans $v0, sinon 0
+seq $v0, $v0, $t8
+beqz $v0, alors_affbool_4
+la $a0, vrai 
+j fin_affbool_4
+alors_affbool_4 :
+la $a0, faux 
+fin_affbool_4 :
+li $v0, 4
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Boucle
+tantque_2 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 10
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0, finTantque_2
+iteration_2 :
+#Boucle
+tantque_1 :
+# Inférieur 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 10
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Inférieur entre $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
+slt $v0, $t8, $v0
+beqz $v0, finTantque_1
+iteration_1 :
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -28($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -28($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -4($s7)
+
+
+j tantque_1
+finTantque_1 :
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 0
+sw $v0, -4($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 1
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, 0($s7)
+
+
+j tantque_2
+finTantque_2 :
+
+#Condition
+ si_1 :
+# Ou 
+# Calcul de la partie gauche
+# Egalite 
+# Calcul de la partie gauche
+lw $v0, -28($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 100
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Egalite entre $v0 et $t8
+#egalité -> on met 1 dans $v0, sinon 0
+seq $v0, $v0, $t8
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Egalite 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Egalite entre $v0 et $t8
+#egalité -> on met 1 dans $v0, sinon 0
+seq $v0, $v0, $t8
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Ou entre $v0 et $t8
+or $v0, $t8, $v0
+beqz $v0,sinon_1
+ alors_1 :
+# affichage de l'expression (entier)
+# On met la constante dans $v0
+li $v0, 5
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+j fin_1
+sinon_1 :
+# affichage de l'expression (booleen)
+# Egalite 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Egalite entre $v0 et $t8
+#egalité -> on met 1 dans $v0, sinon 0
+seq $v0, $v0, $t8
+beqz $v0, alors_affbool_6
+la $a0, vrai 
+j fin_affbool_6
+alors_affbool_6 :
+la $a0, faux 
+fin_affbool_6 :
+li $v0, 4
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+fin_1 :
+
+#Condition
+ si_2 :
+#non (yal.arbre.expressions.Variable@511d50c0 == 50)
+# Calcul de l'expression
+# Egalite 
+# Calcul de la partie gauche
+lw $v0, -28($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 50
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Egalite entre $v0 et $t8
+#egalité -> on met 1 dans $v0, sinon 0
+seq $v0, $v0, $t8
+# XOR $v0 et 1 
+xori $v0, $v0, 1
+beqz $v0,sinon_2
+ alors_2 :
+# affichage de l'expression (booleen)
+#non (yal.arbre.expressions.Variable@60e53b93 != 0)
+# Calcul de l'expression
+# Différent 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Différent entre $v0 et $t8
+#différent -> on met 1 dans $v0, sinon 0
+sne $v0, $v0, $t8
+# XOR $v0 et 1 
+xori $v0, $v0, 1
+beqz $v0, alors_affbool_7
+la $a0, vrai 
+j fin_affbool_7
+alors_affbool_7 :
+la $a0, faux 
+fin_affbool_7 :
+li $v0, 4
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+j fin_2
+sinon_2 :
+# affichage de l'expression (booleen)
+# Différent 
+# Calcul de la partie gauche
+lw $v0, -4($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Différent entre $v0 et $t8
+#différent -> on met 1 dans $v0, sinon 0
+sne $v0, $v0, $t8
+beqz $v0, alors_affbool_8
+la $a0, vrai 
+j fin_affbool_8
+alors_affbool_8 :
+la $a0, faux 
+fin_affbool_8 :
+li $v0, 4
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+fin_2 :
+
+#Retour de fonction
+#Met exp dans $v0
+lw $v0, -28($s7)
 
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
