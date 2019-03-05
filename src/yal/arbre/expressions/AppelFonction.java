@@ -15,10 +15,9 @@ public class AppelFonction extends Expression{
     private String label;
 
 
-    public AppelFonction(String id,int noLigne){
+    public AppelFonction(String id, int noLigne){
         super(noLigne);
         idf = id;
-
     }
 
 
@@ -34,8 +33,10 @@ public class AppelFonction extends Expression{
 
     @Override
     public void verifier() {
+
         EntreeFonction e = new EntreeFonction(idf,0);
         SymboleFonction s = (SymboleFonction) TDS.getInstance().identifier(e);
+
         if (s == null){
             throw new AnalyseSemantiqueException(getNoLigne(),"pas de déclaration de " + idf + "()");
         }
@@ -49,7 +50,7 @@ public class AppelFonction extends Expression{
         return "#Appel de fonction\n"+
                 "#Allocation pour la valeur retournée\n"+
                 "add $sp, $sp, -4\n\n"+
-                "#Saut vers le label de la fonction " + idf + "\n"+
+                "#Jump vers le label de la fonction " + idf + "\n"+
                 "jal " + label + "\n\n"+
                 "#Depile dans $v0\n" +
                 "add $sp, $sp, 4\n"+

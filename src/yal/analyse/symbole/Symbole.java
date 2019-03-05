@@ -3,6 +3,7 @@ package yal.analyse.symbole;
 import yal.analyse.TDS;
 
 public abstract class Symbole {
+
     protected String type;
     protected int dep;
     protected int space;
@@ -12,6 +13,8 @@ public abstract class Symbole {
     public Symbole(String ntype){
         this.type = ntype;
         this.dep = - TDS.getInstance().tailleTableVariable();
+        this.idRegion = TDS.getInstance().getIdRegion();
+        this.boxingLevel = TDS.getInstance().getIdBoxing();
     }
 
     public String getType() {
@@ -20,6 +23,14 @@ public abstract class Symbole {
 
     public int getDep() {
         return dep;
+    }
+
+    public int getIdRegion() {
+        return idRegion;
+    }
+
+    public int getIdBoxing() {
+        return boxingLevel;
     }
 
     @Override

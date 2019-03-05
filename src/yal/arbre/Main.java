@@ -20,22 +20,33 @@ public class Main extends ArbreAbstrait {
 
     protected static String finCode = "end :\n" +
             "    li $v0, 10            # retour au système\n" +
-            "    syscall\n" ;
+            "    syscall\n\n" ;
 
     private int tailleTableVariables;
 
     private BlocDInstructions blocDInstructions;
+    private BlocDInstructions blocDeFonctions;
 
     public Main(BlocDInstructions b, int n) {
         super(n);
         blocDInstructions = b;
+        blocDeFonctions = new BlocDInstructions(n + 1);
+    }
+
+    public Main(BlocDInstructions f, BlocDInstructions b, int n) {
+        super(n);
+        blocDInstructions = b;
+        blocDeFonctions = f;
     }
 
     @Override
     public void verifier() {
 
+        TDS.getInstance().entreeBloc();
         tailleTableVariables = TDS.getInstance().tailleTableVariable();
         blocDInstructions.verifier();
+        blocDeFonctions.verifier();
+        TDS.getInstance().sortieBloc();
 
     }
 
@@ -69,8 +80,10 @@ public class Main extends ArbreAbstrait {
         sb.append("\n");
 
         sb.append(blocDInstructions.toMIPS());
-
         sb.append(finCode) ;
+
+        sb.append(blocDeFonctions.toMIPS());
+
         return sb.toString() ;
 
     }

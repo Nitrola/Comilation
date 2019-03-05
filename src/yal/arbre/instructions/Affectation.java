@@ -11,6 +11,7 @@ public class Affectation extends Instruction{
     private String idf;
     private Expression exp;
     private int dep;
+    private int idRegion;
 
     public Affectation(String idf, Expression exp){
         super(exp.getNoLigne());
@@ -29,7 +30,7 @@ public class Affectation extends Instruction{
         }
 
         this.dep = s.getDep();
-
+        this.idRegion = s.getIdRegion();
         exp.verifier();
     }
 

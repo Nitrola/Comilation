@@ -19,7 +19,7 @@ public class TDS {
     private TDS(){
         tab = new HashMap<>();
         idRegion = -1;
-        idBoxing =-1;
+        idBoxing = -1;
     }
 
     public static TDS getInstance() {
@@ -37,14 +37,16 @@ public class TDS {
         }
         tab.put(e,s);
     }
-    public Symbole identifier(Entree e){
 
+    public Symbole identifier(Entree e){
         return tab.get(e);
     }
+
     public void entreeBloc(){
         idRegion++;
         idBoxing++;
     }
+
     public void sortieBloc(){
         idBoxing--;
     }
@@ -56,11 +58,13 @@ public class TDS {
     public int getIdBoxing() {
         return idBoxing;
     }
+
     public int nbVariable(){
         return tab.size();
     }
+
     public int memorySizeVar(){
-        return tab.size() *4;
+        return tab.size()*4;
     }
 }
 

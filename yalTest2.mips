@@ -599,7 +599,7 @@ fin_1 :
 
 #Condition
  si_2 :
-#non (yal.arbre.expressions.Variable@1d44bcfa == 50)
+#non (yal.arbre.expressions.Variable@511d50c0 == 50)
 # Calcul de l'expression
 # Egalite 
 # Calcul de la partie gauche
@@ -625,7 +625,7 @@ xori $v0, $v0, 1
 beqz $v0,sinon_2
  alors_2 :
 # affichage de l'expression (booleen)
-#non (yal.arbre.expressions.Variable@266474c2 != 0)
+#non (yal.arbre.expressions.Variable@60e53b93 != 0)
 # Calcul de l'expression
 # Différent 
 # Calcul de la partie gauche

@@ -1,0 +1,488 @@
+.data
+finLigne:     .asciiz "\n"
+              .align 2
+divZero:      .asciiz "Erreur :\n\t division par zero"
+vrai:         .asciiz "vrai"
+faux:         .asciiz "faux"
+
+.text
+main :
+#intialiser $s7 avec $sp
+move $s7, $sp
+
+#réserver la place pour 14 variables
+addi $sp, $sp, -56
+
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
+sw $zero, -4($s7)
+sw $zero, -8($s7)
+sw $zero, -12($s7)
+sw $zero, -16($s7)
+sw $zero, -20($s7)
+sw $zero, -24($s7)
+sw $zero, -28($s7)
+sw $zero, -32($s7)
+sw $zero, -36($s7)
+sw $zero, -40($s7)
+sw $zero, -44($s7)
+sw $zero, -48($s7)
+sw $zero, -52($s7)
+
+# Lecture d'un entier
+li $v0, 5
+syscall
+#affecte a la variable, la valeur entiere lue
+sw $v0, -4($s7)
+
+
+# Lecture d'un entier
+li $v0, 5
+syscall
+#affecte a la variable, la valeur entiere lue
+sw $v0, -8($s7)
+
+
+# affichage de l'expression (entier)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction lastboss
+jal fonction4
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+end :
+    li $v0, 10            # retour au système
+    syscall
+
+#Fonction
+fonction0:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s6, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 0
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s6, $sp
+
+#Instruction dans la fonction
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 6
+sw $v0, 0($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 7
+sw $v0, -12($s7)
+
+
+#Retour de fonction
+#Met exp dans $v0
+# Addition 
+# Calcul de la partie gauche
+lw $v0, 0($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# Multiplication 
+# Calcul de la partie gauche
+lw $v0, -12($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -4($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Multiplication entre $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Enregistre la valeur calculé dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction1:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s6, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 1
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s6, $sp
+
+#Instruction dans la fonction
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 15
+sw $v0, -16($s7)
+
+
+#affectation d'une variable 
+# On met la constante dans $v0
+li $v0, 3
+sw $v0, -20($s7)
+
+
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+# Addition 
+# Calcul de la partie gauche
+lw $v0, -16($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -20($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -8($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -24($s7)
+
+
+#Retour de fonction
+#Met exp dans $v0
+# Multiplication 
+# Calcul de la partie gauche
+lw $v0, -24($s7)
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction ayayaClap
+jal fonction0
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Multiplication entre $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Enregistre la valeur calculé dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction2:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s6, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 2
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s6, $sp
+
+#Instruction dans la fonction
+#affectation d'une variable 
+# Addition 
+# Calcul de la partie gauche
+# On met la constante dans $v0
+li $v0, 1
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 3
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+sw $v0, -28($s7)
+
+
+#Retour de fonction
+#Met exp dans $v0
+# Addition 
+# Calcul de la partie gauche
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction testImbrication
+jal fonction3
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+lw $v0, -28($s7)
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Addition entre $v0 et $t8
+add $v0, $t8, $v0
+
+#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Enregistre la valeur calculé dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction3:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s6, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 3
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s6, $sp
+
+#Instruction dans la fonction
+#Retour de fonction
+#Met exp dans $v0
+# Multiplication 
+# Calcul de la partie gauche
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction ayayaClapClap
+jal fonction1
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 2
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Multiplication entre $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Enregistre la valeur calculé dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction4:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s6, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 4
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s6, $sp
+
+#Instruction dans la fonction
+#Retour de fonction
+#Met exp dans $v0
+# Division 
+# Calcul de la partie gauche
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction camarchebien
+jal fonction2
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+
+# Empilement de la partie gauche
+sw $v0, 0($sp)
+add $sp, $sp, -4
+
+# Calcul de la partie droite
+# On met la constante dans $v0
+li $v0, 4
+
+# Dépilement de la partie gauche
+add $sp, $sp, 4
+lw $t8, 0($sp)
+
+# Division entre $v0 et $t8
+# la division par 0
+beqz $v0, alors_div_0
+div $v0, $t8, $v0
+j fin_div_0
+alors_div_0 :
+#l'expression droite est egale a 0
+li $v0, 4
+la $a0, divZero
+syscall
+j end
+fin_div_0 :
+
+#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Enregistre la valeur calculé dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+

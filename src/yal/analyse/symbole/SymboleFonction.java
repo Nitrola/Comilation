@@ -6,6 +6,7 @@ public class SymboleFonction extends Symbole {
     private String label;
     private static int cmpt;
     private int compteur;
+
     public SymboleFonction(String ntype) {
         super(ntype);
         this.dep =0;

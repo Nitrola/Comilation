@@ -1,0 +1,43 @@
+programme ayaya
+debut
+
+entier e ;
+entier a ;
+entier b ;
+entier k ;
+entier y ;
+entier z ;
+entier t ;
+entier testImbrication;
+entier camarchebien;
+
+fonction ayayaClap() debut
+	e = 6;
+	k = 7;
+	retourne e + k * a; fin
+
+fonction ayayaClapClap() debut
+    y = 15;
+    z = 3;
+    t = y + z + b;
+    retourne t * ayayaClap(); fin
+
+fonction camarchebien() debut
+    testImbrication = 1 + 3;
+    retourne testImbrication() + testImbrication ; fin
+
+fonction testImbrication() debut
+    retourne ayayaClapClap() * 2; fin
+
+fonction lastboss() debut
+    retourne camarchebien() / 4; fin
+
+
+lire a; //2
+lire b; //1
+
+ecrire lastboss();
+
+//lastboss devrait écrire 191 avec a = 2 et b = 1
+
+fin

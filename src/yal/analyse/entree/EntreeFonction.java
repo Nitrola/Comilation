@@ -8,6 +8,7 @@ public class EntreeFonction  extends Entree{
         super(nidf);
         this.nbParameters = nb;
     }
+
     public int getNbParameters(){
         return  this.nbParameters;
     }
