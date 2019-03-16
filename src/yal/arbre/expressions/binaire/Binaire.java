@@ -3,56 +3,52 @@ import yal.arbre.expressions.Expression;
 
 public abstract class Binaire extends Expression {
 
-    protected Expression gauche;
-    protected Expression droite;
+    protected Expression g;
+    protected Expression d;
 
 
     protected Binaire(Expression gauche, Expression droite) {
         super(gauche.getNoLigne());
-        this.gauche = gauche;
-        this.droite = droite;
+        this.g = gauche;
+        this.d = droite;
     }
 
     public abstract String operateur();
 
     @Override
     public void verifier() {
-        gauche.verifier();
-        droite.verifier();
+        g.verifier();
+        d.verifier();
     }
 
     @Override
     public String toMIPS() {
-        StringBuilder code = new StringBuilder(100);
+        StringBuilder mips = new StringBuilder(100);
 
-        code.append("#" + operation() + "\n");
+        mips.append("#" + operation() + "\n");
+        mips.append("# calcul partie gauche\n");
+        mips.append(g.toMIPS());
+        mips.append("\n");
+        mips.append("# empile partie gauche\n");
+        mips.append("sw $v0, 0($sp)\n");
+        mips.append("add $sp, $sp, -4\n");
+        mips.append("\n");
+        mips.append("# calcul partie droite\n");
+        mips.append(d.toMIPS());
+        mips.append("\n");
+        mips.append("# depile partie gauche\n");
+        mips.append("add $sp, $sp, 4\n");
+        mips.append("lw $t8, 0($sp)\n");
+        mips.append("\n");
+        mips.append("#" + operation() + "entre $v0 et $t8\n");
 
-        code.append("# Calcul de la partie gauche\n");
-        code.append(gauche.toMIPS());
-        code.append("\n");
-
-        code.append("# Empilement de la partie gauche\n");
-        code.append("sw $v0, 0($sp)\n");
-        code.append("add $sp, $sp, -4\n");
-        code.append("\n");
-
-        code.append("# Calcul de la partie droite\n");
-        code.append(droite.toMIPS());
-        code.append("\n");
-
-        code.append("# Dépilement de la partie gauche\n");
-        code.append("add $sp, $sp, 4\n");
-        code.append("lw $t8, 0($sp)\n");
-        code.append("\n");
-
-        code.append("#" + operation() + "entre $v0 et $t8\n");
-
-        return code.toString();
+        return mips.toString();
     }
 
     @Override
-    public String toString() {
-        return "(" + gauche + operateur() + droite + ")" ;
+    public String toString()
+    {
+        return "("+g+operateur()+d+ ")" ;
     }
 
 }
