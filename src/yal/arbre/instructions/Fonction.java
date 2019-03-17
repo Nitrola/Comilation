@@ -13,6 +13,7 @@ public class Fonction extends Instruction{
     private String label;
 
     private int idRegion;
+    private int nbParam;
     private int varMemory;
 
     private BlocDInstructions inst;
@@ -21,6 +22,7 @@ public class Fonction extends Instruction{
         super(Lignum);
         this.idf = idf;
         this.inst = b;
+        this. nbParam = nbParameters;
         this.idRegion = TDS.getInstance().getIdRegion();
         this.varMemory = TDS.getInstance().memorySizeVar();
     }
@@ -33,7 +35,7 @@ public class Fonction extends Instruction{
     @Override
     public void verifier() {
 
-        EntreeFonction e = new EntreeFonction(idf,0);
+        EntreeFonction e = new EntreeFonction(idf,nbParam);
         SymboleFonction s = (SymboleFonction) TDS.getInstance().identifier(e);
 
         if(s == null){
@@ -68,6 +70,8 @@ public class Fonction extends Instruction{
                 "add $sp, $sp, -4\n" + "\n" +
                 "#Deplacement de la base\n" +
                 "move $s6, $sp\n" + "\n" +
+                "#Allocation des variables \n" +
+                "add $sp, $sp , -" + this.varMemory + " \n" +
                 "#Instruction dans la fonction\n" +
                 inst.toMIPS() + "\n";
     }

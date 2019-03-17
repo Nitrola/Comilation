@@ -40,10 +40,13 @@ public class Retourner extends Instruction {
 
         if(idRegion >0){
             mips = mips +
+                    "#retire de la pile les variables\n" +
+                    "move $sp, $s7\n" +
+                    "lw $s7, 8($sp)\n" +
                     "#Depile l'id de la region & le chainage dynamique & l'adresse de retour \n" +
                     "add $sp, $sp, 12\n" +
                     "lw $ra, 0($sp)\n" + "\n" +
-                    "#Enregistre la valeur calculé dans $v0\n" +
+                    "#Sauvegarde la valeur calculé dans $v0\n" +
                     "sw $v0, 4($sp)\n"+"\n" +
                     "#Jump vers le bloc precedent\n" +
                     "jr $ra\n" +

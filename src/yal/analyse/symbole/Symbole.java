@@ -33,11 +33,4 @@ public abstract class Symbole {
         return boxingLevel;
     }
 
-    @Override
-    public String toString() {
-        return "Symbole{" +
-                "type='" + type + '\'' +
-                ", dep=" + dep +
-                '}';
-    }
 }

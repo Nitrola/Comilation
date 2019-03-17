@@ -23,32 +23,19 @@ public abstract class Binaire extends Expression {
 
     @Override
     public String toMIPS() {
-        StringBuilder mips = new StringBuilder(100);
 
-        mips.append("#" + operation() + "\n");
-        mips.append("# calcul partie gauche\n");
-        mips.append(g.toMIPS());
-        mips.append("\n");
-        mips.append("# empile partie gauche\n");
-        mips.append("sw $v0, 0($sp)\n");
-        mips.append("add $sp, $sp, -4\n");
-        mips.append("\n");
-        mips.append("# calcul partie droite\n");
-        mips.append(d.toMIPS());
-        mips.append("\n");
-        mips.append("# depile partie gauche\n");
-        mips.append("add $sp, $sp, 4\n");
-        mips.append("lw $t8, 0($sp)\n");
-        mips.append("\n");
-        mips.append("#" + operation() + "entre $v0 et $t8\n");
-
-        return mips.toString();
+        return "#" + operation() + "\n" +
+                "#partie gauche\n" +
+                g.toMIPS() + "\n" +
+                "#mise dans la pile de la partie gauche\n " +
+                "sw $v0, 0($sp)\n" +
+                "add $sp, $sp, -4\n" +
+                "#partie droite \n" +
+                d.toMIPS() + "\n" +
+                "#depilage de la partie gauche \n" +
+                "add $sp, $sp, 4\n" +
+                "lw $t8, 0($sp)\n" +
+                "#" + operation() + "de $v0 et $t8\n"
+                ;
     }
-
-    @Override
-    public String toString()
-    {
-        return "("+g+operateur()+d+ ")" ;
-    }
-
 }
