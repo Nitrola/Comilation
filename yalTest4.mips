@@ -91,8 +91,11 @@ sw $v0, -8($t5)
 
 # affichage de l'expression (entier)
 #mise en place des paramètres 
-add $sp, $sp, -0
+add $sp, $sp, -4
 
+# constante dans $v0
+li $v0, 191
+sw $v0, 0($sp)
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -105,7 +108,7 @@ add $sp, $sp, 4
 lw $v0, 0($sp)
 
 #Dépiler les params
-add $sp, $sp, 0
+add $sp, $sp, 4
 
 move $a0, $v0
 li $v0, 1
@@ -164,7 +167,7 @@ add $sp, $sp, -4
 move $s7, $sp
 
 #Allocation des variables 
-add $sp, $sp , -0
+add $sp, $sp , -4
 #Instruction dans la fonction
 #affectation
 # constante dans $v0
@@ -175,7 +178,7 @@ add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
+li $v1, 1
 #début tantque
 tantqueaffect_0 :
 #on prend le numéro de région courant
@@ -230,7 +233,7 @@ sw $v0, -12($t5)
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
+li $v1, 1
 #début du tantque
 tantquevariable_0 :
 #on prend le numéro de région courant
@@ -348,7 +351,7 @@ add $sp, $sp, -4
 move $s7, $sp
 
 #Allocation des variables 
-add $sp, $sp , -0
+add $sp, $sp , -4
 #Instruction dans la fonction
 #affectation
 # constante dans $v0
@@ -359,7 +362,7 @@ add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
+li $v1, 2
 #début tantque
 tantqueaffect_2 :
 #on prend le numéro de région courant
@@ -376,7 +379,7 @@ fintantqueaffect_2 :
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
-sw $v0, -16($t5)
+sw $v0, 0($t5)
 
 #affectation
 # constante dans $v0
@@ -415,7 +418,7 @@ sw $v0, -20($t5)
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
+li $v1, 2
 #début du tantque
 tantquevariable_3 :
 #on prend le numéro de région courant
@@ -430,7 +433,7 @@ j tantquevariable_3
 fintantquevariable_3 :
 
 #chargement classique dans $v0
-lw $v0, -16($t5)
+lw $v0, 0($t5)
 
 #mise dans la pile de la partie gauche
  sw $v0, 0($sp)
@@ -611,10 +614,30 @@ move $s7, $sp
 add $sp, $sp , -0
 #Instruction dans la fonction
 #affectation
-# Addition 
+# Division 
 #partie gauche
-# constante dans $v0
-li $v0, 1
+# Multiplication 
+#partie gauche
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_7 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_7
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_7
+#sortie du tantque
+fintantquevariable_7 :
+
+#chargement classique dans $v0
+lw $v0, 20($t5)
 
 #mise dans la pile de la partie gauche
  sw $v0, 0($sp)
@@ -622,6 +645,153 @@ add $sp, $sp, -4
 #partie droite 
 # constante dans $v0
 li $v0, 3
+
+#depilage de la partie gauche 
+add $sp, $sp, 4
+lw $t8, 0($sp)
+# Multiplication de $v0 et $t8
+mult $v0, $t8
+#Res $lo -> $v0
+mflo $v0
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
+add $sp, $sp, -4
+#partie droite 
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_8 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_8
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_8
+#sortie du tantque
+fintantquevariable_8 :
+
+#chargement classique dans $v0
+lw $v0, 20($t5)
+
+#depilage de la partie gauche 
+add $sp, $sp, 4
+lw $t8, 0($sp)
+# Division de $v0 et $t8
+# la division par 0
+beqz $v0, alors_div_0
+div $v0, $t8, $v0
+j fin_div_0
+alors_div_0 :
+#l'expression droite est egale a 0
+li $v0, 4
+la $a0, divZero
+syscall
+j end
+fin_div_0 :
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début tantque
+tantqueaffect_5 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffect_5
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffect_5
+#sortie du tantque
+fintantqueaffect_5 :
+
+#on dépile la valeur qu'on veut mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+sw $v0, 20($t5)
+
+#affectation
+# Addition 
+#partie gauche
+# Division 
+#partie gauche
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_9 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_9
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_9
+#sortie du tantque
+fintantquevariable_9 :
+
+#chargement classique dans $v0
+lw $v0, 16($t5)
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
+add $sp, $sp, -4
+#partie droite 
+# constante dans $v0
+li $v0, 191
+
+#depilage de la partie gauche 
+add $sp, $sp, 4
+lw $t8, 0($sp)
+# Division de $v0 et $t8
+# la division par 0
+beqz $v0, alors_div_1
+div $v0, $t8, $v0
+j fin_div_1
+alors_div_1 :
+#l'expression droite est egale a 0
+li $v0, 4
+la $a0, divZero
+syscall
+j end
+fin_div_1 :
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
+add $sp, $sp, -4
+#partie droite 
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_10 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_10
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_10
+#sortie du tantque
+fintantquevariable_10 :
+
+#chargement classique dans $v0
+lw $v0, 20($t5)
 
 #depilage de la partie gauche 
 add $sp, $sp, 4
@@ -636,17 +806,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_5 :
+tantqueaffect_6 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_5
+beqz $v0, fintantqueaffect_6
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_5
+j tantqueaffect_6
 #sortie du tantque
-fintantqueaffect_5 :
+fintantqueaffect_6 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -685,17 +855,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_7 :
+tantquevariable_11 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_7
+beqz $v0, fintantquevariable_11
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_7
+j tantquevariable_11
 #sortie du tantque
-fintantquevariable_7 :
+fintantquevariable_11 :
 
 #chargement classique dans $v0
 lw $v0, -36($t5)
@@ -815,15 +985,103 @@ add $sp, $sp, -4
 move $s7, $sp
 
 #Allocation des variables 
-add $sp, $sp , -0
+add $sp, $sp , -4
 #Instruction dans la fonction
+#affectation
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 5
+#début du tantque
+tantquevariable_12 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_12
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_12
+#sortie du tantque
+fintantquevariable_12 :
+
+#chargement classique dans $v0
+lw $v0, 16($t5)
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 5
+#début tantque
+tantqueaffect_7 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffect_7
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffect_7
+#sortie du tantque
+fintantqueaffect_7 :
+
+#on dépile la valeur qu'on veut mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+sw $v0, 0($t5)
+
 #Retour de fonction
 #Met exp dans $v0
 # Division 
 #partie gauche
 #mise en place des paramètres 
-add $sp, $sp, -0
+add $sp, $sp, -8
 
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 5
+#début du tantque
+tantquevariable_13 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_13
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_13
+#sortie du tantque
+fintantquevariable_13 :
+
+#chargement classique dans $v0
+lw $v0, 0($t5)
+sw $v0, 0($sp)
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 5
+#début du tantque
+tantquevariable_14 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_14
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_14
+#sortie du tantque
+fintantquevariable_14 :
+
+#chargement classique dans $v0
+lw $v0, 16($t5)
+sw $v0, 4($sp)
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -836,7 +1094,7 @@ add $sp, $sp, 4
 lw $v0, 0($sp)
 
 #Dépiler les params
-add $sp, $sp, 0
+add $sp, $sp, 8
 
 
 #mise dans la pile de la partie gauche
@@ -851,16 +1109,16 @@ add $sp, $sp, 4
 lw $t8, 0($sp)
 # Division de $v0 et $t8
 # la division par 0
-beqz $v0, alors_div_0
+beqz $v0, alors_div_2
 div $v0, $t8, $v0
-j fin_div_0
-alors_div_0 :
+j fin_div_2
+alors_div_2 :
 #l'expression droite est egale a 0
 li $v0, 4
 la $a0, divZero
 syscall
 j end
-fin_div_0 :
+fin_div_2 :
 
 #retire de la pile les variables
 move $sp, $s7
@@ -897,7 +1155,7 @@ add $sp, $sp, -4
 move $s7, $sp
 
 #Allocation des variables 
-add $sp, $sp , -0
+add $sp, $sp , -8
 #Instruction dans la fonction
 #lecture
 #appel de la lecture
@@ -909,7 +1167,7 @@ add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
+li $v1, 6
 #tantque
 tantquelecture_0 :
 #on prend le numéro de région courant
@@ -926,7 +1184,7 @@ fintantquelecture_0 :
 #on dépile la valeur qu'on a lu
 add $sp, $sp, 4
 lw $v0, 0($sp)
-sw $v0, -4($t5)
+sw $v0, 0($t5)
 
 #lecture
 #appel de la lecture
@@ -938,7 +1196,7 @@ add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
+li $v1, 6
 #tantque
 tantquelecture_1 :
 #on prend le numéro de région courant
@@ -955,67 +1213,29 @@ fintantquelecture_1 :
 #on dépile la valeur qu'on a lu
 add $sp, $sp, 4
 lw $v0, 0($sp)
-sw $v0, -8($t5)
+sw $v0, -4($t5)
 
 #affectation
-# constante dans $v0
-li $v0, 5
-#on empile la valeur qu'on veut mettre dans la variable
-sw $v0, 0($sp)
-add $sp, $sp, -4
+#positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
 #on récupere le numéro de région de la variable
-li $v1, 0
-#début tantque
-tantqueaffect_6 :
+li $v1, 6
+#début du tantque
+tantquevariable_15 :
 #on prend le numéro de région courant
-lw $v0, 4($t5) 
+lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_6
+beqz $v0, fintantquevariable_15
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_6
+j tantquevariable_15
 #sortie du tantque
-fintantqueaffect_6 :
+fintantquevariable_15 :
 
-#on dépile la valeur qu'on veut mettre dans la variable
-add $sp, $sp, 4
-lw $v0, 0($sp)
-sw $v0, -12($t5)
-
-#affectation
-# constante dans $v0
-li $v0, 0
-#on empile la valeur qu'on veut mettre dans la variable
-sw $v0, 0($sp)
-add $sp, $sp, -4
-#On recupere la base
-move $t5, $s7
-#on récupere le numéro de région de la variable
-li $v1, 0
-#début tantque
-tantqueaffect_7 :
-#on prend le numéro de région courant
-lw $v0, 4($t5) 
-sub $v0, $v0, $v1
-#on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_7
-#on essaye avec le numéro de région précédent sinon
-lw $t5, 8($t5) 
-j tantqueaffect_7
-#sortie du tantque
-fintantqueaffect_7 :
-
-#on dépile la valeur qu'on veut mettre dans la variable
-add $sp, $sp, 4
-lw $v0, 0($sp)
-sw $v0, -28($t5)
-
-#affectation
-# constante dans $v0
-li $v0, 0
+#chargement classique dans $v0
+lw $v0, 0($t5)
 #on empile la valeur qu'on veut mettre dans la variable
 sw $v0, 0($sp)
 add $sp, $sp, -4
@@ -1039,6 +1259,136 @@ fintantqueaffect_8 :
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
+sw $v0, -4($t5)
+
+#affectation
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 6
+#début du tantque
+tantquevariable_16 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_16
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_16
+#sortie du tantque
+fintantquevariable_16 :
+
+#chargement classique dans $v0
+lw $v0, -4($t5)
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 0
+#début tantque
+tantqueaffect_9 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffect_9
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffect_9
+#sortie du tantque
+fintantqueaffect_9 :
+
+#on dépile la valeur qu'on veut mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+sw $v0, -8($t5)
+
+#affectation
+# constante dans $v0
+li $v0, 5
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 0
+#début tantque
+tantqueaffect_10 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffect_10
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffect_10
+#sortie du tantque
+fintantqueaffect_10 :
+
+#on dépile la valeur qu'on veut mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+sw $v0, -12($t5)
+
+#affectation
+# constante dans $v0
+li $v0, 0
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 0
+#début tantque
+tantqueaffect_11 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffect_11
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffect_11
+#sortie du tantque
+fintantqueaffect_11 :
+
+#on dépile la valeur qu'on veut mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+sw $v0, -28($t5)
+
+#affectation
+# constante dans $v0
+li $v0, 0
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 0
+#début tantque
+tantqueaffect_12 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffect_12
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffect_12
+#sortie du tantque
+fintantqueaffect_12 :
+
+#on dépile la valeur qu'on veut mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
 sw $v0, -32($t5)
 
 #affectation
@@ -1056,17 +1406,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_8 :
+tantquevariable_17 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_8
+beqz $v0, fintantquevariable_17
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_8
+j tantquevariable_17
 #sortie du tantque
-fintantquevariable_8 :
+fintantquevariable_17 :
 
 #chargement classique dans $v0
 lw $v0, -12($t5)
@@ -1083,17 +1433,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_9 :
+tantquevariable_18 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_9
+beqz $v0, fintantquevariable_18
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_9
+j tantquevariable_18
 #sortie du tantque
-fintantquevariable_9 :
+fintantquevariable_18 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -1108,17 +1458,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_10 :
+tantquevariable_19 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_10
+beqz $v0, fintantquevariable_19
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_10
+j tantquevariable_19
 #sortie du tantque
-fintantquevariable_10 :
+fintantquevariable_19 :
 
 #chargement classique dans $v0
 lw $v0, -8($t5)
@@ -1147,17 +1497,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_11 :
+tantquevariable_20 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_11
+beqz $v0, fintantquevariable_20
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_11
+j tantquevariable_20
 #sortie du tantque
-fintantquevariable_11 :
+fintantquevariable_20 :
 
 #chargement classique dans $v0
 lw $v0, -12($t5)
@@ -1180,17 +1530,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_12 :
+tantquevariable_21 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_12
+beqz $v0, fintantquevariable_21
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_12
+j tantquevariable_21
 #sortie du tantque
-fintantquevariable_12 :
+fintantquevariable_21 :
 
 #chargement classique dans $v0
 lw $v0, -12($t5)
@@ -1228,17 +1578,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_13 :
+tantquevariable_22 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_13
+beqz $v0, fintantquevariable_22
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_13
+j tantquevariable_22
 #sortie du tantque
-fintantquevariable_13 :
+fintantquevariable_22 :
 
 #chargement classique dans $v0
 lw $v0, -12($t5)
@@ -1255,16 +1605,16 @@ add $sp, $sp, 4
 lw $t8, 0($sp)
 # Division de $v0 et $t8
 # la division par 0
-beqz $v0, alors_div_1
+beqz $v0, alors_div_3
 div $v0, $t8, $v0
-j fin_div_1
-alors_div_1 :
+j fin_div_3
+alors_div_3 :
 #l'expression droite est egale a 0
 li $v0, 4
 la $a0, divZero
 syscall
 j end
-fin_div_1 :
+fin_div_3 :
 
 #depilage de la partie gauche 
 add $sp, $sp, 4
@@ -1279,17 +1629,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_9 :
+tantqueaffect_13 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_9
+beqz $v0, fintantqueaffect_13
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_9
+j tantqueaffect_13
 #sortie du tantque
-fintantqueaffect_9 :
+fintantqueaffect_13 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1303,17 +1653,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_14 :
+tantquevariable_23 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_14
+beqz $v0, fintantquevariable_23
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_14
+j tantquevariable_23
 #sortie du tantque
-fintantquevariable_14 :
+fintantquevariable_23 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1335,17 +1685,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_15 :
+tantquevariable_24 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_15
+beqz $v0, fintantquevariable_24
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_15
+j tantquevariable_24
 #sortie du tantque
-fintantquevariable_15 :
+fintantquevariable_24 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1374,17 +1724,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_16 :
+tantquevariable_25 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_16
+beqz $v0, fintantquevariable_25
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_16
+j tantquevariable_25
 #sortie du tantque
-fintantquevariable_16 :
+fintantquevariable_25 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1409,17 +1759,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_10 :
+tantqueaffect_14 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_10
+beqz $v0, fintantqueaffect_14
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_10
+j tantqueaffect_14
 #sortie du tantque
-fintantqueaffect_10 :
+fintantqueaffect_14 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1435,17 +1785,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_17 :
+tantquevariable_26 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_17
+beqz $v0, fintantquevariable_26
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_17
+j tantquevariable_26
 #sortie du tantque
-fintantquevariable_17 :
+fintantquevariable_26 :
 
 #chargement classique dans $v0
 lw $v0, -32($t5)
@@ -1470,17 +1820,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_11 :
+tantqueaffect_15 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_11
+beqz $v0, fintantqueaffect_15
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_11
+j tantqueaffect_15
 #sortie du tantque
-fintantqueaffect_11 :
+fintantqueaffect_15 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1497,17 +1847,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_18 :
+tantquevariable_27 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_18
+beqz $v0, fintantquevariable_27
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_18
+j tantquevariable_27
 #sortie du tantque
-fintantquevariable_18 :
+fintantquevariable_27 :
 
 #chargement classique dans $v0
 lw $v0, -32($t5)
@@ -1529,17 +1879,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_19 :
+tantquevariable_28 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_19
+beqz $v0, fintantquevariable_28
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_19
+j tantquevariable_28
 #sortie du tantque
-fintantquevariable_19 :
+fintantquevariable_28 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1566,17 +1916,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_20 :
+tantquevariable_29 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_20
+beqz $v0, fintantquevariable_29
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_20
+j tantquevariable_29
 #sortie du tantque
-fintantquevariable_20 :
+fintantquevariable_29 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1597,17 +1947,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_21 :
+tantquevariable_30 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_21
+beqz $v0, fintantquevariable_30
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_21
+j tantquevariable_30
 #sortie du tantque
-fintantquevariable_21 :
+fintantquevariable_30 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -1632,17 +1982,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_12 :
+tantqueaffect_16 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_12
+beqz $v0, fintantqueaffect_16
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_12
+j tantqueaffect_16
 #sortie du tantque
-fintantqueaffect_12 :
+fintantqueaffect_16 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1660,17 +2010,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_13 :
+tantqueaffect_17 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_13
+beqz $v0, fintantqueaffect_17
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_13
+j tantqueaffect_17
 #sortie du tantque
-fintantqueaffect_13 :
+fintantqueaffect_17 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1686,17 +2036,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_22 :
+tantquevariable_31 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_22
+beqz $v0, fintantquevariable_31
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_22
+j tantquevariable_31
 #sortie du tantque
-fintantquevariable_22 :
+fintantquevariable_31 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1737,17 +2087,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_23 :
+tantquevariable_32 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_23
+beqz $v0, fintantquevariable_32
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_23
+j tantquevariable_32
 #sortie du tantque
-fintantquevariable_23 :
+fintantquevariable_32 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -1777,17 +2127,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_24 :
+tantquevariable_33 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_24
+beqz $v0, fintantquevariable_33
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_24
+j tantquevariable_33
 #sortie du tantque
-fintantquevariable_24 :
+fintantquevariable_33 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -1816,17 +2166,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_25 :
+tantquevariable_34 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_25
+beqz $v0, fintantquevariable_34
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_25
+j tantquevariable_34
 #sortie du tantque
-fintantquevariable_25 :
+fintantquevariable_34 :
 
 #chargement classique dans $v0
 lw $v0, -28($t5)
@@ -1851,17 +2201,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_14 :
+tantqueaffect_18 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_14
+beqz $v0, fintantqueaffect_18
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_14
+j tantqueaffect_18
 #sortie du tantque
-fintantqueaffect_14 :
+fintantqueaffect_18 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1877,17 +2227,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_26 :
+tantquevariable_35 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_26
+beqz $v0, fintantquevariable_35
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_26
+j tantquevariable_35
 #sortie du tantque
-fintantquevariable_26 :
+fintantquevariable_35 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -1912,17 +2262,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_15 :
+tantqueaffect_19 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_15
+beqz $v0, fintantqueaffect_19
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_15
+j tantqueaffect_19
 #sortie du tantque
-fintantqueaffect_15 :
+fintantqueaffect_19 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1943,17 +2293,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_16 :
+tantqueaffect_20 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_16
+beqz $v0, fintantqueaffect_20
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_16
+j tantqueaffect_20
 #sortie du tantque
-fintantqueaffect_16 :
+fintantqueaffect_20 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -1969,17 +2319,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_27 :
+tantquevariable_36 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_27
+beqz $v0, fintantquevariable_36
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_27
+j tantquevariable_36
 #sortie du tantque
-fintantquevariable_27 :
+fintantquevariable_36 :
 
 #chargement classique dans $v0
 lw $v0, 0($t5)
@@ -2004,17 +2354,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début tantque
-tantqueaffect_17 :
+tantqueaffect_21 :
 #on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantqueaffect_17
+beqz $v0, fintantqueaffect_21
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantqueaffect_17
+j tantqueaffect_21
 #sortie du tantque
-fintantqueaffect_17 :
+fintantqueaffect_21 :
 
 #on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
@@ -2036,17 +2386,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_28 :
+tantquevariable_37 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_28
+beqz $v0, fintantquevariable_37
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_28
+j tantquevariable_37
 #sortie du tantque
-fintantquevariable_28 :
+fintantquevariable_37 :
 
 #chargement classique dans $v0
 lw $v0, -28($t5)
@@ -2077,17 +2427,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_29 :
+tantquevariable_38 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_29
+beqz $v0, fintantquevariable_38
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_29
+j tantquevariable_38
 #sortie du tantque
-fintantquevariable_29 :
+fintantquevariable_38 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -2135,17 +2485,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_30 :
+tantquevariable_39 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_30
+beqz $v0, fintantquevariable_39
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_30
+j tantquevariable_39
 #sortie du tantque
-fintantquevariable_30 :
+fintantquevariable_39 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -2190,17 +2540,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_31 :
+tantquevariable_40 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_31
+beqz $v0, fintantquevariable_40
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_31
+j tantquevariable_40
 #sortie du tantque
-fintantquevariable_31 :
+fintantquevariable_40 :
 
 #chargement classique dans $v0
 lw $v0, -28($t5)
@@ -2233,17 +2583,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_32 :
+tantquevariable_41 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_32
+beqz $v0, fintantquevariable_41
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_32
+j tantquevariable_41
 #sortie du tantque
-fintantquevariable_32 :
+fintantquevariable_41 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -2287,17 +2637,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_33 :
+tantquevariable_42 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_33
+beqz $v0, fintantquevariable_42
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_33
+j tantquevariable_42
 #sortie du tantque
-fintantquevariable_33 :
+fintantquevariable_42 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
@@ -2338,17 +2688,17 @@ move $t5, $s7
 #on récupere le numéro de région de la variable
 li $v1, 0
 #début du tantque
-tantquevariable_34 :
+tantquevariable_43 :
 #on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
 #on va a la fin si les numéros correspondent
-beqz $v0, fintantquevariable_34
+beqz $v0, fintantquevariable_43
 #on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
-j tantquevariable_34
+j tantquevariable_43
 #sortie du tantque
-fintantquevariable_34 :
+fintantquevariable_43 :
 
 #chargement classique dans $v0
 lw $v0, -28($t5)

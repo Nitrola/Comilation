@@ -6,7 +6,7 @@ import yal.exceptions.AnalyseSemantiqueException;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Bloc {
@@ -73,52 +73,16 @@ public class Bloc {
 
     }
 
-    public int varCount() {
-
-        int temp = 0;
-        Set<Entree> keys = tab.keySet();
-        Iterator<Entree> itr = keys.iterator();
-
-        while(itr.hasNext()) {
-            Entree e = itr.next();
-            Symbole s = tab.get(e);
-
-            if(s.isVar()) {
-                temp ++;
-            }
-        }
-
-        return temp;
-
-    }
-
-    public int parCount() {
-
-        int temp = 0;
-        Set<Entree> keys = tab.keySet();
-        Iterator<Entree> itr = keys.iterator();
-
-        while(itr.hasNext()) {
-            Entree e = itr.next();
-            Symbole s = tab.get(e);
-
-            if(s.isParam()) {
-                temp ++;
-            }
-        }
-
-        return temp;
-    }
 
     public int tailleTableVariable() {
         int temp = 0;
 
-        for(Map.Entry<Entree, Symbole> map : tab.entrySet() ) {
+        for(Entry<Entree, Symbole> map : tab.entrySet() ) {
             Symbole s = map.getValue();
 
             if(s.isVar()) {
 
-                temp = temp + s.getSpace();
+                temp += s.getSpace();
             }
 
         }
@@ -130,12 +94,12 @@ public class Bloc {
     public int tailleTableParam() {
         int temp = 0;
 
-        for(Map.Entry<Entree, Symbole> map : tab.entrySet() ) {
+        for(Entry<Entree, Symbole> map : tab.entrySet() ) {
             Symbole s = map.getValue();
 
             if(s.isParam()) {
 
-                temp = temp + s.getSpace();
+                temp += s.getSpace();
             }
 
         }

@@ -100,21 +100,6 @@ public class TDS {
         return currentBloc.getIdRegion();
     }
 
-    public int idPrevious() {
-        Bloc b = currentBloc.getBlocPrecedent();
-        if(b != null) {
-            return b.getIdRegion();
-        }
-
-        return -1;
-
-    }
-
-    public int varCount() {
-        return currentBloc.varCount();
-    }
-
-    public int parCount() { return currentBloc.parCount();}
 
     public int getIdBoxing() {
         return idBoxing;

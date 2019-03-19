@@ -34,23 +34,6 @@ public class Lire extends Instruction{
         this.idRegion = s.getIdRegion();
     }
 
-//    @Override
-//    public String toMIPS() {
-//        StringBuilder lire = new StringBuilder();
-//        lire.append("# Lecture d'un entier\n");
-//        lire.append("li $v0, 5\n");
-//        lire.append("syscall\n");
-//
-//        lire.append("#affecte a la variable, la valeur entiere lue\n");
-//        lire.append("sw $v0, ");
-//        lire.append(dep);
-//        lire.append("($s7)\n");
-//        lire.append("\n");
-//
-//        return lire.toString();
-//    }
-//}
-
     @Override
     public String toMIPS() {
 
@@ -65,7 +48,7 @@ public class Lire extends Instruction{
             "add $sp, $sp, -4\n" +
 
             "#On recupere la base\n" +
-            "move $t2, $s7\n" +
+            "move $t5, $s7\n" +
 
             "#on récupere le numéro de région de la variable\n" +
             "li $v1, " + idRegion + "\n" +
@@ -74,14 +57,14 @@ public class Lire extends Instruction{
             "tantquelecture_" + compteur + " :\n" +
 
             "#on prend le numéro de région courant\n" +
-            "lw $v0, 4($t2) \n" +
+            "lw $v0, 4($t5) \n" +
             "sub $v0, $v0, $v1\n" +
 
             "#on va a la fin si les numéros correspondent\n" +
             "beqz $v0, fintantquelecture_" + compteur + "\n" +
 
             "#on essaye avec le numéro de région précédent sinon\n" +
-            "lw $t2, 8($t2) \n" +
+            "lw $t5, 8($t5) \n" +
             "j tantquelecture_" + compteur + "\n" +
 
             "#sortie du tantque\n" +
@@ -91,7 +74,7 @@ public class Lire extends Instruction{
             "add $sp, $sp, 4\n" +
             "lw $v0, 0($sp)\n" +
 
-            "sw $v0, " + dep + "($t2)\n";
+            "sw $v0, " + dep + "($t5)\n";
 
         return mips;
 

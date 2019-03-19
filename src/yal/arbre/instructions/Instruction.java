@@ -12,4 +12,6 @@ public abstract class Instruction extends ArbreAbstrait {
         return false;
     }
 
+    public abstract void verifier();
+
 }

@@ -6,7 +6,7 @@ public class SymboleParam extends Symbole {
 
     public SymboleParam(String ntype) {
         super(ntype);
-        dep = 20 + TDS.getInstance().tailleTableParam();
+        dep = 16 + TDS.getInstance().tailleTableParam();
         space = 4;
     }
 

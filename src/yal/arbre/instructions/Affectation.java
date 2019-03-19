@@ -28,6 +28,7 @@ public class Affectation extends Instruction{
 
         EntreeVariable e = new EntreeVariable(idf);
         Symbole s = TDS.getInstance().identifier(e);
+        exp.verifier();
 
         if (s == null) {
             throw new AnalyseSemantiqueException(exp.getNoLigne(), "la variable  `" + idf + "`"+"n'est pas declaree");
@@ -35,50 +36,37 @@ public class Affectation extends Instruction{
 
         this.dep = s.getDep();
         this.idRegion = s.getIdRegion();
-        exp.verifier();
     }
-
-//    @Override
-//    public String toMIPS(){
-//        StringBuilder affect = new StringBuilder(50);
-//        affect.append("#affectation d'une variable \n");
-//        affect.append(exp.toMIPS());
-//        affect.append("sw $v0, ");
-//        affect.append(dep);
-//        affect.append("($s7)\n");
-//        affect.append("\n");
-//        return affect.toString();
-//    }
-//
-//}
 
     @Override
     public String toMIPS() {
 
     String mips = "#affectation\n" +
 
+            exp.toMIPS() +
+
             "#on empile la valeur qu'on veut mettre dans la variable\n" +
             "sw $v0, 0($sp)\n" +
             "add $sp, $sp, -4\n" +
 
             "#On recupere la base\n" +
-            "move $t2, $s7\n" +
+            "move $t5, $s7\n" +
 
             "#on récupere le numéro de région de la variable\n" +
             "li $v1, " + idRegion + "\n" +
 
-            "#tantque\n" +
+            "#début tantque\n" +
             "tantqueaffect_" + compteur + " :\n" +
 
             "#on prend le numéro de région courant\n" +
-            "lw $v0, 4($t2) \n" +
+            "lw $v0, 4($t5) \n" +
             "sub $v0, $v0, $v1\n" +
 
             "#on va a la fin si les numéros correspondent\n" +
             "beqz $v0, fintantqueaffect_" + compteur + "\n" +
 
             "#on essaye avec le numéro de région précédent sinon\n" +
-            "lw $t2, 8($t2) \n" +
+            "lw $t5, 8($t5) \n" +
             "j tantqueaffect_" + compteur + "\n" +
 
             "#sortie du tantque\n" +
@@ -88,7 +76,7 @@ public class Affectation extends Instruction{
             "add $sp, $sp, 4\n" +
             "lw $v0, 0($sp)\n" +
 
-            "sw $v0, " + dep + "($t2)\n" ;
+            "sw $v0, " + dep + "($t5)\n" ;
 
        return mips;
     }

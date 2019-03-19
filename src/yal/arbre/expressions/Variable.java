@@ -37,6 +37,10 @@ public class Variable extends Expression {
         return " Variable ";
     }
 
+    public void setIdRegion(int idRegion) {
+        this.idRegion = idRegion;
+    }
+
     public int getDep() {
         return dep;
     }
@@ -57,13 +61,6 @@ public class Variable extends Expression {
 
     }
 
-//    @Override
-//    public String toMIPS() {
-//        return "lw $v0, " +
-//                dep + "($s7)\n";
-//    }
-//}
-
 
     @Override
     public String toMIPS() {
@@ -71,30 +68,30 @@ public class Variable extends Expression {
     String mips = "#positionnement d'une variable dans v0\n" +
 
             "#On recupere la base\n" +
-            "move $t2, $s7\n" +
+            "move $t5, $s7\n" +
 
             "#on récupere le numéro de région de la variable\n" +
             "li $v1, " + idRegion + "\n" +
 
-            "#tantque\n" +
+            "#début du tantque\n" +
             "tantquevariable_" + compteur + " :\n" +
 
             "#on prend le numéro de région courant\n" +
-            "lw $v0, 4($t2) \n" +
+            "lw $v0, 4($t5)\n" +
             "sub $v0, $v0, $v1\n" +
 
             "#on va a la fin si les numéros correspondent\n" +
             "beqz $v0, fintantquevariable_" + compteur + "\n" +
 
             "#on essaye avec le numéro de région précédent sinon\n" +
-            "lw $t2, 8($t2) \n" +
+            "lw $t5, 8($t5) \n" +
             "j tantquevariable_" + compteur + "\n" +
 
             "#sortie du tantque\n" +
             "fintantquevariable_" + compteur + " :\n\n" +
 
-            "#chargement classique dans v0\n" +
-            "lw $v0, " + dep + "($t2)\n";
+            "#chargement classique dans $v0\n" +
+            "lw $v0, " + dep + "($t5)\n";
 
         return mips;
     }

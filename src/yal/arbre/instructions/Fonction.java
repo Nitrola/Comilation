@@ -73,7 +73,7 @@ public class Fonction extends Instruction{
                 "#Deplacement de la base\n" +
                 "move $s7, $sp\n" + "\n" +
                 "#Allocation des variables \n" +
-                "add $sp, $sp , -" + this.varMemory + " \n" +
+                "add $sp, $sp , -" + this.varMemory + "\n" +
                 "#Instruction dans la fonction\n" +
                 inst.toMIPS() + "\n";
     }
