@@ -5,13 +5,15 @@ entier b;
 
 fonction ayaya() debut
     entier a;
+    entier b;
+    entier c;
     a = 5;
     retourne a; fin
 
 fonction ayaya2() debut
     entier a;
     a = 10;
-    retourne a; fin
+    retourne a * ayaya(); fin
 
 lire b;
 
@@ -19,7 +21,7 @@ b = b * ayaya();
 
 ecrire b;
 
-b = b + ayaya();
+b = b + ayaya2();
 
 ecrire b;
 

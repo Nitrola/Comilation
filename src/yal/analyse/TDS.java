@@ -43,9 +43,9 @@ public class TDS {
 
     public void ajouterLocale(Entree e, Symbole s, int noLigne){
 
-        if(tabLocale.containsKey(e)){
-            throw new AnalyseSemantiqueException(noLigne,"double déclaration");
-        }
+//        if(tabLocale.containsKey(e)){
+//            throw new AnalyseSemantiqueException(noLigne,"double déclaration");
+//        }
         tabLocale.put(e,s);
     }
 

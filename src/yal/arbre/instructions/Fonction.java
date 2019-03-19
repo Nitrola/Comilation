@@ -26,7 +26,7 @@ public class Fonction extends Instruction{
         this.inst = b;
         this.nbParam = nbParameters;
         this.idRegion = TDS.getInstance().getIdRegion();
-        this.varMemory = TDS.getInstance().memorySizeVar();
+        this.varMemory = 0;
     }
 
     public Fonction(BlocDInstructions b , String idf, int nbParameters, int Lignum, ArrayList<Instruction> a ) {
@@ -35,6 +35,7 @@ public class Fonction extends Instruction{
         this.inst = b;
         this.nbParam = nbParameters;
         this.idRegion = TDS.getInstance().getIdRegion();
+        System.out.println(a);
         this.varMemory = a.size();
 
 

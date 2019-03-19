@@ -190,7 +190,6 @@ DECL_FONCTION ::= FONCTION IDF:i PARAMETRES:p DEBUT LINST:li FIN
               |
                   FONCTION IDF:i PARAMETRES:p DEBUT LDECLFONCTION:lf LINST:li FIN
                   {: TDS.getInstance().entreeBloc();
-                     TDS.getInstance().resetLocale();
                      EntreeFonction entree = new EntreeFonction(i,p);
                      SymboleFonction symbole = new SymboleFonction("entier");
                      li.ajouterAvant(lf);
