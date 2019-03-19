@@ -14,13 +14,13 @@ public class Egalite extends Comparaison {
     public void verifier() throws AnalyseSemantiqueException {
         super.verifier();
 
-        if (!gauche.getType().equals(droite.getType())) {
+        if (!g.getType().equals(d.getType())) {
             StringBuilder erreur = new StringBuilder(50);
 
             erreur.append("erreur de type :\t");
-            erreur.append(gauche);
+            erreur.append(g);
             erreur.append(operateur());
-            erreur.append(droite);
+            erreur.append(d);
             erreur.append("\n\tles expressions a gauche et a droite doivent être de même type");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());

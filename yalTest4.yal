@@ -1,0 +1,26 @@
+programme ayaya
+debut
+
+entier b;
+
+fonction ayaya() debut
+    entier a;
+    a = 5;
+    retourne a; fin
+
+fonction ayaya2() debut
+    entier a;
+    a = 10;
+    retourne a; fin
+
+lire b;
+
+b = b * ayaya();
+
+ecrire b;
+
+b = b + ayaya();
+
+ecrire b;
+
+fin

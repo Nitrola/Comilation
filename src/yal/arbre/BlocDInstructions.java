@@ -24,6 +24,14 @@ public class BlocDInstructions extends ArbreAbstrait {
     public void ajouter(Instruction a) {
         blocDInstructions.add(a) ;
     }
+
+    public void ajouterAvant(ArrayList<Instruction> a) {
+
+        for(int i = a.size() - 1; i >= 0; i--) {
+            blocDInstructions.add(0, a.get(i));
+        }
+
+    }
     
     @Override
     public String toString() {

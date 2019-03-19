@@ -7,6 +7,8 @@ import yal.analyse.symbole.SymboleFonction;
 import yal.arbre.BlocDInstructions;
 import yal.exceptions.AnalyseSemantiqueException;
 
+import java.util.ArrayList;
+
 public class Fonction extends Instruction{
 
     private String idf;
@@ -22,9 +24,20 @@ public class Fonction extends Instruction{
         super(Lignum);
         this.idf = idf;
         this.inst = b;
-        this. nbParam = nbParameters;
+        this.nbParam = nbParameters;
         this.idRegion = TDS.getInstance().getIdRegion();
         this.varMemory = TDS.getInstance().memorySizeVar();
+    }
+
+    public Fonction(BlocDInstructions b , String idf, int nbParameters, int Lignum, ArrayList<Instruction> a ) {
+        super(Lignum);
+        this.idf = idf;
+        this.inst = b;
+        this.nbParam = nbParameters;
+        this.idRegion = TDS.getInstance().getIdRegion();
+        this.varMemory = a.size();
+
+
     }
 
 
@@ -48,7 +61,7 @@ public class Fonction extends Instruction{
 
 
         if (!isReturn()) {
-            throw new AnalyseSemantiqueException(getNoLigne(), "return peut ne pas être atteint dans la fonction " + idf + "()");
+            throw new AnalyseSemantiqueException(getNoLigne(), "retourner peut ne pas être atteint dans la fonction " + idf + "()");
         }
 
         TDS.getInstance().sortieBloc();

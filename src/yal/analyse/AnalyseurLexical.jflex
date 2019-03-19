@@ -82,6 +82,7 @@ commentaires = [/][/].*
 ")"                    { return symbol(CodesLexicaux.PARFER); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
+","                    { return symbol(CodesLexicaux.VIRGULE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 

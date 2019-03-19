@@ -61,8 +61,8 @@ public class AppelFonction extends Expression{
                 "#mise en place des paramètres \n" +
                 "add $sp, $sp, -" + this.nbParam *4 + "\n";
 
-        for(int i =1; i <= nbParam;i++){
-            Expression param = realParam.get(i-1);
+        for(int i = 0; i < nbParam; i++){
+            Expression param = realParam.get(i);
             mips += param.toMIPS() + " sw $v0, " + i*4 + "($sp)\n" ;
         }
 

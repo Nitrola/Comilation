@@ -11,6 +11,7 @@ public class TDS {
 
     private static TDS instance  = new TDS();
     private HashMap<Entree,Symbole> tab;
+    private HashMap<Entree,Symbole> tabLocale;
 
 
     private int idRegion;
@@ -18,6 +19,7 @@ public class TDS {
 
     private TDS(){
         tab = new HashMap<>();
+        tabLocale = new HashMap<>();
         idRegion = -1;
         idBoxing = -1;
     }
@@ -36,10 +38,32 @@ public class TDS {
             throw new AnalyseSemantiqueException(noLigne,"double déclaration");
         }
         tab.put(e,s);
+        tabLocale.put(e,s);
+    }
+
+    public void ajouterLocale(Entree e, Symbole s, int noLigne){
+
+        if(tabLocale.containsKey(e)){
+            throw new AnalyseSemantiqueException(noLigne,"double déclaration");
+        }
+        tabLocale.put(e,s);
+    }
+
+    public void resetLocale() {
+
+        tabLocale.clear();
+        tabLocale.putAll(tab);
+
     }
 
     public Symbole identifier(Entree e){
-        return tab.get(e);
+
+        Symbole temp = tab.get(e);
+        if(temp == null){
+            temp = tabLocale.get(e);
+        }
+
+        return temp;
     }
 
     public void entreeBloc(){

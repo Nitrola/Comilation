@@ -19,13 +19,13 @@ public abstract class Logique extends Binaire {
     public void verifier() {
         super.verifier();
 
-        if (!gauche.getType().equals("booleen") || !droite.getType().equals("booleen")) {
+        if (!g.getType().equals("booleen") || !d.getType().equals("booleen")) {
             StringBuilder erreur = new StringBuilder(40);
 
             erreur.append("erreur de type :\t");
-            erreur.append(gauche);
+            erreur.append(g);
             erreur.append(operateur());
-            erreur.append(droite);
+            erreur.append(d);
             erreur.append("\n\t");
             erreur.append("les deux opérandes doivent être des booléens");
 

@@ -47,6 +47,8 @@ sw $v0, -8($s7)
 
 
 # affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -0
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -58,6 +60,9 @@ jal fonction4
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
+#Dépiler les params
+add $sp, $sp, 0
+
 move $a0, $v0
 li $v0, 1
 syscall
@@ -67,6 +72,8 @@ syscall
 
 
 # affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -0
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -77,6 +84,9 @@ jal fonction5
 #Depile dans $v0
 add $sp, $sp, 4
 lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 0
 
 move $a0, $v0
 li $v0, 1
@@ -108,6 +118,8 @@ add $sp, $sp, -4
 #Deplacement de la base
 move $s6, $sp
 
+#Allocation des variables 
+add $sp, $sp , -44 
 #Instruction dans la fonction
 #affectation d'une variable 
 # On met la constante dans $v0
@@ -124,46 +136,45 @@ sw $v0, -12($s7)
 #Retour de fonction
 #Met exp dans $v0
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # Multiplication 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -12($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 lw $v0, -4($s7)
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Multiplication entre $v0 et $t8
+# Multiplication de $v0 et $t8
 mult $v0, $t8
 #Res $lo -> $v0
 mflo $v0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 
+#retire de la pile les variables
+move $sp, $s6
+lw $s6, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Enregistre la valeur calculé dans $v0
+#Sauvegarde la valeur calculé dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -190,6 +201,8 @@ add $sp, $sp, -4
 #Deplacement de la base
 move $s6, $sp
 
+#Allocation des variables 
+add $sp, $sp , -48 
 #Instruction dans la fonction
 #affectation d'une variable 
 # On met la constante dans $v0
@@ -205,37 +218,33 @@ sw $v0, -20($s7)
 
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -16($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 lw $v0, -20($s7)
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 lw $v0, -8($s7)
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, -24($s7)
 
@@ -243,14 +252,15 @@ sw $v0, -24($s7)
 #Retour de fonction
 #Met exp dans $v0
 # Multiplication 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -24($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
+#mise en place des paramètres 
+add $sp, $sp, -0
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -262,21 +272,26 @@ jal fonction0
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
+#Dépiler les params
+add $sp, $sp, 0
 
-# Dépilement de la partie gauche
+
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Multiplication entre $v0 et $t8
+# Multiplication de $v0 et $t8
 mult $v0, $t8
 #Res $lo -> $v0
 mflo $v0
 
+#retire de la pile les variables
+move $sp, $s6
+lw $s6, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Enregistre la valeur calculé dans $v0
+#Sauvegarde la valeur calculé dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -303,26 +318,26 @@ add $sp, $sp, -4
 #Deplacement de la base
 move $s6, $sp
 
+#Allocation des variables 
+add $sp, $sp , -52 
 #Instruction dans la fonction
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 # On met la constante dans $v0
 li $v0, 1
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 3
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, -36($s7)
 
@@ -330,7 +345,9 @@ sw $v0, -36($s7)
 #Retour de fonction
 #Met exp dans $v0
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
+#mise en place des paramètres 
+add $sp, $sp, -0
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -342,26 +359,30 @@ jal fonction3
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
+#Dépiler les params
+add $sp, $sp, 0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 lw $v0, -36($s7)
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 
+#retire de la pile les variables
+move $sp, $s6
+lw $s6, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Enregistre la valeur calculé dans $v0
+#Sauvegarde la valeur calculé dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -388,11 +409,15 @@ add $sp, $sp, -4
 #Deplacement de la base
 move $s6, $sp
 
+#Allocation des variables 
+add $sp, $sp , -56 
 #Instruction dans la fonction
 #Retour de fonction
 #Met exp dans $v0
 # Multiplication 
-# Calcul de la partie gauche
+#partie gauche
+#mise en place des paramètres 
+add $sp, $sp, -0
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -404,29 +429,33 @@ jal fonction1
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
+#Dépiler les params
+add $sp, $sp, 0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 2
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Multiplication entre $v0 et $t8
+# Multiplication de $v0 et $t8
 mult $v0, $t8
 #Res $lo -> $v0
 mflo $v0
 
+#retire de la pile les variables
+move $sp, $s6
+lw $s6, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Enregistre la valeur calculé dans $v0
+#Sauvegarde la valeur calculé dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -453,11 +482,15 @@ add $sp, $sp, -4
 #Deplacement de la base
 move $s6, $sp
 
+#Allocation des variables 
+add $sp, $sp , -60 
 #Instruction dans la fonction
 #Retour de fonction
 #Met exp dans $v0
 # Division 
-# Calcul de la partie gauche
+#partie gauche
+#mise en place des paramètres 
+add $sp, $sp, -0
 #Appel de fonction
 #Allocation pour la valeur retournée
 add $sp, $sp, -4
@@ -469,20 +502,21 @@ jal fonction2
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
+#Dépiler les params
+add $sp, $sp, 0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 4
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Division entre $v0 et $t8
+# Division de $v0 et $t8
 # la division par 0
 beqz $v0, alors_div_0
 div $v0, $t8, $v0
@@ -495,11 +529,14 @@ syscall
 j end
 fin_div_0 :
 
+#retire de la pile les variables
+move $sp, $s6
+lw $s6, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Enregistre la valeur calculé dans $v0
+#Sauvegarde la valeur calculé dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -526,6 +563,8 @@ add $sp, $sp, -4
 #Deplacement de la base
 move $s6, $sp
 
+#Allocation des variables 
+add $sp, $sp , -64 
 #Instruction dans la fonction
 # Lecture d'un entier
 li $v0, 5
@@ -561,116 +600,103 @@ sw $v0, -32($s7)
 
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 # Soustraction 
-# Calcul de la partie gauche
+#partie gauche
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -12($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # Multiplication 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 lw $v0, -8($s7)
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Multiplication entre $v0 et $t8
+# Multiplication de $v0 et $t8
 mult $v0, $t8
 #Res $lo -> $v0
 mflo $v0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 lw $v0, -12($s7)
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # Multiplication 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -12($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 15
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Multiplication entre $v0 et $t8
+# Multiplication de $v0 et $t8
 mult $v0, $t8
 #Res $lo -> $v0
 mflo $v0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Soustraction entre $v0 et $t8
+# Soustraction de $v0 et $t8
 sub $v0, $t8, $v0
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # Division 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -12($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 5
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Division entre $v0 et $t8
+# Division de $v0 et $t8
 # la division par 0
 beqz $v0, alors_div_1
 div $v0, $t8, $v0
@@ -683,11 +709,10 @@ syscall
 j end
 fin_div_1 :
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, 0($s7)
 
@@ -705,66 +730,60 @@ syscall
 #Boucle
 tantque_0 :
 # Inférieur 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Inférieur entre $v0 et $t8
+# Inférieur de $v0 et $t8
 #partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0, finTantque_0
 iteration_0 :
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 1
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, 0($s7)
 
 
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -32($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 1
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, -32($s7)
 
@@ -785,22 +804,20 @@ syscall
 #Condition
  si_0 :
 # Inférieur 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Inférieur entre $v0 et $t8
+# Inférieur de $v0 et $t8
 #partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0,sinon_0
@@ -843,22 +860,20 @@ sw $v0, -4($s7)
 
 # affichage de l'expression (booleen)
 # Egalite 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Egalite entre $v0 et $t8
+# Egalite de $v0 et $t8
 #egalité -> on met 1 dans $v0, sinon 0
 seq $v0, $v0, $t8
 beqz $v0, alors_affbool_4
@@ -877,22 +892,20 @@ syscall
 #Boucle
 tantque_2 :
 # Inférieur 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 10
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Inférieur entre $v0 et $t8
+# Inférieur de $v0 et $t8
 #partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0, finTantque_2
@@ -900,66 +913,60 @@ iteration_2 :
 #Boucle
 tantque_1 :
 # Inférieur 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 10
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Inférieur entre $v0 et $t8
+# Inférieur de $v0 et $t8
 #partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0, finTantque_1
 iteration_1 :
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -28($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 1
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, -28($s7)
 
 
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 1
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, -4($s7)
 
@@ -975,22 +982,20 @@ sw $v0, -4($s7)
 
 #affectation d'une variable 
 # Addition 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, 0($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 1
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Addition entre $v0 et $t8
+# Addition de $v0 et $t8
 add $v0, $t8, $v0
 sw $v0, 0($s7)
 
@@ -1001,57 +1006,51 @@ finTantque_2 :
 #Condition
  si_1 :
 # Ou 
-# Calcul de la partie gauche
+#partie gauche
 # Egalite 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -28($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 100
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Egalite entre $v0 et $t8
+# Egalite de $v0 et $t8
 #egalité -> on met 1 dans $v0, sinon 0
 seq $v0, $v0, $t8
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # Egalite 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Egalite entre $v0 et $t8
+# Egalite de $v0 et $t8
 #egalité -> on met 1 dans $v0, sinon 0
 seq $v0, $v0, $t8
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Ou entre $v0 et $t8
+# Ou de $v0 et $t8
 or $v0, $t8, $v0
 beqz $v0,sinon_1
  alors_1 :
@@ -1070,22 +1069,20 @@ j fin_1
 sinon_1 :
 # affichage de l'expression (booleen)
 # Egalite 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Egalite entre $v0 et $t8
+# Egalite de $v0 et $t8
 #egalité -> on met 1 dans $v0, sinon 0
 seq $v0, $v0, $t8
 beqz $v0, alors_affbool_6
@@ -1105,25 +1102,23 @@ fin_1 :
 
 #Condition
  si_2 :
-#non (yal.arbre.expressions.Variable@511d50c0 == 50)
+#non yal.arbre.expressions.binaire.comparaison.Egalite@511d50c0
 # Calcul de l'expression
 # Egalite 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -28($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 50
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Egalite entre $v0 et $t8
+# Egalite de $v0 et $t8
 #egalité -> on met 1 dans $v0, sinon 0
 seq $v0, $v0, $t8
 # XOR $v0 et 1 
@@ -1131,25 +1126,23 @@ xori $v0, $v0, 1
 beqz $v0,sinon_2
  alors_2 :
 # affichage de l'expression (booleen)
-#non (yal.arbre.expressions.Variable@60e53b93 != 0)
+#non yal.arbre.expressions.binaire.comparaison.Different@60e53b93
 # Calcul de l'expression
 # Différent 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Différent entre $v0 et $t8
+# Différent de $v0 et $t8
 #différent -> on met 1 dans $v0, sinon 0
 sne $v0, $v0, $t8
 # XOR $v0 et 1 
@@ -1171,22 +1164,20 @@ j fin_2
 sinon_2 :
 # affichage de l'expression (booleen)
 # Différent 
-# Calcul de la partie gauche
+#partie gauche
 lw $v0, -4($s7)
 
-# Empilement de la partie gauche
-sw $v0, 0($sp)
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
 add $sp, $sp, -4
-
-# Calcul de la partie droite
+#partie droite 
 # On met la constante dans $v0
 li $v0, 0
 
-# Dépilement de la partie gauche
+#depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-
-# Différent entre $v0 et $t8
+# Différent de $v0 et $t8
 #différent -> on met 1 dans $v0, sinon 0
 sne $v0, $v0, $t8
 beqz $v0, alors_affbool_8
@@ -1208,11 +1199,14 @@ fin_2 :
 #Met exp dans $v0
 lw $v0, -28($s7)
 
+#retire de la pile les variables
+move $sp, $s6
+lw $s6, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Enregistre la valeur calculé dans $v0
+#Sauvegarde la valeur calculé dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
