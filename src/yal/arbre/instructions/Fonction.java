@@ -26,19 +26,7 @@ public class Fonction extends Instruction{
         this.inst = b;
         this.nbParam = nbParameters;
         this.idRegion = TDS.getInstance().getIdRegion();
-        this.varMemory = 0;
-    }
-
-    public Fonction(BlocDInstructions b , String idf, int nbParameters, int Lignum, ArrayList<Instruction> a ) {
-        super(Lignum);
-        this.idf = idf;
-        this.inst = b;
-        this.nbParam = nbParameters;
-        this.idRegion = TDS.getInstance().getIdRegion();
-        System.out.println(a);
-        this.varMemory = a.size();
-
-
+        this.varMemory = TDS.getInstance().tailleTableVariable();
     }
 
 
@@ -76,14 +64,14 @@ public class Fonction extends Instruction{
                 "sw $ra, 0($sp)\n" +
                 "add $sp, $sp, -4\n" + "\n" +
                 "#Empilement chainage dynamique\n" +
-                "sw $s6, 0($sp)\n" +
+                "sw $s7, 0($sp)\n" +
                 "add $sp, $sp, -4\n" + "\n" +
                 "#Empilement de l'id de la region\n" +
                 "li $t8, " + idRegion + "\n" +
                 "sw $t8, 0($sp)\n"+
                 "add $sp, $sp, -4\n" + "\n" +
                 "#Deplacement de la base\n" +
-                "move $s6, $sp\n" + "\n" +
+                "move $s7, $sp\n" + "\n" +
                 "#Allocation des variables \n" +
                 "add $sp, $sp , -" + this.varMemory + " \n" +
                 "#Instruction dans la fonction\n" +

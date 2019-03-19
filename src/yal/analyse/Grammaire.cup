@@ -72,11 +72,12 @@ terminal String    IDF, CSTENTIERE, TYPE ;
 
 /* Non terminals used in the grammar section.  */
 
+non terminal Symbol START, START_FONCTION ;
 non terminal Integer PARAMETRES, NB_PARAM, PARAM ;
 non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstructions LINST, LDECL ;
 non terminal Expression EXP, OPER ;
-non terminal Instruction DECL_FONCTION, DECL, DECL_VAR, DECL_VAR_LOCAL ;
+non terminal Instruction DECL_FONCTION, DECL, DECL_VAR ;
 non terminal Instruction INST, AFFECTATION, ECRITURE, LECTURE, BOUCLE, CONDITION, RETOURNE ;
 non terminal ArrayList<Instruction> LDECLFONCTION ;
 non terminal ArrayList<Expression> PAR_EFF ;
@@ -95,14 +96,16 @@ precedence left NON;
 
 start with PROG ;
 
-PROG    ::=     PROGRAMME IDF DEBUT LDECL:ld LINST:li FIN
-                {: TDS.getInstance().entreeBloc();
-                   RESULT = new Main(ld, li, lileft + 1) ;
+START   ::=     PROGRAMME
+                {: TDS.getInstance().entreeBloc(); :}
+                ;
+
+PROG    ::=     START IDF DEBUT LDECL:ld LINST:li FIN
+                {: RESULT = new Main(ld, li, lileft + 1) ;
                    TDS.getInstance().sortieBloc(); :}
         |
-                PROGRAMME IDF DEBUT LINST:li FIN
-                {: TDS.getInstance().entreeBloc();
-                   RESULT = new Main(li, lileft + 1);
+                START IDF DEBUT LINST:li FIN
+                {: RESULT = new Main(li, lileft + 1);
                    TDS.getInstance().sortieBloc(); :}
                 ;
 
@@ -156,11 +159,11 @@ DECL    ::=     DECL_VAR:dv
                 ;
 
 
-LDECLFONCTION ::=   LDECLFONCTION:lf DECL_VAR_LOCAL:d
+LDECLFONCTION ::=   LDECLFONCTION:lf DECL_VAR:d
                     {: if(d != null) { lf.add(d); }
                        RESULT = lf; :}
                |
-                    DECL_VAR_LOCAL:d
+                    DECL_VAR:d
                     {: ArrayList<Instruction> lf = new ArrayList<Instruction>(dleft + 1);
                        if(d != null) { lf.add(d); }
                        RESULT = lf; :}
@@ -173,27 +176,24 @@ DECL_VAR  ::=   TYPE:t IDF:i POINTVIRGULE
                    TDS.getInstance().ajouter(e, s, tleft+1); :}
                 ;
 
-DECL_VAR_LOCAL ::= TYPE:t IDF:i POINTVIRGULE
-                   {: EntreeVariable e = new EntreeVariable(i);
-                      SymboleVariable s = new SymboleVariable("entier");
-                      TDS.getInstance().ajouterLocale(e, s, tleft+1); :}
+
+START_FONCTION ::= FONCTION
+                   {: TDS.getInstance().entreeBloc(); :}
                    ;
 
 
-DECL_FONCTION ::= FONCTION IDF:i PARAMETRES:p DEBUT LINST:li FIN
-                  {: TDS.getInstance().entreeBloc();
-                     EntreeFonction entree = new EntreeFonction(i,p);
+DECL_FONCTION ::= START_FONCTION IDF:i PARAMETRES:p DEBUT LINST:li FIN
+                  {: EntreeFonction entree = new EntreeFonction(i,p);
                      SymboleFonction symbole = new SymboleFonction("entier");
                      RESULT = new Fonction(li, i, p, ileft + 1);
                      TDS.getInstance().sortieBloc();
                      TDS.getInstance().ajouter(entree, symbole, ileft + 1); :}
               |
-                  FONCTION IDF:i PARAMETRES:p DEBUT LDECLFONCTION:lf LINST:li FIN
-                  {: TDS.getInstance().entreeBloc();
-                     EntreeFonction entree = new EntreeFonction(i,p);
+                  START_FONCTION IDF:i PARAMETRES:p DEBUT LDECLFONCTION:lf LINST:li FIN
+                  {: EntreeFonction entree = new EntreeFonction(i,p);
                      SymboleFonction symbole = new SymboleFonction("entier");
                      li.ajouterAvant(lf);
-                     RESULT = new Fonction(li, i , p, ileft + 1, lf);
+                     RESULT = new Fonction(li, i , p, ileft + 1);
                      TDS.getInstance().sortieBloc();
                      TDS.getInstance().ajouter(entree, symbole, ileft + 1); :}
                   ;
@@ -216,7 +216,7 @@ NB_PARAM   ::=  PARAM POINTVIRGULE NB_PARAM:np
 
 PARAM      ::=  TYPE:t IDF:i
                 {: EntreeVariable e = new EntreeVariable(i);
-                   SymboleVariable s = new SymboleVariable("entier");
+                   SymboleParam s = new SymboleParam("entier");
                    TDS.getInstance().ajouter(e, s, tleft + 1); :}
                 ;
 

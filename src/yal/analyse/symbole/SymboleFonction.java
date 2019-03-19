@@ -21,7 +21,7 @@ public class SymboleFonction extends Symbole {
     }
     public SymboleFonction(String ntype, ArrayList<String> types) {
         super(ntype);
-        this.dep =0;
+        this.dep = 0;
         space = 0;
         compteur = cmpt;
         cmpt ++;

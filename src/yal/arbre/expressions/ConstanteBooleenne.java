@@ -7,13 +7,8 @@ public class ConstanteBooleenne extends Constante {
     }
 
     @Override
-    public String getType() {
-        return "booleen";
-    }
-
-    @Override
     public String operation() {
-        return " Constante Booléenne ";
+        return " Const Bool ";
     }
 
     @Override
@@ -29,6 +24,11 @@ public class ConstanteBooleenne extends Constante {
     @Override
     public String toMIPS() {
         return super.toMIPS();
+    }
+
+    @Override
+    public String getType() {
+        return "booleen";
     }
 
 }

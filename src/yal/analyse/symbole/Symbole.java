@@ -12,7 +12,6 @@ public abstract class Symbole {
 
     public Symbole(String ntype){
         this.type = ntype;
-        this.dep = - TDS.getInstance().tailleTableVariable();
         this.idRegion = TDS.getInstance().getIdRegion();
         this.boxingLevel = TDS.getInstance().getIdBoxing();
     }
@@ -31,6 +30,18 @@ public abstract class Symbole {
 
     public int getIdBoxing() {
         return boxingLevel;
+    }
+
+    public int getSpace() {
+        return space;
+    }
+
+    public boolean isVar() {
+        return false;
+    }
+
+    public boolean isParam() {
+        return false;
     }
 
 }

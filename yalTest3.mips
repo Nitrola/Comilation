@@ -10,8 +10,8 @@ main :
 #intialiser $s7 avec $sp
 move $s7, $sp
 
-#réserver la place pour 17 variables
-addi $sp, $sp, -68
+#réserver la place pour 11 variables
+addi $sp, $sp, -44
 
 # initialisation de toutes les variables a 0
 sw $zero, -0($s7)
@@ -25,12 +25,6 @@ sw $zero, -28($s7)
 sw $zero, -32($s7)
 sw $zero, -36($s7)
 sw $zero, -40($s7)
-sw $zero, -44($s7)
-sw $zero, -48($s7)
-sw $zero, -52($s7)
-sw $zero, -56($s7)
-sw $zero, -60($s7)
-sw $zero, -64($s7)
 
 # Lecture d'un entier
 li $v0, 5
@@ -107,28 +101,28 @@ sw $ra, 0($sp)
 add $sp, $sp, -4
 
 #Empilement chainage dynamique
-sw $s6, 0($sp)
+sw $s7, 0($sp)
 add $sp, $sp, -4
 
 #Empilement de l'id de la region
-li $t8, 0
+li $t8, 1
 sw $t8, 0($sp)
 add $sp, $sp, -4
 
 #Deplacement de la base
-move $s6, $sp
+move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0 
 #Instruction dans la fonction
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 6
 sw $v0, 0($s7)
 
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 7
 sw $v0, -12($s7)
 
@@ -168,8 +162,8 @@ lw $t8, 0($sp)
 add $v0, $t8, $v0
 
 #retire de la pile les variables
-move $sp, $s6
-lw $s6, 8($sp)
+move $sp, $s7
+lw $s7, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
@@ -190,28 +184,28 @@ sw $ra, 0($sp)
 add $sp, $sp, -4
 
 #Empilement chainage dynamique
-sw $s6, 0($sp)
+sw $s7, 0($sp)
 add $sp, $sp, -4
 
 #Empilement de l'id de la region
-li $t8, 1
+li $t8, 2
 sw $t8, 0($sp)
 add $sp, $sp, -4
 
 #Deplacement de la base
-move $s6, $sp
+move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0 
 #Instruction dans la fonction
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 15
 sw $v0, -16($s7)
 
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 3
 sw $v0, -20($s7)
 
@@ -285,8 +279,8 @@ mult $v0, $t8
 mflo $v0
 
 #retire de la pile les variables
-move $sp, $s6
-lw $s6, 8($sp)
+move $sp, $s7
+lw $s7, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
@@ -307,16 +301,16 @@ sw $ra, 0($sp)
 add $sp, $sp, -4
 
 #Empilement chainage dynamique
-sw $s6, 0($sp)
+sw $s7, 0($sp)
 add $sp, $sp, -4
 
 #Empilement de l'id de la region
-li $t8, 2
+li $t8, 3
 sw $t8, 0($sp)
 add $sp, $sp, -4
 
 #Deplacement de la base
-move $s6, $sp
+move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0 
@@ -324,14 +318,14 @@ add $sp, $sp , -0
 #affectation d'une variable 
 # Addition 
 #partie gauche
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 1
 
 #mise dans la pile de la partie gauche
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 3
 
 #depilage de la partie gauche 
@@ -376,8 +370,8 @@ lw $t8, 0($sp)
 add $v0, $t8, $v0
 
 #retire de la pile les variables
-move $sp, $s6
-lw $s6, 8($sp)
+move $sp, $s7
+lw $s7, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
@@ -398,16 +392,16 @@ sw $ra, 0($sp)
 add $sp, $sp, -4
 
 #Empilement chainage dynamique
-sw $s6, 0($sp)
+sw $s7, 0($sp)
 add $sp, $sp, -4
 
 #Empilement de l'id de la region
-li $t8, 3
+li $t8, 4
 sw $t8, 0($sp)
 add $sp, $sp, -4
 
 #Deplacement de la base
-move $s6, $sp
+move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0 
@@ -437,7 +431,7 @@ add $sp, $sp, 0
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 2
 
 #depilage de la partie gauche 
@@ -449,8 +443,8 @@ mult $v0, $t8
 mflo $v0
 
 #retire de la pile les variables
-move $sp, $s6
-lw $s6, 8($sp)
+move $sp, $s7
+lw $s7, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
@@ -471,16 +465,16 @@ sw $ra, 0($sp)
 add $sp, $sp, -4
 
 #Empilement chainage dynamique
-sw $s6, 0($sp)
+sw $s7, 0($sp)
 add $sp, $sp, -4
 
 #Empilement de l'id de la region
-li $t8, 4
+li $t8, 5
 sw $t8, 0($sp)
 add $sp, $sp, -4
 
 #Deplacement de la base
-move $s6, $sp
+move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0 
@@ -510,7 +504,7 @@ add $sp, $sp, 0
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 4
 
 #depilage de la partie gauche 
@@ -530,8 +524,8 @@ j end
 fin_div_0 :
 
 #retire de la pile les variables
-move $sp, $s6
-lw $s6, 8($sp)
+move $sp, $s7
+lw $s7, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
@@ -552,16 +546,16 @@ sw $ra, 0($sp)
 add $sp, $sp, -4
 
 #Empilement chainage dynamique
-sw $s6, 0($sp)
+sw $s7, 0($sp)
 add $sp, $sp, -4
 
 #Empilement de l'id de la region
-li $t8, 5
+li $t8, 6
 sw $t8, 0($sp)
 add $sp, $sp, -4
 
 #Deplacement de la base
-move $s6, $sp
+move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0 
@@ -581,19 +575,19 @@ sw $v0, -8($s7)
 
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 5
 sw $v0, -12($s7)
 
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 sw $v0, -28($s7)
 
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 sw $v0, -32($s7)
 
@@ -661,7 +655,7 @@ lw $v0, -12($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 15
 
 #depilage de la partie gauche 
@@ -690,7 +684,7 @@ lw $v0, -12($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 5
 
 #depilage de la partie gauche 
@@ -737,7 +731,7 @@ lw $v0, 0($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -757,7 +751,7 @@ lw $v0, 0($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 1
 
 #depilage de la partie gauche 
@@ -777,7 +771,7 @@ lw $v0, -32($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 1
 
 #depilage de la partie gauche 
@@ -811,7 +805,7 @@ lw $v0, 0($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -847,13 +841,13 @@ syscall
 fin_0 :
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 sw $v0, 0($s7)
 
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 sw $v0, -4($s7)
 
@@ -867,7 +861,7 @@ lw $v0, 0($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -899,7 +893,7 @@ lw $v0, 0($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 10
 
 #depilage de la partie gauche 
@@ -920,7 +914,7 @@ lw $v0, -4($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 10
 
 #depilage de la partie gauche 
@@ -940,7 +934,7 @@ lw $v0, -28($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 1
 
 #depilage de la partie gauche 
@@ -960,7 +954,7 @@ lw $v0, -4($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 1
 
 #depilage de la partie gauche 
@@ -975,7 +969,7 @@ j tantque_1
 finTantque_1 :
 
 #affectation d'une variable 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 sw $v0, -4($s7)
 
@@ -989,7 +983,7 @@ lw $v0, 0($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 1
 
 #depilage de la partie gauche 
@@ -1015,7 +1009,7 @@ lw $v0, -28($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 100
 
 #depilage de la partie gauche 
@@ -1037,7 +1031,7 @@ lw $v0, -4($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -1055,7 +1049,7 @@ or $v0, $t8, $v0
 beqz $v0,sinon_1
  alors_1 :
 # affichage de l'expression (entier)
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 5
 move $a0, $v0
 li $v0, 1
@@ -1076,7 +1070,7 @@ lw $v0, -4($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -1102,7 +1096,7 @@ fin_1 :
 
 #Condition
  si_2 :
-#non yal.arbre.expressions.binaire.comparaison.Egalite@511d50c0
+#non yal.arbre.expressions.binaire.comparaison.Egalite@1d44bcfa
 # Calcul de l'expression
 # Egalite 
 #partie gauche
@@ -1112,7 +1106,7 @@ lw $v0, -28($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 50
 
 #depilage de la partie gauche 
@@ -1126,7 +1120,7 @@ xori $v0, $v0, 1
 beqz $v0,sinon_2
  alors_2 :
 # affichage de l'expression (booleen)
-#non yal.arbre.expressions.binaire.comparaison.Different@60e53b93
+#non yal.arbre.expressions.binaire.comparaison.Different@266474c2
 # Calcul de l'expression
 # Différent 
 #partie gauche
@@ -1136,7 +1130,7 @@ lw $v0, -4($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -1171,7 +1165,7 @@ lw $v0, -4($s7)
  sw $v0, 0($sp)
 add $sp, $sp, -4
 #partie droite 
-# On met la constante dans $v0
+# constante dans $v0
 li $v0, 0
 
 #depilage de la partie gauche 
@@ -1200,8 +1194,8 @@ fin_2 :
 lw $v0, -28($s7)
 
 #retire de la pile les variables
-move $sp, $s6
-lw $s6, 8($sp)
+move $sp, $s7
+lw $s7, 8($sp)
 #Depile l'id de la region & le chainage dynamique & l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)

@@ -1,28 +1,33 @@
-programme ayaya
+programme declaraton_test
 debut
 
-entier b;
+entier raptor;
+entier merlin1;
+entier e;
 
-fonction ayaya() debut
-    entier a;
-    entier b;
-    entier c;
-    a = 5;
-    retourne a; fin
+fonction merlin1(entier a; entier b; entier c)
+debut
+    entier d;
 
-fonction ayaya2() debut
-    entier a;
-    a = 10;
-    retourne a * ayaya(); fin
+    d = 5;
 
-lire b;
+    ecrire a;
+    ecrire b;
+    ecrire c;
 
-b = b * ayaya();
+    ecrire d;
 
-ecrire b;
+    ecrire e;
 
-b = b + ayaya2();
+    retourne 16;
+fin
 
-ecrire b;
+e = 8;
+merlin1 = 666;
+
+raptor = merlin1(1, 2, 3);
+
+ecrire raptor;
+ecrire merlin1;
 
 fin

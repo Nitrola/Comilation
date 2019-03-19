@@ -11,17 +11,28 @@ public class TDS {
 
     private static TDS instance  = new TDS();
     private HashMap<Entree,Symbole> tab;
-    private HashMap<Entree,Symbole> tabLocale;
 
 
     private int idRegion;
     private int idBoxing;
+    private boolean Syntaxique;
+
+    private Bloc mainBloc;
+    private Bloc currentBloc;
 
     private TDS(){
-        tab = new HashMap<>();
-        tabLocale = new HashMap<>();
+        mainBloc = null;
+        currentBloc = null;
         idRegion = -1;
         idBoxing = -1;
+        Syntaxique = true;
+    }
+
+    public void setup() {
+        Syntaxique = false;
+        idRegion = -1;
+        idBoxing = -1;
+
     }
 
     public static TDS getInstance() {
@@ -29,55 +40,81 @@ public class TDS {
     }
 
     public int tailleTableVariable(){
-        return tab.size() * 4;
+        return currentBloc.tailleTableVariable();
+    }
+
+    public int tailleTableParam() {
+        return currentBloc.tailleTableParam();
     }
 
     public void ajouter(Entree e, Symbole s, int noLigne){
 
-        if(tab.containsKey(e)){
-            throw new AnalyseSemantiqueException(noLigne,"double déclaration");
-        }
-        tab.put(e,s);
-        tabLocale.put(e,s);
-    }
-
-    public void ajouterLocale(Entree e, Symbole s, int noLigne){
-
-//        if(tabLocale.containsKey(e)){
-//            throw new AnalyseSemantiqueException(noLigne,"double déclaration");
-//        }
-        tabLocale.put(e,s);
-    }
-
-    public void resetLocale() {
-
-        tabLocale.clear();
-        tabLocale.putAll(tab);
-
+        currentBloc.ajouter(e, s, noLigne);
     }
 
     public Symbole identifier(Entree e){
 
-        Symbole temp = tab.get(e);
-        if(temp == null){
-            temp = tabLocale.get(e);
-        }
-
-        return temp;
+        return currentBloc.identifier(e);
     }
 
     public void entreeBloc(){
         idRegion++;
         idBoxing++;
+
+        if(Syntaxique) {
+            if (idRegion == 0) {
+
+                Bloc b = new Bloc(idRegion);
+                mainBloc = b;
+                currentBloc = b;
+
+            } else {
+
+                Bloc nb = new Bloc(idRegion, currentBloc);
+                currentBloc.ajouterSuivant(nb);
+                currentBloc = nb;
+
+            }
+        }else{
+            if (idRegion == 0) {
+
+                currentBloc = mainBloc;
+
+            } else {
+
+                Bloc bf = currentBloc.recupSuivant(idRegion);
+                currentBloc = bf;
+
+            }
+        }
     }
 
     public void sortieBloc(){
+
+        Bloc b = currentBloc.getBlocPrecedent();
+        currentBloc = b;
         idBoxing--;
     }
 
     public int getIdRegion() {
-        return idRegion;
+        return currentBloc.getIdRegion();
     }
+
+    public int idPrevious() {
+        Bloc b = currentBloc.getBlocPrecedent();
+        if(b != null) {
+            return b.getIdRegion();
+        }
+
+        return -1;
+
+    }
+
+    public int varCount() {
+        return currentBloc.varCount();
+    }
+
+    public int parCount() { return currentBloc.parCount();}
 
     public int getIdBoxing() {
         return idBoxing;
@@ -87,8 +124,5 @@ public class TDS {
         return tab.size();
     }
 
-    public int memorySizeVar(){
-        return tab.size()*4;
-    }
 }
 

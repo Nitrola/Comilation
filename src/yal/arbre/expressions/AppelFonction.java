@@ -38,7 +38,7 @@ public class AppelFonction extends Expression{
 
     @Override
     public String operation() {
-        return "Appel";
+        return "AppelFonction";
     }
 
     @Override
@@ -52,6 +52,9 @@ public class AppelFonction extends Expression{
         }
         label = s.getLabel();
         type = s.getType();
+        for(int i = 0; i<realParam.size(); i++) {
+            realParam.get(i).verifier();
+        }
 
     }
 

@@ -22,6 +22,7 @@ public abstract class Entree {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entree entree = (Entree) o;
+
         return Objects.equals(idf, entree.idf);
     }
 
