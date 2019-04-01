@@ -12,7 +12,7 @@ accesTabInvalide :
 .text
 main :
 
-#nueÃ©ro de rÃ©gion
+#nueéro de région
 li $t8, 0
 sw $t8, 0($sp)
 addi $sp, $sp, -4
@@ -27,7 +27,7 @@ addi $sp, $sp, -8
 sw $zero, -0($s7)
 sw $zero, -4($s7)
 
-#DÃ©claration d'un tableau
+#Déclaration d'un tableau
 #on range l'adresse du debut du tab
 sw $sp, 0($s7)
 #on met la longueur dans v0
@@ -55,16 +55,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_2 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_2
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_2
 #sortie du tantque
@@ -75,13 +75,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 0
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -102,16 +102,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_3 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_3
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_3
 #sortie du tantque
@@ -122,13 +122,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 1
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -149,16 +149,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_4 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_4
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_4
 #sortie du tantque
@@ -169,13 +169,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 2
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -196,16 +196,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_5 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_5
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_5
 #sortie du tantque
@@ -216,13 +216,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 3
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -243,16 +243,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_6 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_6
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_6
 #sortie du tantque
@@ -263,13 +263,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 4
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -290,16 +290,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_7 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_7
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_7
 #sortie du tantque
@@ -310,13 +310,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 5
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -337,16 +337,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_8 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_8
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_8
 #sortie du tantque
@@ -357,13 +357,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 6
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -384,16 +384,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_9 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_9
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_9
 #sortie du tantque
@@ -404,13 +404,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 7
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -431,16 +431,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_10 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_10
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_10
 #sortie du tantque
@@ -451,13 +451,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 8
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -478,16 +478,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_11 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_11
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_11
 #sortie du tantque
@@ -498,13 +498,13 @@ lw $t2, 0($t5)
 #on met l'indice dans $v0
 # constante dans $v0
 li $v0, 9
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -518,11 +518,11 @@ add $t2, $t2, $t4
 sw $v0, 0($t2)
 
 #affectation
-#mise en place des paramÃ¨tres 
+#mise en place des paramètres 
 add $sp, $sp, -0
 
 #Appel de fonction
-#Allocation pour la valeur retournÃ©e
+#Allocation pour la valeur retournée
 add $sp, $sp, -4
 
 #Jump vers le label de la fonction affichage
@@ -532,7 +532,7 @@ jal fonction1
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
-#DÃ©piler les params
+#Dépiler les params
 add $sp, $sp, 0
 
 #on empile la valeur qu'on veut mettre dans la variable
@@ -540,32 +540,32 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffect_6 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_6
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_6
 #sortie du tantque
 fintantqueaffect_6 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, -4($t5)
 
 #affectation
-#mise en place des paramÃ¨tres 
+#mise en place des paramètres 
 add $sp, $sp, -0
 
 #Appel de fonction
-#Allocation pour la valeur retournÃ©e
+#Allocation pour la valeur retournée
 add $sp, $sp, -4
 
 #Jump vers le label de la fonction tri
@@ -575,7 +575,7 @@ jal fonction0
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
-#DÃ©piler les params
+#Dépiler les params
 add $sp, $sp, 0
 
 #on empile la valeur qu'on veut mettre dans la variable
@@ -583,32 +583,32 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffect_7 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_7
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_7
 #sortie du tantque
 fintantqueaffect_7 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, -4($t5)
 
 #affectation
-#mise en place des paramÃ¨tres 
+#mise en place des paramètres 
 add $sp, $sp, -0
 
 #Appel de fonction
-#Allocation pour la valeur retournÃ©e
+#Allocation pour la valeur retournée
 add $sp, $sp, -4
 
 #Jump vers le label de la fonction affichage
@@ -618,7 +618,7 @@ jal fonction1
 add $sp, $sp, 4
 lw $v0, 0($sp)
 
-#DÃ©piler les params
+#Dépiler les params
 add $sp, $sp, 0
 
 #on empile la valeur qu'on veut mettre dans la variable
@@ -626,28 +626,28 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffect_8 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_8
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_8
 #sortie du tantque
 fintantqueaffect_8 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, -4($t5)
 
 end :
-    li $v0, 10            # retour au systÃ¨me
+    li $v0, 10            # retour au système
     syscall
 
     erreurLongueurTab :
@@ -695,43 +695,43 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but tantque
+#début tantque
 tantqueaffect_0 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_0
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_0
 #sortie du tantque
 fintantqueaffect_0 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, 0($t5)
 
 #Boucle
 tantque_1 :
-# InfÃ©rieur 
+# Inférieur 
 #partie gauche
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_0 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_0
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_0
 #sortie du tantque
@@ -747,16 +747,16 @@ add $sp, $sp, -4
 #positionnement de la longueur du tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquelongueur_0 :
-#on prend le numÃ©ro de rÃ©gion actuel
+#on prend le numéro de région actuel
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquelongueur_0
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquelongueur_0
 #sortie du tantque
@@ -770,8 +770,8 @@ lw $v0, 0($t4)
 #depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-# InfÃ©rieur de $v0 et $t8
-#partie gauche est infÃ©rieure Ã  la droite, on met 1 dans $v0, sinon 0
+# Inférieur de $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0, finTantque_1
 iteration_1 :
@@ -783,43 +783,43 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but tantque
+#début tantque
 tantqueaffect_1 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_1
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_1
 #sortie du tantque
 fintantqueaffect_1 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, -4($t5)
 
 #Boucle
 tantque_0 :
-# InfÃ©rieur 
+# Inférieur 
 #partie gauche
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_1 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_1
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_1
 #sortie du tantque
@@ -837,16 +837,16 @@ add $sp, $sp, -4
 #positionnement de la longueur du tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquelongueur_1 :
-#on prend le numÃ©ro de rÃ©gion actuel
+#on prend le numéro de région actuel
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquelongueur_1
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquelongueur_1
 #sortie du tantque
@@ -864,16 +864,16 @@ add $sp, $sp, -4
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_2 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_2
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_2
 #sortie du tantque
@@ -891,28 +891,28 @@ sub $v0, $t8, $v0
 #depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-# InfÃ©rieur de $v0 et $t8
-#partie gauche est infÃ©rieure Ã  la droite, on met 1 dans $v0, sinon 0
+# Inférieur de $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0, finTantque_0
 iteration_0 :
 #Condition
  si_0 :
-# InfÃ©rieur 
+# Inférieur 
 #partie gauche
 #positionnement d'une variable de tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquevariabletableau_0 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariabletableau_0
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariabletableau_0
 #sortie du tantque
@@ -925,16 +925,16 @@ lw $t4, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_3 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_3
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_3
 #sortie du tantque
@@ -966,7 +966,7 @@ blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
 mflo $t2
-#on retire la place de la longueur Ã  $t2
+#on retire la place de la longueur à $t2
 add $t2, $t2, -4
 #ajout dep de $t2 a $t4
 add $t4, $t4, $t2
@@ -980,16 +980,16 @@ add $sp, $sp, -4
 #positionnement d'une variable de tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquevariabletableau_1 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariabletableau_1
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariabletableau_1
 #sortie du tantque
@@ -1000,16 +1000,16 @@ lw $t4, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_4 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_4
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_4
 #sortie du tantque
@@ -1028,7 +1028,7 @@ blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
 mflo $t2
-#on retire la place de la longueur Ã  $t2
+#on retire la place de la longueur à $t2
 add $t2, $t2, -4
 #ajout dep de $t2 a $t4
 add $t4, $t4, $t2
@@ -1038,8 +1038,8 @@ lw $v0, 0($t4)
 #depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-# InfÃ©rieur de $v0 et $t8
-#partie gauche est infÃ©rieure Ã  la droite, on met 1 dans $v0, sinon 0
+# Inférieur de $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0,sinon_0
  alors_0 :
@@ -1047,16 +1047,16 @@ beqz $v0,sinon_0
 #positionnement d'une variable de tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquevariabletableau_2 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariabletableau_2
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariabletableau_2
 #sortie du tantque
@@ -1069,16 +1069,16 @@ lw $t4, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_5 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_5
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_5
 #sortie du tantque
@@ -1110,7 +1110,7 @@ blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
 mflo $t2
-#on retire la place de la longueur Ã  $t2
+#on retire la place de la longueur à $t2
 add $t2, $t2, -4
 #ajout dep de $t2 a $t4
 add $t4, $t4, $t2
@@ -1121,22 +1121,22 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but tantque
+#début tantque
 tantqueaffect_2 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_2
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_2
 #sortie du tantque
 fintantqueaffect_2 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, -8($t5)
@@ -1145,16 +1145,16 @@ sw $v0, -8($t5)
 #positionnement d'une variable de tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquevariabletableau_3 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariabletableau_3
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariabletableau_3
 #sortie du tantque
@@ -1165,16 +1165,16 @@ lw $t4, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_7 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_7
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_7
 #sortie du tantque
@@ -1193,7 +1193,7 @@ blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
 mflo $t2
-#on retire la place de la longueur Ã  $t2
+#on retire la place de la longueur à $t2
 add $t2, $t2, -4
 #ajout dep de $t2 a $t4
 add $t4, $t4, $t2
@@ -1204,16 +1204,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_0 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_0
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_0
 #sortie du tantque
@@ -1227,16 +1227,16 @@ lw $t2, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_6 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_6
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_6
 #sortie du tantque
@@ -1257,13 +1257,13 @@ add $sp, $sp, 4
 lw $t8, 0($sp)
 # Addition de $v0 et $t8
 add $v0, $t8, $v0
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -1280,16 +1280,16 @@ sw $v0, 0($t2)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_9 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_9
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_9
 #sortie du tantque
@@ -1302,16 +1302,16 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but tantque
+#début tantque
 tantqueaffecttab_1 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffecttab_1
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffecttab_1
 #sortie du tantque
@@ -1323,16 +1323,16 @@ lw $t2, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_8 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_8
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_8
 #sortie du tantque
@@ -1340,13 +1340,13 @@ fintantquevariable_8 :
 
 #chargement classique dans $v0
 lw $v0, -4($t5)
-#si indice de tableau infÃ©rieur a 0
+#si indice de tableau inférieur a 0
 bltz $v0, erreurAccesTab
 #longueur du tableau
 lw $t5, 0($t2)
 #longueur moins l'indice
 sub $t5, $t5, $v0
-#si indice supÃ©rieur a la longueur du tableau
+#si indice supérieur a la longueur du tableau
 blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
@@ -1369,16 +1369,16 @@ fin_0 :
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_10 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_10
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_10
 #sortie du tantque
@@ -1404,22 +1404,22 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but tantque
+#début tantque
 tantqueaffect_3 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_3
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_3
 #sortie du tantque
 fintantqueaffect_3 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, -4($t5)
@@ -1433,16 +1433,16 @@ finTantque_0 :
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_11 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_11
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_11
 #sortie du tantque
@@ -1468,22 +1468,22 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 1
-#dÃ©but tantque
+#début tantque
 tantqueaffect_4 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_4
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_4
 #sortie du tantque
 fintantqueaffect_4 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, 0($t5)
@@ -1537,21 +1537,21 @@ sw $zero, -0($s7)
 #Instruction dans la fonction
 #Boucle
 tantque_2 :
-# InfÃ©rieur 
+# Inférieur 
 #partie gauche
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 2
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_12 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_12
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_12
 #sortie du tantque
@@ -1567,16 +1567,16 @@ add $sp, $sp, -4
 #positionnement de la longueur du tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquelongueur_2 :
-#on prend le numÃ©ro de rÃ©gion actuel
+#on prend le numéro de région actuel
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquelongueur_2
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquelongueur_2
 #sortie du tantque
@@ -1590,8 +1590,8 @@ lw $v0, 0($t4)
 #depilage de la partie gauche 
 add $sp, $sp, 4
 lw $t8, 0($sp)
-# InfÃ©rieur de $v0 et $t8
-#partie gauche est infÃ©rieure Ã  la droite, on met 1 dans $v0, sinon 0
+# Inférieur de $v0 et $t8
+#partie gauche est inférieure à la droite, on met 1 dans $v0, sinon 0
 slt $v0, $t8, $v0
 beqz $v0, finTantque_2
 iteration_2 :
@@ -1599,16 +1599,16 @@ iteration_2 :
 #positionnement d'une variable de tableau dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion du tableau
+#on récupere le numéro de région du tableau
 li $v1, 0
-#dÃ©but du tantque
+#début du tantque
 tantquevariabletableau_4 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariabletableau_4
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariabletableau_4
 #sortie du tantque
@@ -1619,16 +1619,16 @@ lw $t4, 0($t5)
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 2
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_13 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_13
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_13
 #sortie du tantque
@@ -1647,7 +1647,7 @@ blez $t5, erreurAccesTab
 li $t3, -4
 mult $v0, $t3
 mflo $t2
-#on retire la place de la longueur Ã  $t2
+#on retire la place de la longueur à $t2
 add $t2, $t2, -4
 #ajout dep de $t2 a $t4
 add $t4, $t4, $t2
@@ -1656,7 +1656,7 @@ lw $v0, 0($t4)
 move $a0, $v0
 li $v0, 1
 syscall
-li $v0, 4      # retour Ã  la ligne
+li $v0, 4      # retour à la ligne
 la $a0, finLigne
 syscall
 
@@ -1667,16 +1667,16 @@ syscall
 #positionnement d'une variable dans v0
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 2
-#dÃ©but du tantque
+#début du tantque
 tantquevariable_14 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5)
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantquevariable_14
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantquevariable_14
 #sortie du tantque
@@ -1702,22 +1702,22 @@ sw $v0, 0($sp)
 add $sp, $sp, -4
 #On recupere la base
 move $t5, $s7
-#on rÃ©cupere le numÃ©ro de rÃ©gion de la variable
+#on récupere le numéro de région de la variable
 li $v1, 2
-#dÃ©but tantque
+#début tantque
 tantqueaffect_5 :
-#on prend le numÃ©ro de rÃ©gion courant
+#on prend le numéro de région courant
 lw $v0, 4($t5) 
 sub $v0, $v0, $v1
-#on va a la fin si les numÃ©ros correspondent
+#on va a la fin si les numéros correspondent
 beqz $v0, fintantqueaffect_5
-#on essaye avec le numÃ©ro de rÃ©gion prÃ©cÃ©dent sinon
+#on essaye avec le numéro de région précédent sinon
 lw $t5, 8($t5) 
 j tantqueaffect_5
 #sortie du tantque
 fintantqueaffect_5 :
 
-#on dÃ©pile la valeur qu'on veut mettre dans la variable
+#on dépile la valeur qu'on veut mettre dans la variable
 add $sp, $sp, 4
 lw $v0, 0($sp)
 sw $v0, 0($t5)
