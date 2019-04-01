@@ -8,10 +8,13 @@ public abstract class Constante extends Expression {
         super(n) ;
         cste = texte ;
     }
+
+    public boolean isCste() {
+        return true;
+    }
     
     @Override
-    public void verifier() {
-    }
+    public void verifier() { }
 
     @Override
     public String toString() {

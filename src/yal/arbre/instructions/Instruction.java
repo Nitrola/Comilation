@@ -12,6 +12,10 @@ public abstract class Instruction extends ArbreAbstrait {
         return false;
     }
 
+    public boolean isDeclTab(){
+        return false;
+    }
+
     public abstract void verifier();
 
 }

@@ -37,10 +37,6 @@ public class Variable extends Expression {
         return " Variable ";
     }
 
-    public void setIdRegion(int idRegion) {
-        this.idRegion = idRegion;
-    }
-
     public int getDep() {
         return dep;
     }

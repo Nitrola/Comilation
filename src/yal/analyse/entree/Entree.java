@@ -5,9 +5,16 @@ import java.util.Objects;
 public abstract class Entree {
 
     private String idf;
+    private int nbParam;
 
     public Entree(String nidf){
         this.idf = nidf;
+        this.nbParam = 0;
+    }
+
+    public Entree(String nidf, int nbParam) {
+        this.idf = nidf;
+        this.nbParam = nbParam;
     }
 
 
@@ -22,12 +29,13 @@ public abstract class Entree {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entree entree = (Entree) o;
-
-        return Objects.equals(idf, entree.idf);
+        return nbParam == entree.nbParam &&
+                Objects.equals(idf, entree.idf);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idf);
+
+        return Objects.hash(idf, nbParam);
     }
 }

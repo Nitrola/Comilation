@@ -5,8 +5,7 @@ public class EntreeFonction  extends Entree{
 
 
     public EntreeFonction(String nidf, int nb) {
-        super(nidf);
-        this.nbParameters = nb;
+        super(nidf,nb);
     }
 
     public int getNbParameters(){

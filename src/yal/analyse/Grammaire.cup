@@ -63,9 +63,9 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, FONCTION, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, LIRE, RETOUR ;
+terminal Symbol    PROGRAMME, DEBUT, FIN, FONCTION, POINTVIRGULE, VIRGULE, POINT, ECRIRE, EGAL, LIRE, RETOUR, LONGUEUR ;
 terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FINSI ;
-terminal Symbol    PLUS, MOINS, MULTIPLICATION, DIVISION, PAROUVR, PARFER ;
+terminal Symbol    PLUS, MOINS, MULTIPLICATION, DIVISION, PAROUVR, PARFER, CROUVR, CROFER ;
 terminal Symbol    EGALITE, INFERIEUR, SUPERIEUR, DIFFERENCE, ET, OU, NON ;
 terminal String    IDF, CSTENTIERE, TYPE ;
 
@@ -159,6 +159,19 @@ DECL    ::=     DECL_VAR:dv
                 ;
 
 
+DECL_VAR  ::=   TYPE:t IDF:i POINTVIRGULE
+                {: EntreeVariable e = new EntreeVariable(i);
+                   SymboleVariable s = new SymboleVariable("entier");
+                   TDS.getInstance().ajouter(e, s, tleft+1); :}
+          |
+                TYPE:t CROUVR EXP:ex CROFER IDF:i POINTVIRGULE
+                {: EntreeVariable e = new EntreeVariable(i);
+                   SymboleTableau s = new SymboleTableau();
+                   TDS.getInstance().ajouter(e, s, tleft+1);
+                   RESULT = new DeclTab(i,ex); :}
+                ;
+
+
 LDECLFONCTION ::=   LDECLFONCTION:lf DECL_VAR:d
                     {: if(d != null) { lf.add(d); }
                        RESULT = lf; :}
@@ -168,13 +181,6 @@ LDECLFONCTION ::=   LDECLFONCTION:lf DECL_VAR:d
                        if(d != null) { lf.add(d); }
                        RESULT = lf; :}
                     ;
-
-
-DECL_VAR  ::=   TYPE:t IDF:i POINTVIRGULE
-                {: EntreeVariable e = new EntreeVariable(i);
-                   SymboleVariable s = new SymboleVariable("entier");
-                   TDS.getInstance().ajouter(e, s, tleft+1); :}
-                ;
 
 
 START_FONCTION ::= FONCTION
@@ -224,6 +230,9 @@ PARAM      ::=  TYPE:t IDF:i
 
 AFFECTATION ::= IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affectation(i, e) ; :}
+            |
+                IDF:i CROUVR EXP:ie CROFER EGAL EXP:e POINTVIRGULE
+                {: RESULT = new AffectTab(i, ie, e) ; :}
                 ;
 
 
@@ -261,7 +270,10 @@ ECRITURE ::=    ECRIRE EXP:e POINTVIRGULE
                 ;
 
 
-EXP    ::=      IDF:i PAROUVR PARFER
+EXP    ::=      IDF:i POINT LONGUEUR
+                {: RESULT = new Longueur(i, ileft+1); :}
+        |
+                IDF:i PAROUVR PARFER
                 {: RESULT = new AppelFonction(i, ileft + 1); :}
         |
                 IDF:i PAROUVR PAR_EFF:pe PARFER
@@ -272,6 +284,9 @@ EXP    ::=      IDF:i PAROUVR PARFER
         |
                 IDF:i
                 {: RESULT = new Variable(i, ileft + 1) ; :}
+        |
+                IDF:i CROUVR EXP:e CROFER
+                {: RESULT = new VariableTableau(i, e, ileft+1) ; :}
         |
                 PAROUVR EXP:e PARFER
                 {: RESULT = e; :}

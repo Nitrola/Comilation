@@ -1,10 +1,8 @@
 package yal.arbre;
 
-import yal.analyse.TDS;
 import yal.arbre.instructions.Instruction;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * 21 novembre 2018
@@ -32,6 +30,14 @@ public class BlocDInstructions extends ArbreAbstrait {
             blocDInstructions.add(0, a.get(i));
         }
 
+    }
+
+    public int nbInst() {
+        return blocDInstructions.size();
+    }
+
+    public Instruction get(int i) {
+        return blocDInstructions.get(i);
     }
     
     @Override

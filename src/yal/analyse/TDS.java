@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class TDS {
 
     private static TDS instance  = new TDS();
-    private HashMap<Entree,Symbole> tab;
 
 
     private int idRegion;
@@ -105,9 +104,6 @@ public class TDS {
         return idBoxing;
     }
 
-    public int nbVariable(){
-        return tab.size();
-    }
 
 }
 

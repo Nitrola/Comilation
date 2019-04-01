@@ -1,10 +1,10 @@
 package yal.arbre.instructions;
 
-        import yal.analyse.TDS;
-        import yal.analyse.entree.EntreeVariable;
-        import yal.analyse.symbole.Symbole;
-        import yal.arbre.expressions.Expression;
-        import yal.exceptions.AnalyseSemantiqueException;
+import yal.analyse.TDS;
+import yal.analyse.entree.EntreeVariable;
+import yal.analyse.symbole.Symbole;
+import yal.arbre.expressions.Expression;
+import yal.exceptions.AnalyseSemantiqueException;
 
 public class Affectation extends Instruction{
 
@@ -30,8 +30,8 @@ public class Affectation extends Instruction{
         Symbole s = TDS.getInstance().identifier(e);
         exp.verifier();
 
-        if (s == null) {
-            throw new AnalyseSemantiqueException(exp.getNoLigne(), "la variable  `" + idf + "`"+"n'est pas declaree");
+        if(s == null){
+            throw new AnalyseSemantiqueException(getNoLigne(), " " + idf +  "n'a pas été déclarée ");
         }
 
         this.dep = s.getDep();

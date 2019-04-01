@@ -4,9 +4,14 @@ finLigne:     .asciiz "\n"
 divZero:      .asciiz "Erreur :\n\t division par zero"
 vrai:         .asciiz "vrai"
 faux:         .asciiz "faux"
+longueurTabInvalide :
+              .asciiz "decl de tab avec longueur nulle ou negative"
+accesTabInvalide : 
+              .asciiz "acces a un tableau avec indice invalide (pas dans les bornes)"
 
 .text
 main :
+
 #numéro de région
 li $t8, 0
 sw $t8, 0($sp)
@@ -148,6 +153,18 @@ end :
     li $v0, 10            # retour au système
     syscall
 
+    erreurLongueurTab :
+    li $v0, 4
+    la $a0, longueurTabInvalide
+    syscall
+    j end
+
+    erreurAccesTab :
+    li $v0, 4
+    la $a0, accesTabInvalide
+    syscall
+    j end
+
 #Fonction
 fonction0:
 #Empile l'adresse de retour
@@ -168,6 +185,8 @@ move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -4
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
 #Instruction dans la fonction
 #affectation
 # constante dans $v0
@@ -352,6 +371,8 @@ move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -4
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
 #Instruction dans la fonction
 #affectation
 # constante dans $v0
@@ -612,6 +633,7 @@ move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0
+# initialisation de toutes les variables a 0
 #Instruction dans la fonction
 #affectation
 # Division 
@@ -912,6 +934,7 @@ move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -0
+# initialisation de toutes les variables a 0
 #Instruction dans la fonction
 #Retour de fonction
 #Met exp dans $v0
@@ -986,6 +1009,8 @@ move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -4
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
 #Instruction dans la fonction
 #affectation
 #positionnement d'une variable dans v0
@@ -1156,6 +1181,9 @@ move $s7, $sp
 
 #Allocation des variables 
 add $sp, $sp , -8
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
+sw $zero, -4($s7)
 #Instruction dans la fonction
 #lecture
 #appel de la lecture

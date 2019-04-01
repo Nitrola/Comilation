@@ -59,7 +59,8 @@ public class Fonction extends Instruction{
 
     @Override
     public String toMIPS() {
-        return  "#Fonction\n" + label + ":\n" +
+
+        StringBuilder mips = new StringBuilder("#Fonction\n" + label + ":\n" +
                 "#Empile l'adresse de retour\n" +
                 "sw $ra, 0($sp)\n" +
                 "add $sp, $sp, -4\n" + "\n" +
@@ -74,7 +75,18 @@ public class Fonction extends Instruction{
                 "move $s7, $sp\n" + "\n" +
                 "#Allocation des variables \n" +
                 "add $sp, $sp , -" + this.varMemory + "\n" +
-                "#Instruction dans la fonction\n" +
-                inst.toMIPS() + "\n";
+                "# initialisation de toutes les variables a 0\n") ;
+
+                for(int dep = 0; dep < this.varMemory; dep += 4) {
+                    mips.append("sw $zero, -");
+                    mips.append(dep);
+                    mips.append("($s7)\n");
+                }
+
+                mips.append("#Instruction dans la fonction\n");
+                mips.append(inst.toMIPS());
+                mips.append("\n");
+
+                return mips.toString();
     }
 }

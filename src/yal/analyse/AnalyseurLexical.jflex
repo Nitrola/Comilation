@@ -48,6 +48,7 @@ commentaires = [/][/].*
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }
 "entier"               { return symbol(CodesLexicaux.TYPE); }
+"longueur"             { return symbol(CodesLexicaux.LONGUEUR); }
 "fonction"             { return symbol(CodesLexicaux.FONCTION); }
 "retourne"             { return symbol(CodesLexicaux.RETOUR); }
 
@@ -80,9 +81,12 @@ commentaires = [/][/].*
 
 "("                    { return symbol(CodesLexicaux.PAROUVR); }
 ")"                    { return symbol(CodesLexicaux.PARFER); }
+"["                    { return symbol(CodesLexicaux.CROUVR); }
+"]"                    { return symbol(CodesLexicaux.CROFER); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 ","                    { return symbol(CodesLexicaux.VIRGULE); }
+"."                    { return symbol(CodesLexicaux.POINT); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 

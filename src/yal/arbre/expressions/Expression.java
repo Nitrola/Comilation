@@ -7,6 +7,10 @@ public abstract class Expression extends ArbreAbstrait {
         super(n) ;
     }
 
+    public boolean isCste() {
+        return false;
+    }
+
     public abstract String getType();
     public abstract String operation();
 
