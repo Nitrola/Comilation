@@ -21,7 +21,7 @@ public class Egalite extends Comparaison {
             erreur.append(g);
             erreur.append(operateur());
             erreur.append(d);
-            erreur.append("\n\tles expressions a gauche et a droite doivent être de même type");
+            erreur.append("\n\tles expressions a gauche et a droite doivent être de meme type");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }

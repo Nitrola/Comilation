@@ -50,7 +50,7 @@ public class Fonction extends Instruction{
 
 
         if (!isReturn()) {
-            throw new AnalyseSemantiqueException(getNoLigne(), "retourner peut ne pas être atteint dans la fonction " + idf + "()");
+            throw new AnalyseSemantiqueException(getNoLigne(), "retourne peut ne pas être atteint dans la fonction " + idf + "( avec " + nbParam + " parametres )");
         }
 
         TDS.getInstance().sortieBloc();

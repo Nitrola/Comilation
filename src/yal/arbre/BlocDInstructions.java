@@ -3,6 +3,7 @@ package yal.arbre;
 import yal.arbre.instructions.Instruction;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * 21 novembre 2018
@@ -71,7 +72,19 @@ public class BlocDInstructions extends ArbreAbstrait {
 
         for(Instruction inst : blocDInstructions){
             res = inst.isReturn();
+            if(res) {
+                return true;
+            }
         }
-        return res;
+
+//        Iterator<Instruction> parcoursBloc = blocDInstructions.iterator();
+//
+//        while (!res && parcoursBloc.hasNext()) {
+//            Instruction inst = parcoursBloc.next();
+//
+//            res = inst.isReturn();
+//        }
+
+        return false;
     }
 }

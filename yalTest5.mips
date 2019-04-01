@@ -1,0 +1,1153 @@
+.data
+finLigne:     .asciiz "\n"
+              .align 2
+divZero:      .asciiz "Erreur :\n\t division par zero"
+vrai:         .asciiz "vrai"
+faux:         .asciiz "faux"
+longueurTabInvalide :
+              .asciiz "decl de tab avec longueur nulle ou negative"
+accesTabInvalide : 
+              .asciiz "acces a un tableau avec indice invalide (pas dans les bornes)"
+
+.text
+main :
+
+#nueéro de région
+li $t8, 0
+sw $t8, 0($sp)
+addi $sp, $sp, -4
+
+#intialiser $s7 avec $sp
+move $s7, $sp
+
+#reserver la place pour 1 variables
+addi $sp, $sp, -4
+
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
+
+#Déclaration d'un tableau
+#on range l'adresse du debut du tab
+sw $sp, 0($s7)
+#on met la longueur dans v0
+# constante dans $v0
+li $v0, 4
+#on check si la longueur est > 0
+blez $v0, erreurLongueurTab
+#on range la longueur
+sw $v0, 0($sp)
+#on initialise le tableau
+tantquedecltab_0 :
+beqz $v0, fintantquedecltab_0
+addi $v0, $v0, -1
+addi $sp, $sp, -4
+sw $zero, 0($sp)
+j tantquedecltab_0
+fintantquedecltab_0 :
+addi $sp, $sp, -4
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 1
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début tantque
+tantqueaffecttab_3 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_3
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_3
+#sortie du tantque
+fintantqueaffecttab_3 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 0
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 2
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début tantque
+tantqueaffecttab_4 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_4
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_4
+#sortie du tantque
+fintantqueaffecttab_4 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 1
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 3
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début tantque
+tantqueaffecttab_5 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_5
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_5
+#sortie du tantque
+fintantqueaffecttab_5 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 2
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 999
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début tantque
+tantqueaffecttab_6 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_6
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_6
+#sortie du tantque
+fintantqueaffecttab_6 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 3
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -8
+
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début du tantque
+tantquevariabletableau_4 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_4
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_4
+#sortie du tantque
+fintantquevariabletableau_4 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 1
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+sw $v0, 0($sp)
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début du tantque
+tantquevariabletableau_5 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_5
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_5
+#sortie du tantque
+fintantquevariabletableau_5 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 2
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+sw $v0, 4($sp)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction2
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 8
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+# affichage de l'expression (entier)
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début du tantque
+tantquevariabletableau_6 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_6
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_6
+#sortie du tantque
+fintantquevariabletableau_6 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 3
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+end :
+    li $v0, 10            # retour au système
+    syscall
+
+    erreurLongueurTab :
+    li $v0, 4
+    la $a0, longueurTabInvalide
+    syscall
+    j end
+
+    erreurAccesTab :
+    li $v0, 4
+    la $a0, accesTabInvalide
+    syscall
+    j end
+
+#Fonction
+fonction0:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s7, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 1
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s7, $sp
+
+#Allocation des variables 
+add $sp, $sp , -0
+# initialisation de toutes les variables a 0
+#Instruction dans la fonction
+#Retour de fonction
+#Met exp dans $v0
+# constante dans $v0
+li $v0, 1
+
+#retire de la pile les variables
+move $sp, $s7
+lw $s7, 8($sp)
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Sauvegarde la valeur calcule dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction1:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s7, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 2
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s7, $sp
+
+#Allocation des variables 
+add $sp, $sp , -0
+# initialisation de toutes les variables a 0
+#Instruction dans la fonction
+#Retour de fonction
+#Met exp dans $v0
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 2
+#début du tantque
+tantquevariable_0 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_0
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_0
+#sortie du tantque
+fintantquevariable_0 :
+
+#chargement classique dans $v0
+lw $v0, 16($t5)
+
+#retire de la pile les variables
+move $sp, $s7
+lw $s7, 8($sp)
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Sauvegarde la valeur calcule dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+
+
+#Fonction
+fonction2:
+#Empile l'adresse de retour
+sw $ra, 0($sp)
+add $sp, $sp, -4
+
+#Empilement chainage dynamique
+sw $s7, 0($sp)
+add $sp, $sp, -4
+
+#Empilement de l'id de la region
+li $t8, 3
+sw $t8, 0($sp)
+add $sp, $sp, -4
+
+#Deplacement de la base
+move $s7, $sp
+
+#Allocation des variables 
+add $sp, $sp , -4
+# initialisation de toutes les variables a 0
+sw $zero, -0($s7)
+#Instruction dans la fonction
+#Déclaration d'un tableau
+#on range l'adresse du debut du tab
+sw $sp, 0($s7)
+#on met la longueur dans v0
+# constante dans $v0
+li $v0, 10
+#on check si la longueur est > 0
+blez $v0, erreurLongueurTab
+#on range la longueur
+sw $v0, 0($sp)
+#on initialise le tableau
+tantquedecltab_1 :
+beqz $v0, fintantquedecltab_1
+addi $v0, $v0, -1
+addi $sp, $sp, -4
+sw $zero, 0($sp)
+j tantquedecltab_1
+fintantquedecltab_1 :
+addi $sp, $sp, -4
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 666
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 3
+#début tantque
+tantqueaffecttab_0 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_0
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_0
+#sortie du tantque
+fintantqueaffecttab_0 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 0
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 333
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 3
+#début tantque
+tantqueaffecttab_1 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_1
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_1
+#sortie du tantque
+fintantqueaffecttab_1 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 9
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+#Affectation tableau 
+# constante dans $v0
+li $v0, 3
+#on empile la valeur qu'on veut mettre dans la variable
+sw $v0, 0($sp)
+add $sp, $sp, -4
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 3
+#début tantque
+tantqueaffecttab_2 :
+#on prend le numéro de région courant
+lw $v0, 4($t5) 
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantqueaffecttab_2
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantqueaffecttab_2
+#sortie du tantque
+fintantqueaffecttab_2 :
+
+#chargement adresse tab
+lw $t2, 0($t5)
+#on met l'indice dans $v0
+# constante dans $v0
+li $v0, 1
+#si indice de tableau inférieur a 0
+bltz $v0, erreurAccesTab
+#longueur du tableau
+lw $t5, 0($t2)
+#longueur moins l'indice
+sub $t5, $t5, $v0
+#si indice supérieur a la longueur du tableau
+blez $t5, erreurAccesTab
+li $t3, -4
+mult $v0, $t3
+mflo $t4
+#on retire la place de la longueur a $t4
+add $t4, $t4, -4
+#on depile la valeur a mettre dans la variable
+add $sp, $sp, 4
+lw $v0, 0($sp)
+add $t2, $t2, $t4
+sw $v0, 0($t2)
+
+#Condition
+ si_0 :
+#non yal.arbre.expressions.binaire.comparaison.Different@511d50c0
+# Calcul de l'expression
+# Différent 
+#partie gauche
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 3
+#début du tantque
+tantquevariabletableau_0 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_0
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_0
+#sortie du tantque
+fintantquevariabletableau_0 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 1
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+
+#mise dans la pile de la partie gauche
+ sw $v0, 0($sp)
+add $sp, $sp, -4
+#partie droite 
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 0
+#début du tantque
+tantquevariabletableau_1 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_1
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_1
+#sortie du tantque
+fintantquevariabletableau_1 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 2
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+
+#depilage de la partie gauche 
+add $sp, $sp, 4
+lw $t8, 0($sp)
+# Différent de $v0 et $t8
+#différent -> on met 1 dans $v0, sinon 0
+sne $v0, $v0, $t8
+# XOR $v0 et 1 
+xori $v0, $v0, 1
+beqz $v0,sinon_0
+ alors_0 :
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -0
+
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction0
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 0
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -4
+
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_1 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_1
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_1
+#sortie du tantque
+fintantquevariable_1 :
+
+#chargement classique dans $v0
+lw $v0, 16($t5)
+sw $v0, 0($sp)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction1
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 4
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -4
+
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_2 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_2
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_2
+#sortie du tantque
+fintantquevariable_2 :
+
+#chargement classique dans $v0
+lw $v0, 20($t5)
+sw $v0, 0($sp)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction1
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 4
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Retour de fonction
+#Met exp dans $v0
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 3
+#début du tantque
+tantquevariabletableau_2 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_2
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_2
+#sortie du tantque
+fintantquevariabletableau_2 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 0
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+
+#retire de la pile les variables
+move $sp, $s7
+lw $s7, 8($sp)
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Sauvegarde la valeur calcule dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+j fin_0
+sinon_0 :
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -4
+
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_3 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_3
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_3
+#sortie du tantque
+fintantquevariable_3 :
+
+#chargement classique dans $v0
+lw $v0, 20($t5)
+sw $v0, 0($sp)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction1
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 4
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -4
+
+#positionnement d'une variable dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région de la variable
+li $v1, 3
+#début du tantque
+tantquevariable_4 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariable_4
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariable_4
+#sortie du tantque
+fintantquevariable_4 :
+
+#chargement classique dans $v0
+lw $v0, 16($t5)
+sw $v0, 0($sp)
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction1
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 4
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+# affichage de l'expression (entier)
+#mise en place des paramètres 
+add $sp, $sp, -0
+
+#Appel de fonction
+#Allocation pour la valeur retournée
+add $sp, $sp, -4
+
+#Jump vers le label de la fonction surcharge
+jal fonction0
+
+#Depile dans $v0
+add $sp, $sp, 4
+lw $v0, 0($sp)
+
+#Dépiler les params
+add $sp, $sp, 0
+
+move $a0, $v0
+li $v0, 1
+syscall
+li $v0, 4      # retour à la ligne
+la $a0, finLigne
+syscall
+
+
+#Retour de fonction
+#Met exp dans $v0
+#positionnement d'une variable de tableau dans v0
+#On recupere la base
+move $t5, $s7
+#on récupere le numéro de région du tableau
+li $v1, 3
+#début du tantque
+tantquevariabletableau_3 :
+#on prend le numéro de région courant
+lw $v0, 4($t5)
+sub $v0, $v0, $v1
+#on va a la fin si les numéros correspondent
+beqz $v0, fintantquevariabletableau_3
+#on essaye avec le numéro de région précédent sinon
+lw $t5, 8($t5) 
+j tantquevariabletableau_3
+#sortie du tantque
+fintantquevariabletableau_3 :
+
+#chargement de l'adresse du tableau
+lw $t4, 0($t5)
+# constante dans $v0
+li $v0, 9
+#si acces a un indice plus petit que 0
+bltz $v0, erreurAccesTab
+#longueur du tab dans t5
+lw $t5, 0($t4)
+sub $t5, $t5, $v0
+#si acces a un indice plus grand que la longueur du tab
+blez $t5, erreurAccesTab
+#$t2 va avoir le dep pour aller a l'indice voulu
+li $t3, -4
+mult $v0, $t3
+mflo $t2
+#on retire la place de la longueur à $t2
+add $t2, $t2, -4
+#ajout dep de $t2 a $t4
+add $t4, $t4, $t2
+#chargement case dans $v0
+lw $v0, 0($t4)
+
+#retire de la pile les variables
+move $sp, $s7
+lw $s7, 8($sp)
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
+add $sp, $sp, 12
+lw $ra, 0($sp)
+
+#Sauvegarde la valeur calcule dans $v0
+sw $v0, 4($sp)
+
+#Jump vers le bloc precedent
+jr $ra
+
+
+fin_0 :
+
+
+
+

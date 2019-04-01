@@ -10,6 +10,8 @@ public class Condition extends Instruction {
     private BlocDInstructions alors;
     private BlocDInstructions sinon;
 
+    private boolean isSinon;
+
     private static int cmpt = 0;
     private int compteur;
     /***
@@ -22,6 +24,7 @@ public class Condition extends Instruction {
         this.e = exp;
         alors = new BlocDInstructions(noLigne +1);
         sinon = new BlocDInstructions(noLigne +1);
+        this.isSinon = false;
         this.compteur = cmpt;
         cmpt++;
     }
@@ -41,10 +44,12 @@ public class Condition extends Instruction {
         if(typeBloc == 0){
             alors = b;
             sinon = new BlocDInstructions(noLigne +1);
+            isSinon = false;
         }
         else {
             alors = new BlocDInstructions(noLigne + 1);
             sinon = b;
+            isSinon = true;
         }
         this.compteur = cmpt;
         cmpt++;
@@ -62,17 +67,32 @@ public class Condition extends Instruction {
         this.e = exp;
         this.alors = alors;
         this.sinon = sinon;
+        this.isSinon = true;
         this.compteur = cmpt;
         cmpt++;
     }
+
+    @Override
+    public boolean isReturn() {
+        boolean res = false;
+
+        if(isSinon) {
+            res = sinon.isReturn();
+        }
+
+        return res && alors.isReturn();
+    }
+
+
     @Override
     public void verifier() {
         e.verifier();
         // vérification que la condition est un booléen
         if(!this.e.getType().equals("booleen")){
             throw new AnalyseSemantiqueException(getNoLigne(),
-                    new String("erreur type:\t"+ e + "\n" + "une expression évaluée pour une boucle doit être booléenne"));
+                    new String("erreur type:\t"+ e + "\n" + "une expression evaluee pour une boucle doit etre booleenne"));
         }
+
         alors.verifier();
         sinon.verifier();
 

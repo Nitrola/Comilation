@@ -12,7 +12,7 @@ public class Inferieur extends Comparaison {
     public void verifier() {
         super.verifier();
 
-        if (!g.getType().equals(d.getType())) {
+        if (!g.getType().equals("entier") || !d.getType().equals("entier")) {
 
             StringBuilder erreur = new StringBuilder(40);
             erreur.append("erreur de type :\t");
@@ -20,7 +20,7 @@ public class Inferieur extends Comparaison {
             erreur.append(operateur());
             erreur.append(d);
             erreur.append("\n\t");
-            erreur.append("les deux expressions doivent être de même type");
+            erreur.append("les deux expressions doivent etre des entiers");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }

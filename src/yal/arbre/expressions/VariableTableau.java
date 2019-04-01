@@ -30,8 +30,9 @@ public class VariableTableau extends Expression {
         return idf;
     }
 
+    @Override
     public String getType() {
-        return type;
+        return "entier";
     }
 
     @Override

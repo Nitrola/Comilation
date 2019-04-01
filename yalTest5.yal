@@ -1,0 +1,43 @@
+programme surcharge
+debut
+
+entier[4] surcharge;
+
+fonction surcharge() debut
+    retourne 1;
+fin
+
+fonction surcharge(entier a) debut
+    retourne a;
+fin
+
+
+fonction surcharge(entier b; entier c) debut
+    entier[10] tab2;
+    tab2[0] = 666;
+    tab2[9] = 333;
+    tab2[1] = 3;
+
+    si non(tab2[1] != surcharge[2]) alors
+        ecrire surcharge();
+        ecrire surcharge(b);
+        ecrire surcharge(c);
+        retourne tab2[0];
+    sinon
+        ecrire surcharge(c);
+        ecrire surcharge(b);
+        ecrire surcharge();
+        retourne tab2[9];
+    finsi
+fin
+
+surcharge[0] = 1;
+surcharge[1] = 2;
+surcharge[2] = 3;
+surcharge[3] = 999;
+
+ecrire surcharge(surcharge[1],surcharge[2]);
+ecrire surcharge[3];
+
+fin
+

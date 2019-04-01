@@ -12,7 +12,7 @@ accesTabInvalide :
 .text
 main :
 
-#numéro de région
+#nueéro de région
 li $t8, 0
 sw $t8, 0($sp)
 addi $sp, $sp, -4
@@ -20,7 +20,7 @@ addi $sp, $sp, -4
 #intialiser $s7 avec $sp
 move $s7, $sp
 
-#réserver la place pour 11 variables
+#reserver la place pour 11 variables
 addi $sp, $sp, -44
 
 # initialisation de toutes les variables a 0
@@ -334,11 +334,11 @@ add $v0, $t8, $v0
 #retire de la pile les variables
 move $sp, $s7
 lw $s7, 8($sp)
-#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Sauvegarde la valeur calculé dans $v0
+#Sauvegarde la valeur calcule dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -595,11 +595,11 @@ mflo $v0
 #retire de la pile les variables
 move $sp, $s7
 lw $s7, 8($sp)
-#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Sauvegarde la valeur calculé dans $v0
+#Sauvegarde la valeur calcule dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -729,11 +729,11 @@ add $v0, $t8, $v0
 #retire de la pile les variables
 move $sp, $s7
 lw $s7, 8($sp)
-#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Sauvegarde la valeur calculé dans $v0
+#Sauvegarde la valeur calcule dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -804,11 +804,11 @@ mflo $v0
 #retire de la pile les variables
 move $sp, $s7
 lw $s7, 8($sp)
-#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Sauvegarde la valeur calculé dans $v0
+#Sauvegarde la valeur calcule dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -887,11 +887,11 @@ fin_div_0 :
 #retire de la pile les variables
 move $sp, $s7
 lw $s7, 8($sp)
-#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Sauvegarde la valeur calculé dans $v0
+#Sauvegarde la valeur calcule dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent
@@ -2379,11 +2379,11 @@ lw $v0, -28($t5)
 #retire de la pile les variables
 move $sp, $s7
 lw $s7, 8($sp)
-#Depile l'id de la region & le chainage dynamique & l'adresse de retour 
+#Depile l'id de la region et le chainage dynamique et l'adresse de retour 
 add $sp, $sp, 12
 lw $ra, 0($sp)
 
-#Sauvegarde la valeur calculé dans $v0
+#Sauvegarde la valeur calcule dans $v0
 sw $v0, 4($sp)
 
 #Jump vers le bloc precedent

@@ -88,7 +88,7 @@ public class Main extends ArbreAbstrait {
         sb.append(zoneData) ;
         sb.append(debutCode) ;
 
-        sb.append("#numéro de région\n");
+        sb.append("#nueéro de région\n");
         sb.append("li $t8, 0\n");
         sb.append("sw $t8, 0($sp)\n");
         sb.append("addi $sp, $sp, -4\n");
@@ -98,7 +98,7 @@ public class Main extends ArbreAbstrait {
         sb.append("move $s7, $sp\n");
         sb.append("\n");
 
-        sb.append("#réserver la place pour ");
+        sb.append("#reserver la place pour ");
         sb.append(tailleTableVariables/4);
         sb.append(" variables\n");
         sb.append("addi $sp, $sp, ");

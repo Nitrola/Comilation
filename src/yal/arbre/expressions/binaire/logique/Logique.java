@@ -27,7 +27,7 @@ public abstract class Logique extends Binaire {
             erreur.append(operateur());
             erreur.append(d);
             erreur.append("\n\t");
-            erreur.append("les deux opérandes doivent être des booléens");
+            erreur.append("les deux expressions doivent etre des booleens");
 
             throw new AnalyseSemantiqueException(getNoLigne(), erreur.toString());
         }
