@@ -14,11 +14,13 @@ fin
 
 fonction surcharge(entier b; entier c) debut
     entier[10] tab2;
+    entier[4] surcharge2;
+    surcharge2 = surcharge;
     tab2[0] = 666;
     tab2[9] = 333;
     tab2[1] = 3;
 
-    si non(tab2[1] != surcharge[2]) alors
+    si non(tab2[1] != surcharge2[2]) alors
         ecrire surcharge();
         ecrire surcharge(b);
         ecrire surcharge(c);
