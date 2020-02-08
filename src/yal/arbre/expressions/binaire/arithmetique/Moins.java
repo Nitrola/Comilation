@@ -1,9 +1,6 @@
 package yal.arbre.expressions.binaire.arithmetique;
 import yal.arbre.expressions.Expression;
 
-/**
- * @author Clément Bellanger, Pierre Génard, Valentin Thouvenin
- */
 public class Moins extends yal.arbre.expressions.binaire.arithmetique.ArithmetiqueBinaire {
 
     public Moins(Expression gauche, Expression droite) {
